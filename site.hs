@@ -53,7 +53,7 @@ hakyllConf = defaultConfiguration {
 --------------------------------------------------------------------------------
 
 main :: IO ()
-main = hakyll $ do
+main = hakyllWith hakyllConf $ do
 
     tags <- buildTags "posts/*" (fromCapture "tags/*.html")
 
