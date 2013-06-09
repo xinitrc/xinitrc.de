@@ -10,7 +10,7 @@ import           Text.Blaze.Html.Renderer.String  (renderHtml)
 import           Data.List                        (intercalate, intersperse)
 import           Text.Blaze.Html                  (toHtml, toValue, (!))
 
-import Text.Printf
+import Text.Printf                                (printf)
 
 
 renderLogTagCloud :: Double

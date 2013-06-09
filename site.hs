@@ -2,39 +2,27 @@
 {-# LANGUAGE OverloadedStrings #-}
 import           Hakyll
 import           Hakyll.Web.Tags
-import           Hakyll.Web.Template.Context 
 
-import           Control.Applicative
-import           Control.Monad
-import           Control.Arrow
-import           System.Locale                    (defaultTimeLocale)
+import           Control.Applicative              ( (<$>))
+import           Control.Monad                    (forM)
+import           Control.Arrow                    (first, second)
 
 import           Data.Ord
-import           Data.List                        (intercalate, intersperse, sortBy, groupBy)
+import           Data.List                        (sortBy, groupBy)
 import           Data.Map                         (lookup)  
 import           Data.Monoid                      (mappend, mconcat)
+import           Data.Function                    (on)
 
-import           Data.Time.Format
-import           Data.Function
+import           Data.Time.Format                 (formatTime)
+
+import           System.Locale                    (defaultTimeLocale)
+
+import           Text.Pandoc.Options
+
+import           Text.Regex.Posix                 hiding (match)
 
 import           Plugins.Filters
 import           Plugins.LogarithmicTagCloud
-
-import           Hakyll.Core.Compiler
-import           Hakyll.Core.Dependencies
-import           Hakyll.Core.Identifier
-import           Hakyll.Core.Identifier.Pattern
-import           Hakyll.Core.Item
-import           Hakyll.Core.Metadata
-import           Hakyll.Core.Rules
-import           Hakyll.Core.Util.String
-import           Hakyll.Web.Template.Context
-import           Hakyll.Web.Html
-import           Hakyll.Web.Pandoc
-import           Text.Pandoc.Options
-
-
-import           Text.Regex.Posix hiding (match)
 
 
 --------------------------------------------------------------------------------
