@@ -1,6 +1,6 @@
 ---
 title: Getting things done
-tags: getting things done, gtd
+tags: getting things done, gtd, talk
 type: talk
 ---
 

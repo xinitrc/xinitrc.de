@@ -77,7 +77,8 @@ main = hakyllWith hakyllConf $ do
                    >>= loadAndApplyTemplate "templates/tagpage.html" (posts `mappend` (taggedPostCtx tags))
   
     match ("images/*"   .||. "favicon.ico"  .||. "assets/**"  .||. 
-            "talks/**"  .||. "bootstrap/**" .||. "scripts/**")  $ do
+            "talks/**"  .||. "bootstrap/**" .||. "scripts/**" .||.
+            "adaptive-images.php")  $ do
         route   idRoute
         compile copyFileCompiler
         
@@ -91,6 +92,10 @@ main = hakyllWith hakyllConf $ do
             getResourceBody
                 >>= applyKeywords
                 >>= loadAndApplyTemplate "templates/main.html" (taggedPostCtx tags)
+                
+    match "htaccess" $ do
+        route $ constRoute ".htaccess"
+        compile copyFileCompiler
     
     match "posts/*" $ do
         route $ dateRoute

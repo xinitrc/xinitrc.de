@@ -1,6 +1,6 @@
 ---
 title: KtT-Infrastructure talk
-tags: hackspace, infrastructure, jira, confluence, drupal, etherpad light
+tags: hackspace, infrastructure, jira, confluence, drupal, etherpad light, talk
 type: talk
 ---
 

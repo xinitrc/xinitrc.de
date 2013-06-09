@@ -1,6 +1,6 @@
 ---
 title: Von Hackern und Holländern
-tags: bittwiddling, hackers delight, combinatorics
+tags: bittwiddling, hackers delight, combinatorics, talk
 type: talk
 ---
 
