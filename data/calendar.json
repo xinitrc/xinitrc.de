@@ -1,0 +1,159 @@
+{
+ "kind": "calendar#events",
+ "etag": "\"3HZc1wy_mzFFhn5FKK0rPMjgApI/Qp2EChiKzgROkXkrsf2t91L29WQ\"",
+ "summary": "Public",
+ "description": "",
+ "updated": "2013-06-05T06:24:36.813Z",
+ "timeZone": "Europe/Berlin",
+ "accessRole": "reader",
+ "nextPageToken": "CkkKO182Z3JqMmM5cDg0cjNjYjloNzExamliOWs2NHIzOGI5cDg4cms4YjlpNzUyNDZkaGs4Z3JrYWdobjhnGAMggIDAxIW9kPgT",
+ "items": [
+  {
+   "kind": "calendar#event",
+   "etag": "\"3HZc1wy_mzFFhn5FKK0rPMjgApI/MTM3MDEwNDMwMTc5NDAwMA\"",
+   "id": "_8h2kcdpi8h1jgba160r32b9k8kr3gb9p8gs4ab9j8cqkcd1l88q46h246c",
+   "status": "confirmed",
+   "htmlLink": "https://www.google.com/calendar/event?eid=XzhoMmtjZHBpOGgxamdiYTE2MHIzMmI5azhrcjNnYjlwOGdzNGFiOWo4Y3FrY2QxbDg4cTQ2aDI0NmMgYWwzcWpxbnVnaGhrMjlvNWU1N3Aya21iY2dAZw",
+   "created": "2013-05-28T12:48:17.000Z",
+   "updated": "2013-06-01T16:31:41.794Z",
+   "summary": "SIGINT",
+   "creator": {
+    "email": "xinitrc@gmail.com"
+   },
+   "organizer": {
+    "email": "al3qjqnughhk29o5e57p2kmbcg@group.calendar.google.com",
+    "displayName": "Public",
+    "self": true
+   },
+   "start": {
+    "date": "2013-07-05"
+   },
+   "end": {
+    "date": "2013-07-08"
+   },
+   "transparency": "transparent",
+   "iCalUID": "DEF72DC8-A061-4E68-9D8E-3C5F45B4CDD3",
+   "sequence": 0
+  },
+  {
+   "kind": "calendar#event",
+   "etag": "\"3HZc1wy_mzFFhn5FKK0rPMjgApI/MTM3MDEyNDg3OTc2MzAwMA\"",
+   "id": "6l97vrevfq748rod88gv8d3nek",
+   "status": "confirmed",
+   "htmlLink": "https://www.google.com/calendar/event?eid=Nmw5N3ZyZXZmcTc0OHJvZDg4Z3Y4ZDNuZWsgYWwzcWpxbnVnaGhrMjlvNWU1N3Aya21iY2dAZw",
+   "created": "2013-06-01T22:14:39.000Z",
+   "updated": "2013-06-01T22:14:39.763Z",
+   "summary": "ICTAC 2013",
+   "location": "Shanghai, China",
+   "creator": {
+    "email": "xinitrc@gmail.com"
+   },
+   "organizer": {
+    "email": "al3qjqnughhk29o5e57p2kmbcg@group.calendar.google.com",
+    "displayName": "Public",
+    "self": true
+   },
+   "start": {
+    "date": "2013-09-01"
+   },
+   "end": {
+    "date": "2013-09-07"
+   },
+   "iCalUID": "6l97vrevfq748rod88gv8d3nek@google.com",
+   "sequence": 0
+  },
+  {
+   "kind": "calendar#event",
+   "etag": "\"3HZc1wy_mzFFhn5FKK0rPMjgApI/MTM3MDE2MzY3NjU1MzAwMA\"",
+   "id": "_6grj2c9p84r3cb9h711jib9k64r38b9p88rk8b9i75246dhk8grkaghn8g_20130610T180000Z",
+   "status": "confirmed",
+   "htmlLink": "https://www.google.com/calendar/event?eid=XzZncmoyYzlwODRyM2NiOWg3MTFqaWI5azY0cjM4YjlwODhyazhiOWk3NTI0NmRoazhncmthZ2huOGdfMjAxMzA2MTBUMTgwMDAwWiBhbDNxanFudWdoaGsyOW81ZTU3cDJrbWJjZ0Bn",
+   "created": "2013-03-15T13:19:47.000Z",
+   "updated": "2013-06-02T09:01:16.553Z",
+   "summary": "Recording of Knights of the Rant Table",
+   "creator": {
+    "email": "xinitrc@gmail.com"
+   },
+   "organizer": {
+    "email": "al3qjqnughhk29o5e57p2kmbcg@group.calendar.google.com",
+    "displayName": "Public",
+    "self": true
+   },
+   "start": {
+    "dateTime": "2013-06-10T20:00:00+02:00"
+   },
+   "end": {
+    "dateTime": "2013-06-10T22:00:00+02:00"
+   },
+   "recurringEventId": "_6grj2c9p84r3cb9h711jib9k64r38b9p88rk8b9i75246dhk8grkaghn8g",
+   "originalStartTime": {
+    "dateTime": "2013-06-10T20:00:00+02:00",
+    "timeZone": "Europe/Berlin"
+   },
+   "iCalUID": "47119A66-18C9-4164-9B7D-29DC64D7EB7D",
+   "sequence": 12
+  },
+  {
+   "kind": "calendar#event",
+   "etag": "\"3HZc1wy_mzFFhn5FKK0rPMjgApI/MTM3MDE2MzY3NjU1MzAwMA\"",
+   "id": "_6grj2c9p84r3cb9h711jib9k64r38b9p88rk8b9i75246dhk8grkaghn8g_20130617T180000Z",
+   "status": "confirmed",
+   "htmlLink": "https://www.google.com/calendar/event?eid=XzZncmoyYzlwODRyM2NiOWg3MTFqaWI5azY0cjM4YjlwODhyazhiOWk3NTI0NmRoazhncmthZ2huOGdfMjAxMzA2MTdUMTgwMDAwWiBhbDNxanFudWdoaGsyOW81ZTU3cDJrbWJjZ0Bn",
+   "created": "2013-03-15T13:19:47.000Z",
+   "updated": "2013-06-02T09:01:16.553Z",
+   "summary": "Recording of Knights of the Rant Table",
+   "creator": {
+    "email": "xinitrc@gmail.com"
+   },
+   "organizer": {
+    "email": "al3qjqnughhk29o5e57p2kmbcg@group.calendar.google.com",
+    "displayName": "Public",
+    "self": true
+   },
+   "start": {
+    "dateTime": "2013-06-17T20:00:00+02:00"
+   },
+   "end": {
+    "dateTime": "2013-06-17T22:00:00+02:00"
+   },
+   "recurringEventId": "_6grj2c9p84r3cb9h711jib9k64r38b9p88rk8b9i75246dhk8grkaghn8g",
+   "originalStartTime": {
+    "dateTime": "2013-06-17T20:00:00+02:00",
+    "timeZone": "Europe/Berlin"
+   },
+   "iCalUID": "47119A66-18C9-4164-9B7D-29DC64D7EB7D",
+   "sequence": 12
+  },
+  {
+   "kind": "calendar#event",
+   "etag": "\"3HZc1wy_mzFFhn5FKK0rPMjgApI/MTM3MDE2MzY3NjU1MzAwMA\"",
+   "id": "_6grj2c9p84r3cb9h711jib9k64r38b9p88rk8b9i75246dhk8grkaghn8g_20130624T180000Z",
+   "status": "confirmed",
+   "htmlLink": "https://www.google.com/calendar/event?eid=XzZncmoyYzlwODRyM2NiOWg3MTFqaWI5azY0cjM4YjlwODhyazhiOWk3NTI0NmRoazhncmthZ2huOGdfMjAxMzA2MjRUMTgwMDAwWiBhbDNxanFudWdoaGsyOW81ZTU3cDJrbWJjZ0Bn",
+   "created": "2013-03-15T13:19:47.000Z",
+   "updated": "2013-06-02T09:01:16.553Z",
+   "summary": "Recording of Knights of the Rant Table",
+   "creator": {
+    "email": "xinitrc@gmail.com"
+   },
+   "organizer": {
+    "email": "al3qjqnughhk29o5e57p2kmbcg@group.calendar.google.com",
+    "displayName": "Public",
+    "self": true
+   },
+   "start": {
+    "dateTime": "2013-06-24T20:00:00+02:00"
+   },
+   "end": {
+    "dateTime": "2013-06-24T22:00:00+02:00"
+   },
+   "recurringEventId": "_6grj2c9p84r3cb9h711jib9k64r38b9p88rk8b9i75246dhk8grkaghn8g",
+   "originalStartTime": {
+    "dateTime": "2013-06-24T20:00:00+02:00",
+    "timeZone": "Europe/Berlin"
+   },
+   "iCalUID": "47119A66-18C9-4164-9B7D-29DC64D7EB7D",
+   "sequence": 12
+  }
+ ]
+}

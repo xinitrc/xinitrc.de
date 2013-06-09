@@ -1,0 +1,18 @@
+<div class="navbar center">
+  <div class="navbar-inner">
+	  <a class="brand" href="/"><img src="/assets/images/Logo.png" height="20" width="20"/></a>
+	  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+	    <span class="icon-bar"></span>
+	    <span class="icon-bar"></span>
+	    <span class="icon-bar"></span>
+	  </a>
+	  <div class="nav-collapse collapse">
+	    <ul class="nav">
+	      <li $if(blog)$ class="active" $endif$><a href="/">Blog</a></li>
+	      <li $if(talks)$ class="active" $endif$><a href="/talks.html">Talks</a></li>
+	      <li $if(contacts)$ class="active" $endif$><a href="/contact.html">Contact me</a></li>
+	      <li $if(facts)$ class="active" $endif$><a href="/facts.html">xinitrc facts</a></li>
+	    </ul>
+	  </div>
+	</div>
+</div>

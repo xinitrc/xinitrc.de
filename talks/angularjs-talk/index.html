@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="en" ng-app="Todo" xmlns:input="http://www.w3.org/1999/html">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>AngularJS - The Superheroic Framework</title>
+
+		<meta name="description" content="The superheroic framework">
+		<meta name="author" content="Martin Hilscher">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/superheroic.css" id="theme">
+        <link rel="stylesheet" href="css/additional.css">
+		<!-- For syntax highlighting -->
+        <link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+        <script type="text/javascript"
+                src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.js"></script>
+        <script type="text/javascript" src="assets/js/app.js"></script>
+        <script type="text/javascript" src="assets/js/TodoController.js"></script>
+        <script type="text/javascript" src="assets/js/ce.js"></script>
+        <script type="text/javascript" src="assets/js/twoCtrl.js"></script>
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+                <section>
+                    <img class="title" src="assets/img/square.png " style="height: auto; width: 50%"/>
+                    <!--<h1>AngularJS</h1>-->
+                    <h3>The superheroic framework</h3>
+
+                    <p>
+                        <small><a href="http://xinitrc.de"> Martin Hilscher</a> / <a href="mailto:mh@xinitrc.de">mh@xinitrc.de</a> / <a href="http://twitter.com/xinitrc">@xinitrc</a></small>
+                    </p>
+                </section>
+
+                <section>
+                    <h2>AngularJS</h2>
+                    <ul>
+                        <li>Web-Framework</li>
+                        <li>Single Page App</li>
+                        <li>Model-View-Controll(er) Konzept</li>
+                        <li>Nutzt (wenn möglich) HTML5 Feature</li>
+                        <li>Google</li>
+                        <li>Aktuelle Versionen
+                            <ul>
+                                <li>monochromatic-rainbow (stable 1.0.7)</li>
+                                <li>triangle-squarification (unstable 1.1.5)</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Legende</h2>
+                    <ul class="fragmented">
+                        <li>Miško Hevery</li>
+                        <li>20% Projekt</li>
+                        <li class="fragment">Rewrite Google Foundation
+                            <ul class="fragmented">
+                                <li class="fragment">17 000 LOC &rarr; 1 500 LOC</li>
+                                <li class="fragment">In 3 Wochen</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+
+                <section>
+                    <section data-state="highlight batman" class="highlight">
+                        <h1>Declarative Programming</h1>
+                        <h2>&hellip; don't tell me HOW to do it</h2>
+                    </section>
+                    <section>
+                        <h2>Declarative Programming (detour)</h2>
+                        <ul>
+                            <li>Problembeschreibung im Vordergrund</li>
+                            <li>Lösungsweg automatisch generiert</li>
+                            <li>Beispiele
+                                <ul>
+                                    <li>Funktional Programmiersprachen (Lisp, ML, &hellip;) </li>
+                                    <li>Logik Programmiersprachen (Prolog, &hellip;)</li>
+                                    <li>Transformationssprachen (XSLT, &hellip;)</li>
+                                    <li class="fragment">Abfragesprachen (SQL, &hellip;)</li>
+                                    <li class="fragment">&hellip; ursrpüngliche Idee hinter Javascript</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </section>
+                </section>
+
+                <section>
+                    <h2>Erstes Beispiel</h2>
+                    <ul class="inline">
+                        <li ng-click="color=''">Weiß</li>
+                        <li ng-click="color='red'">Rot</li>
+                        <li ng-click="color='green'">Grün</li>
+                        <li ng-click="color='blue'">Blau</li>
+                    </ul>
+                    <div class="block" ng-class="color"></div>
+                    <div class="fragmented">
+                    <pre class="fragment">
+                        <code data-trim>
+&lt;html ng-app&gt;
+  &vellip;
+  <ul class="inline">
+    <li ng-click="color=''">White</li>
+    <li ng-click="color='red'">Red</li>
+    <li ng-click="color='green'">Green</li>
+    <li ng-click="color='blue'">Blue</li>
+  </ul>
+  <div class="block" ng-class="color"></div>
+  &vellip;
+&lt;/html&gt;
+</code>
+                    </pre>
+                    </div>
+                </section>
+
+                <section>
+                    <section>
+                    <h2>Zweites Beispiel</h2>
+                    <div class="fragmented">
+                    <input type="text" ng-model="tb1"/>
+                    <div>Hallo {{tb1}}</div>
+
+                    <pre class="fragment"><code data-trim>
+&lt;html ng-app&gt;
+  &vellip;
+  &lt;input type="text" ng-model="tb"/&gt;
+  &lt;div&gt;Hallo {&#xFEFF;{tb}}&lt;/div&gt;
+  &vellip;
+&lt;/html&gt;
+                    </code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h2>Zweites Beispiel</h2>
+                    <div>
+                        <input type="text" ng-model="tb2"/>
+                         <div ng-show="tb2.length">Hallo {{tb2}}
+                    </div>
+
+                    <pre><code data-trim>
+&lt;html ng-app&gt;
+  &vellip;
+  &lt;input type="text" ng-model="tb"/&gt;
+  &lt;div ng-show="tb.length"&gt;Hallo {&#xFEFF;{tb}}&lt;/div&gt;
+  &vellip;
+&lt;/html&gt;
+                    </code></pre>
+                    </div>
+                </section>
+                </section>
+
+                <section data-state="highlight captainamerica" class="highlight">
+                    <h1>Controllers</h1>
+                    <h3>&hellip; couldn't remain all that easy</h3>
+                </section>
+
+                <section>
+                    <h2>Aufbau einer AngularJS-App</h2>
+                    <ul>
+                        <li>Eine angularjs.module (ng-app)</li>
+                        <li>Ein Controller pro funktionaler Einheit
+                            <ul>
+                                <li>Menu</li>
+                                <li>Eingabemaske</li>
+                                <li>View</li>
+                                <li>&hellip;</li>
+                            </ul>
+                        </li>
+                        <li>(Benutzerdefinierter Directives)</li>
+                        <li>Datenhaltung im Hintergrund</li>
+                    </ul>
+                </section>
+
+                <section ng-controller="TodoCtrl">
+                    <h2>Drittes Beispiel</h2>
+                    <div>{{remaining()}} of {{todos.length}} Aufgaben sind noch offen</div>
+                    <ul class="unstyled">
+                        <li ng-repeat="todo in todos">
+                            <input type="checkbox" ng-model="todo.done"/><span ng-model="todo.text" contenteditable>{{todo.text}}</span>
+                        </li>
+                    </ul>
+                    <form ng-submit="addTodo()">
+                        <input type="text" ng-model="todotext"/>
+                    </form>
+                    <a href="" ng-click="clearDone()">Abgeschlossene löschen</a>
+                </section>
+
+                <section>
+                    <section data-state="highlight greenarrow" class="highlight">
+                        <h1>Dependency Injection</h1>
+                        <h2>&hellip; infuse magic</h2>
+                    </section>
+                    <section>
+                        <h2>Dependency Injection (detour)</h2>
+                        <ul>
+                            <li>Präzisierung von "Inversion of Control"</li>
+                            <li>Abhängigkeiten extern gemanaged</li>
+                            <li>Komponenten noch stärker entkoppelt</li>
+                            <li>Üblicherweise statisch typisierten Sprachen</li>
+                            <li>Erleichtert Test</li>
+                        </ul>
+                    </section>
+                </section>
+
+                <section>
+                    <h2>DI in AngularJS</h2>
+                    <ul>
+                        <li>Stellt Komponenten zur Verfügung (z.B. $scope)</li>
+                        <li class="fragment">Matching von Name "$foo" auf "fooProvider"</li>
+                        <li class="fragment">Aufruf von fooProvider.$get(&hellip;)</li>
+                        <li class="fragment">Erzeugtes Objekt wird übergeben</li>
+                        <li class="fragment">Fallback für Minification (app.inject([&hellip;])</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Einige Standard Services</h2>
+                    <ul>
+                        <li>$scope</li>
+                        <li>$rootScope</li>
+                        <li>$location</li>
+                        <li>$route</li>
+                        <li>$routeParams</li>
+                        <li>$resource</li>
+                        <li>$log</li>
+                        <li>$parse</li>
+                        <li>$http</li>
+                        <li>$q</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>DI-Hilfsmethoden für eigene Services</h2>
+                    <table>
+                        <tr><td><strong>constant</strong></td><td>Konstanten</td></tr>
+                        <tr><td><strong>value</strong></td><td>Variablen</td></tr>
+                        <tr><td><strong>service</strong></td><td>für Singletons</td></tr>
+                        <tr><td><strong>decorator</strong></td><td>Decorator für Services</td></tr>
+                        <tr><td colspan="2"><hr/></td></tr>
+                        <tr><td>factory</td><td>für Factories</td></tr>
+                        <tr><td>(provider)</td><td>Die generische Methode</td></tr>
+                    </table>
+
+
+                </section>
+
+                <section data-state="highlight greenlantern" class="highlight">
+                    <h1>Directives</h1>
+                    <h2>&hellip; say it in your own words</h2>
+                </section>
+
+                <section>
+                    <h1>Demo</h1>
+                </section>
+
+                <section ng-controller="TwoCtrl">
+                    <h2>Zweites Beispiel on Steroids</h2>
+                    <div>
+                        <input type="text" ng-model="tb3"/>
+                        <div ng-show="tb3.length">Hallo <span ng-model="tb3" contenteditable></span>
+                        </div>
+
+                    <pre><code data-trim>
+&lt;html ng-app&gt;
+  &vellip;
+  &lt;input type="text" ng-model="tb"/&gt;
+  &lt;div ng-show="tb.length"&gt;Hallo
+  &lt;span ng-model="tb" contenteditable&gt;&lt;/span&gt;
+  &vellip;
+&lt;/html&gt;
+</code></pre>
+                        </div>
+                </section>
+
+                <section>
+                    <h2>Zweites Beispiel on Steroids</h2>
+                    <div>
+                        <input type="text" ng-model="tb"/>
+                        <div ng-show="tb3.length">Hallo <span ng-model="tb3" contenteditable></span>
+                     </div>
+                        <pre>
+                            <code data-trim>
+.directive('contenteditable', function () {
+  return {
+    require: 'ngModel',
+    link: function (scope, elm, attrs, ctrl) {
+      elm.bind('blur', function() {
+        scope.$apply(function() {
+          ctrl.$setViewValue(elm.html());
+        });
+      });
+      ctrl.$render = function() {
+        elm.html(ctrl.$viewValue);
+      };
+      ctrl.$render();
+    }
+  };
+});
+                            </code>
+                        </pre>
+                    </div>
+                </section>
+
+                <section data-state="highlight hulk" class="highlight">
+                    <h1>Views</h1>
+                    <h3>&hellip; the tale of building a single page app</h3>
+                </section>
+
+                <section>
+                    <h2>Aufbau der Hauptkomponente</h2>
+                    <ul>
+                        <li>Ein ng-view pro ng-app (mehr geht nicht)</li>
+                        <li>Controller abhängig von Route</li>
+                        <li>Route kann parametrisiert werden</li>
+                        <li>Full HTML5 Bells'n'whistles
+                            <ul>
+                                <li>History Push API</li>
+                                <li>&hellip;</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h1>Demo</h1>
+                </section>
+
+                <section data-state="highlight ironman" class="highlight">
+                    <h1>Animations</h1>
+                    <h2>&hellip; frosting on the cake</h2>
+                </section>
+
+                <section>
+                    <h2>Animierbare Directives</h2>
+                    <ul>
+                        <li>ng-show/ng-hide</li>
+                        <li>ng-repeat</li>
+                        <li>ng-view</li>
+                        <li>ng-switch</li>
+                        <li>ng-include</li>
+                    </ul>
+                </section>
+
+                <section data-state="highlight thor" class="highlight">
+                    <h1>Ressourcen</h1>
+                    <h2>&hellip; gimme some more</h2>
+                </section>
+
+                <section>
+                    <h2>There is more</h2>
+                    <ul>
+                        <li>$scope Hierarchie</li>
+                        <li>$index, $event, $log</li>
+                        <li>Transclusion</li>
+                        <li>Isolierte scopes</li>
+                        <li>Filter</li>
+                        <li>Kommunikation zwischen Controllern</li>
+                        <li>Promises</li>
+                        <li>Andwendungen mit mehreren Controllern</li>
+                        <li>&hellip;</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Web, Videos & Books</h2>
+                    <ul>
+                        <li><a href="http://angularjs.org/">AngularJS.org</a></li>
+                        <li><a href="http://angularjs.de/buch/">AngularJS Buch </a></li>
+                        <li><a href="http://www.egghead.io/">Egghead.io</a></li>
+                        <li><a href="https://www.youtube.com/channel/UCbn1OgGei-DV7aSRo_HaAiw">AngularJS Youtube Channel</a></li>
+                        <li><a href="http://www.oreilly.de/catalog/9781449344856/index.html">AngularJS O'Reilly Buch</a></li>
+                        <li>&hellip;</li>
+                    </ul>
+                </section>
+
+                <section data-state="highlight spiderman" class="highlight">
+                    <h1>Danke</h1>
+                    <p>
+                        <small>
+                            <a href="http://xinitrc.de">  Martin Hilscher</a> / <a href="mailto:mh@xinitrc.de">mh@xinitrc.de</a> / <a href="http://twitter.com/xinitrc">@xinitrc</a>
+                        </small>
+                    </p>
+                </section>
+			</div>
+
+		</div>
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+		<script>
+			Reveal.initialize({
+				controls: false,
+				progress: true,
+				history: true,
+				center: true,
+                rollingLinks: false,
+                width: 1024,
+                height: 768,
+ 		overview: false,
+
+
+				theme: 'superheroic', //Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: 'linear', //Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+				]
+			});
+
+            Reveal.addEventListener('slidechanged', function (event) {
+                if (event.previousSlide.className.indexOf('highlight') >= 0) {
+                    $("#heros").children().removeClass("show");
+                }
+                if (event.currentSlide.className.indexOf('highlight') >= 0){
+                    var hero = event.currentSlide.className.replace(/.*([0-9]).*/, "$1");
+
+                    ($("#heros").children("#" + hero)).addClass("show");
+                }
+
+            }, false);
+		</script>
+
+	</body>
+</html>

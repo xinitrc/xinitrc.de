@@ -1,0 +1,20 @@
+<div class="contentblock" id='upcoming' ng-app="Calendar">
+    <h2>Upcoming</h2>
+
+    <div ng-controller="CalendarCTRL">
+        <ul>
+            <li ng-repeat='event in calendarEntries'>
+                <div class='dateli'>
+                    <span class='start'><strong ng-bind='event.start'></strong><span
+                            ng-show='event.end'> - </span></span>
+                    <span class='end'><strong ng-bind='event.end'></strong></span>
+                </div>
+                <span ng-bind='event.summary'></span>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="contentblock">
+    <h2>Tags</h2>
+    $tagcloud$
+</div>
