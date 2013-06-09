@@ -94,28 +94,35 @@ main = hakyllWith hakyllConf $ do
     match "talks.html" $ do 
         route idRoute
         compile $ do
-            let indexCtx = field "posts" (\_ -> postList getTalks) `mappend` (taggedPostCtx tags)
+            let indexCtx = field "posts" (\_ -> postList $ fmap (take 3) . getTalks) `mappend` (taggedPostCtx tags)
 
             getResourceBody
                 >>= applyKeywords
                 >>= applyAsTemplate indexCtx
                 >>= loadAndApplyTemplate "templates/blog.html" (taggedPostCtx tags)
               
-    match "archives.html" $ do
+    match "archive.html" $ do
         route idRoute
         compile $ do
-            let indexCtx = field "posts" ( \_ -> postListByMonth tags "posts/*")
+            let indexCtx = field "posts" ( \_ -> postListByMonth tags "posts/*" recentFirst)
             getResourceBody
                 >>= applyKeywords
                 >>= applyAsTemplate indexCtx
                 >>= loadAndApplyTemplate "templates/blog.html" (taggedPostCtx tags)
           
+    match "talk-archive.html" $ do
+        route idRoute
+        compile $ do
+            let indexCtx = field "posts" ( \_ -> postListByMonth tags "posts/*" getTalks)
+            getResourceBody
+                >>= applyKeywords
+                >>= applyAsTemplate indexCtx
+                >>= loadAndApplyTemplate "templates/blog.html" (taggedPostCtx tags)
+
     match "index.html" $ do
         route idRoute
         compile $ do
-            let indexCtx = (field "posts" $ \_ ->
-                                postList $ fmap (take 3) . recentFirst) `mappend`
-                            (taggedPostCtx tags)
+            let indexCtx = (field "posts" $ \_ -> postList $ fmap (take 3) . recentFirst) `mappend` (taggedPostCtx tags)
 
             getResourceBody
                 >>= applyKeywords
@@ -220,9 +227,10 @@ postList = postLst "posts/*" "templates/post-item.html" postCtx
 
 postListByMonth :: Tags
                  -> Pattern
+                 -> ([Item String] -> Compiler [Item String])
                  -> Compiler String
-postListByMonth tags pattern = do
-    posts   <- bucketMonth =<< recentFirst =<< loadAll pattern
+postListByMonth tags pattern filterFun = do
+    posts   <- bucketMonth =<< filterFun =<< loadAll pattern
     itemTpl <- loadBody "templates/month-item.html"
     monthTpl <- loadBody "templates/month.html"
     let mkSection ((yr, _, mth), ps) =
