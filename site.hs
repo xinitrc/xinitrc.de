@@ -141,10 +141,6 @@ main = hakyllWith hakyllConf $ do
     match "templates/*" $ compile templateCompiler
 
 --------------------------------------------------------------------------------
-applyFilter strfilter str = return $ (fmap $ strfilter) str
-
--- preFilters :: String -> String
---------------------------------------------------------------------------------
 dateRoute :: Routes
 dateRoute = gsubRoute "posts/" (const "") `composeRoutes` 
               gsubRoute "pages/" (const "") `composeRoutes`
@@ -183,6 +179,8 @@ taggedPostCtx tags = mconcat [(tagsField "tags" tags), (tagCloudCtx tags), postC
 
 postCtx :: Context String
 postCtx = mconcat [dateField "date" "%Y %b %d" , defaultContext]
+
+--------------------------------------------------------------------------------
 
 renderLogTagCloud :: Double
                -- ^ Smallest font size, in percent
