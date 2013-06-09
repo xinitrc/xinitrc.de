@@ -30,4 +30,4 @@ renderLogTagCloud minSize maxSize unit = renderTags makeLink (intercalate " ")
         let diff = (log (fromIntegral max') - log (fromIntegral min'))
             relative = (log (fromIntegral count) - log (fromIntegral min')) / diff
             size' = minSize + relative * (maxSize - minSize)
-        in (printf "%.2f\n" size') ++ unit
+        in (printf "%.2f" size') ++ unit
