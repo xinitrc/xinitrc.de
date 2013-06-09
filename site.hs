@@ -40,7 +40,18 @@ import           Text.Pandoc.Options
 
 import           Text.Regex.Posix hiding (match)
 
+
 --------------------------------------------------------------------------------
+
+hakyllConf :: Configuration
+hakyllConf = defaultConfiguration {
+  deployCommand =
+     "rsync -ave ssh _site/ " ++
+     "xinitrc@corvus.uberspace.de:html/"
+  }
+
+--------------------------------------------------------------------------------
+
 main :: IO ()
 main = hakyll $ do
 
