@@ -17,12 +17,8 @@ import           Data.Monoid                      (mappend, mconcat)
 import           Data.Time.Format
 import           Data.Function
 
-import           Filters
-
-import qualified Text.Blaze.Html5                 as H
-import qualified Text.Blaze.Html5.Attributes      as A
-import           Text.Blaze.Html                  (toHtml, toValue, (!))
-import           Text.Blaze.Html.Renderer.String  (renderHtml)
+import           Plugins.Filters
+import           Plugins.LogarithmicTagCloud
 
 import           Hakyll.Core.Compiler
 import           Hakyll.Core.Dependencies
@@ -43,12 +39,27 @@ import           Text.Regex.Posix hiding (match)
 
 --------------------------------------------------------------------------------
 
+pandocOptions :: WriterOptions
+pandocOptions = defaultHakyllWriterOptions
+    { writerHTMLMathMethod = MathJax ""
+    }
+
 hakyllConf :: Configuration
 hakyllConf = defaultConfiguration {
   deployCommand =
      "rsync -ave ssh _site/ " ++
      "xinitrc@corvus.uberspace.de:html/"
   }
+
+myFeedConfiguration :: FeedConfiguration
+myFeedConfiguration = FeedConfiguration
+    { feedTitle       = "xinitrc.de"
+    , feedDescription = "xinitrc.de Article Feed"
+    , feedAuthorName  = "Martin Hilscher"
+    , feedAuthorEmail = "mail@xinitrc.de"
+    , feedRoot        = "https://xinitrc.de"
+    }
+
 
 --------------------------------------------------------------------------------
 
@@ -94,7 +105,8 @@ main = hakyllWith hakyllConf $ do
     match "talks.html" $ do 
         route idRoute
         compile $ do
-            let indexCtx = field "posts" (\_ -> postList $ fmap (take 3) . getTalks) `mappend` (taggedPostCtx tags)
+            let indexCtx = field "posts" (\_ -> postList $ fmap (take 3) . getTalks) `mappend` 
+                            (taggedPostCtx tags)
 
             getResourceBody
                 >>= applyKeywords
@@ -122,7 +134,8 @@ main = hakyllWith hakyllConf $ do
     match "index.html" $ do
         route idRoute
         compile $ do
-            let indexCtx = (field "posts" $ \_ -> postList $ fmap (take 3) . recentFirst) `mappend` (taggedPostCtx tags)
+            let indexCtx = (field "posts" $ \_ -> postList $ fmap (take 3) . recentFirst) `mappend` 
+                            (taggedPostCtx tags)
 
             getResourceBody
                 >>= applyKeywords
@@ -158,7 +171,6 @@ getTalks items = do
     talk <- isTalk $ itemIdentifier item
     utc <- getItemUTC defaultTimeLocale $ itemIdentifier item
     return (talk, (utc,item))
-  -- we return a sorted item list
   return $ map snd $ reverse $ sortBy (comparing fst) $ map snd $ filter fst itemsWithTime
   
 isTalk :: MonadMetadata m => Identifier -> m Bool 
@@ -167,49 +179,17 @@ isTalk id' = do
     let typ = Data.Map.lookup "type" metadata
     return (typ == Just "talk")
 
-
 --------------------------------------------------------------------------------
 
 tagCloudCtx :: Tags -> Context String
 tagCloudCtx tags = field "tagcloud" $ \item -> rendered 
-  where rendered = renderLogTagCloud 85.0 165.0 tags
+  where rendered = renderLogTagCloud 85.0 165.0 "%" tags
 
 taggedPostCtx :: Tags -> Context String
 taggedPostCtx tags = mconcat [(tagsField "tags" tags), (tagCloudCtx tags), postCtx]
 
 postCtx :: Context String
 postCtx = mconcat [dateField "date" "%Y %b %d" , defaultContext]
-
---------------------------------------------------------------------------------
-
-renderLogTagCloud :: Double
-               -- ^ Smallest font size, in percent
-               -> Double
-               -- ^ Biggest font size, in percent
-               -> Tags
-               -- ^ Input tags
-               -> Compiler String
-               -- ^ Rendered cloud
-renderLogTagCloud minSize maxSize = renderTags makeLink (intercalate " ")
-  where
-    makeLink tag url count min' max' = renderHtml $
-        H.a ! A.style (toValue $ "font-size: " ++ size count min' max')
-            ! A.href (toValue url)
-            $ toHtml tag
-
-    -- Show the relative size of one 'count' in percent
-    size count min' max' =
-        let diff = (log (fromIntegral max') - log (fromIntegral min'))
-            relative = (log (fromIntegral count) - log (fromIntegral min')) / diff
-            size' = floor $ minSize + relative * (maxSize - minSize)
-        in show (size' :: Int) ++ "%"
-
---------------------------------------------------------------------------------
-
-pandocOptions :: WriterOptions
-pandocOptions = defaultHakyllWriterOptions
-    { writerHTMLMathMethod = MathJax ""
-    }
 
 --------------------------------------------------------------------------------
 
@@ -260,12 +240,3 @@ buckets f = map (first head . unzip)
 
 --------------------------------------------------------------------------------
           
-myFeedConfiguration :: FeedConfiguration
-myFeedConfiguration = FeedConfiguration
-    { feedTitle       = "xinitrc.de"
-    , feedDescription = "xinitrc.de Article Feed"
-    , feedAuthorName  = "Martin Hilscher"
-    , feedAuthorEmail = "mail@xinitrc.de"
-    , feedRoot        = "https://xinitrc.de"
-    }
-

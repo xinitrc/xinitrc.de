@@ -1,4 +1,4 @@
-module Filters(applyKeywords) where 
+module Plugins.Filters(applyKeywords) where 
 
 import            Control.Applicative          ((<$), (<$>))
 import            Control.Monad                (void, liftM)
