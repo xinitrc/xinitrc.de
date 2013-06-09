@@ -77,8 +77,7 @@ main = hakyllWith hakyllConf $ do
                    >>= loadAndApplyTemplate "templates/tagpage.html" (posts `mappend` (taggedPostCtx tags))
   
     match ("images/*"   .||. "favicon.ico"  .||. "assets/**"  .||. 
-            "talks/**"  .||. "bootstrap/**" .||. "data/**"    .||. 
-            "scripts/**")  $ do
+            "talks/**"  .||. "bootstrap/**" .||. "scripts/**")  $ do
         route   idRoute
         compile copyFileCompiler
         
