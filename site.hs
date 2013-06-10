@@ -168,7 +168,7 @@ filterTalks = filterM isTalk
 --------------------------------------------------------------------------------
 
 tagCloudCtx :: Tags -> Context String
-tagCloudCtx tags = field "tagcloud" $ \item -> rendered 
+tagCloudCtx tags = field "tagcloud" $ \_ -> rendered 
   where rendered = renderLogTagCloud 85.0 165.0 "%" tags
 
 taggedPostCtx :: Tags -> Context String
