@@ -4,7 +4,7 @@ import           Hakyll
 import           Hakyll.Web.Tags
 
 import           Control.Applicative              ((<$>))
-import           Control.Monad                    (forM)
+import           Control.Monad                    (forM, filterM)
 import           Control.Arrow                    (first, second)
 
 import           Data.Ord
@@ -95,7 +95,7 @@ main = hakyllWith hakyllConf $ do
     match "talks.html" $ do 
         route idRoute
         compile $ do
-            let indexCtx = field "posts" (\_ -> postList $ fmap (take 3) . 
+            let indexCtx = field "posts" (\_ -> postList $ fmap (take 3 . reverse) . 
                                                   ((recentFirst :: [Item String] -> Compiler [Item String])>>= \x -> filterTalks)) `mappend` 
                             (taggedPostCtx tags)
 
@@ -157,18 +157,11 @@ dateRoute = gsubRoute "posts/" (const "") `composeRoutes`
 
 --------------------------------------------------------------------------------
 
-filterByMetaData :: MonadMetadata m => (Identifier -> m Bool) -> [Item String] -> m [Item String]
-filterByMetaData filterFn items = do
-  itemsWithTag <- forM items $ \item -> do
-    tag <- filterFn $ itemIdentifier item
-    return (tag, item)
-  return $ map snd $ filter fst itemsWithTag
-
-filterTalks :: [Item String] -> Compiler [Item String]
-filterTalks = filterByMetaData isTalk
+filterTalks :: MonadMetadata m => [Item String] -> m[Item String]
+filterTalks = filterM isTalk
               where
-                isTalk id' = do
-                    metadata <- getMetadata id'
+                isTalk item = do
+                    metadata <- getMetadata $ itemIdentifier item
                     let typ = Data.Map.lookup "type" metadata
                     return (typ == Just "talk")
 
