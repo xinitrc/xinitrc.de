@@ -3,7 +3,7 @@
 import           Hakyll
 import           Hakyll.Web.Tags
 
-import           Control.Applicative              ( (<$>))
+import           Control.Applicative              ((<$>))
 import           Control.Monad                    (forM)
 import           Control.Arrow                    (first, second)
 
