@@ -19,8 +19,6 @@ import           System.Locale                    (defaultTimeLocale)
 
 import           Text.Pandoc.Options
 
-import           Text.Regex.Posix                 hiding (match)
-
 import           Plugins.Filters
 import           Plugins.LogarithmicTagCloud
 
@@ -74,6 +72,10 @@ main = hakyllWith hakyllConf $ do
         route   idRoute
         compile compressCssCompiler
 
+    match "htaccess" $ do
+        route $ constRoute ".htaccess"
+        compile copyFileCompiler
+    
     match ("facts.html" .||. "contact.html" )$ do
         route idRoute
         compile $ do
@@ -81,10 +83,6 @@ main = hakyllWith hakyllConf $ do
                 >>= applyKeywords
                 >>= loadAndApplyTemplate "templates/main.html" (taggedPostCtx tags)
                 
-    match "htaccess" $ do
-        route $ constRoute ".htaccess"
-        compile copyFileCompiler
-    
     match "posts/*" $ do
         route $ dateRoute
         compile $ do
