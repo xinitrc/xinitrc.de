@@ -62,12 +62,14 @@ main = hakyllWith hakyllConf $ do
                makeItem ""
                    >>= loadAndApplyTemplate "templates/tagpage.html" (posts `mappend` (taggedPostCtx tags))
   
-    match ("images/*"   .||. "favicon.ico"  .||. "assets/**"  .||. 
-            "talks/**"  .||. "bootstrap/**" .||. "scripts/**" .||.
-            "adaptive-images.php")  $ do
-        route   idRoute
+    match ("static/**")  $ do
+        route   $ gsubRoute "static/" (const "")
         compile copyFileCompiler
         
+    match ("scripts/**")  $ do
+        route   idRoute
+        compile copyFileCompiler
+         
     match "css/*" $ do
         route   idRoute
         compile compressCssCompiler
@@ -198,17 +200,17 @@ postListByMonth tags pattern filterFun = do
     itemTpl <- loadBody "templates/month-item.html"
     monthTpl <- loadBody "templates/month.html"
     let mkSection ((yr, _, mth), ps) =
-            applyTemplateList itemTpl (taggedPostCtx tags `mappend` (dateField "day" "%d")) ps >>=
-            makeItem                                          >>=
-            applyTemplate monthTpl (monthContext yr mth)
+            applyTemplateList itemTpl (taggedPostCtx tags `mappend` (dateField "day" "%d")) ps 
+            >>= makeItem
+            >>= applyTemplate monthTpl (monthContext yr mth)
     concatMap itemBody <$> mapM mkSection posts
   where
     bucketMonth posts =
         reverse . map (second (map snd)) . buckets fst <$>
         mapM tagWithMonth posts
     tagWithMonth p = do
-        utcTime <- getItemUTC timeLocale (itemIdentifier p)
-        return ((formatTime timeLocale "%Y" utcTime,formatTime timeLocale "%m" utcTime, formatTime timeLocale "%b" utcTime ), p)
+        utcTime <- getItemUTC timeLocale $ itemIdentifier p
+        return ((formatTime timeLocale "%Y" utcTime, formatTime timeLocale "%m" utcTime, formatTime timeLocale "%b" utcTime ), p)
     timeLocale = defaultTimeLocale
  
 monthContext :: String -> String -> Context String
