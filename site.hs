@@ -26,16 +26,9 @@ import           Plugins.LogarithmicTagCloud
 --------------------------------------------------------------------------------
 
 pandocOptions :: WriterOptions
-pandocOptions = defaultHakyllWriterOptions
-    { writerHTMLMathMethod = MathJax ""
+pandocOptions = defaultHakyllWriterOptions { 
+      writerHTMLMathMethod = MathJax ""
     }
-
-hakyllConf :: Configuration
-hakyllConf = defaultConfiguration {
-  deployCommand =
-     "rsync -ave ssh _site/ " ++
-     "xinitrc@corvus.uberspace.de:html/"
-  }
 
 myFeedConfiguration :: FeedConfiguration
 myFeedConfiguration = FeedConfiguration
@@ -44,6 +37,17 @@ myFeedConfiguration = FeedConfiguration
     , feedAuthorName  = "Martin Hilscher"
     , feedAuthorEmail = "mail@xinitrc.de"
     , feedRoot        = "https://xinitrc.de"
+    }
+
+dontIgnoreHtaccess :: String -> Bool
+dontIgnoreHtaccess ".htaccess" = False
+dontIgnoreHtaccess path        = ignoreFile defaultConfiguration path
+
+hakyllConf :: Configuration
+hakyllConf = defaultConfiguration 
+    {
+      deployCommand = "rsync -ave ssh _site/ xinitrc@corvus.uberspace.de:html/"
+    , ignoreFile = dontIgnoreHtaccess
     }
 
 
@@ -74,10 +78,6 @@ main = hakyllWith hakyllConf $ do
         route   idRoute
         compile compressCssCompiler
 
-    match "htaccess" $ do
-        route $ constRoute ".htaccess"
-        compile copyFileCompiler
-    
     match ("facts.html" .||. "contact.html" )$ do
         route idRoute
         compile $ do
@@ -96,46 +96,20 @@ main = hakyllWith hakyllConf $ do
 
     match "talks.html" $ do 
         route idRoute
-        compile $ do
-            let indexCtx = field "posts" (\_ -> postList $ fmap (take 3 . reverse) . 
-                                                  ((recentFirst :: [Item String] -> Compiler [Item String])>>= \x -> filterTalks)) `mappend` 
-                            (taggedPostCtx tags)
-
-            getResourceBody
-                >>= applyKeywords
-                >>= applyAsTemplate indexCtx
-                >>= loadAndApplyTemplate "templates/blog.html" (taggedPostCtx tags)
-              
+        compile $ genCompiler tags $ field "posts" (\_ -> postList $ fmap (take 3 . reverse) . 
+                                                  ((recentFirst :: [Item String] -> Compiler [Item String])>>= \x -> filterTalks))
+                                                                
     match "talk-archive.html" $ do
         route idRoute
-        compile $ do
-            let indexCtx = field "posts" ( \_ -> postListByMonth tags "posts/*" 
+        compile $ genCompiler tags $ field "posts" ( \_ -> postListByMonth tags "posts/*" 
                                                   ((recentFirst :: [Item String] -> Compiler [Item String])>>= \x -> filterTalks))
-            getResourceBody
-                >>= applyKeywords
-                >>= applyAsTemplate indexCtx
-                >>= loadAndApplyTemplate "templates/blog.html" (taggedPostCtx tags)
-
     match "archive.html" $ do
         route idRoute
-        compile $ do
-            let indexCtx = field "posts" ( \_ -> postListByMonth tags "posts/*" recentFirst)
-            getResourceBody
-                >>= applyKeywords
-                >>= applyAsTemplate indexCtx
-                >>= loadAndApplyTemplate "templates/blog.html" (taggedPostCtx tags)
+        compile $ genCompiler tags $ field "posts" ( \_ -> postListByMonth tags "posts/*" recentFirst)
           
     match "index.html" $ do
         route idRoute
-        compile $ do
-            let indexCtx = (field "posts" $ \_ -> postList $ fmap (take 3) . recentFirst) `mappend` 
-                            (taggedPostCtx tags)
-
-            getResourceBody
-                >>= applyKeywords
-                >>= applyAsTemplate indexCtx
-                >>= loadAndApplyTemplate "templates/blog.html" (taggedPostCtx tags)
-                
+        compile $ genCompiler tags $ (field "posts" $ \_ -> postList $ fmap (take 3) . recentFirst)
                 
     create ["atom.xml"] $ do
         route idRoute
@@ -148,6 +122,16 @@ main = hakyllWith hakyllConf $ do
     match ("templates/*" .||. "partials/*") $ compile templateCompiler
 
 --------------------------------------------------------------------------------
+
+-- genCompiler :: Tags -> Compiler String -> Compiler (Item String)
+genCompiler tags posts = 
+              getResourceBody
+                >>= applyKeywords
+                >>= applyAsTemplate posts
+                >>= loadAndApplyTemplate "templates/blog.html" (taggedPostCtx tags)
+  
+--------------------------------------------------------------------------------
+
 dateRoute :: Routes
 dateRoute = gsubRoute "posts/" (const "") `composeRoutes` 
               gsubRoute "pages/" (const "") `composeRoutes`
