@@ -95,7 +95,8 @@ main = hakyllWith hakyllConf $ do
     match "talks.html" $ do 
         route idRoute
         compile $ do
-            let indexCtx = field "posts" (\_ -> postList $ fmap (take 3) . getTalks) `mappend` 
+            let indexCtx = field "posts" (\_ -> postList $ fmap (take 3) . 
+                                                  ((recentFirst :: [Item String] -> Compiler [Item String])>>= \x -> filterTalks)) `mappend` 
                             (taggedPostCtx tags)
 
             getResourceBody
@@ -103,6 +104,16 @@ main = hakyllWith hakyllConf $ do
                 >>= applyAsTemplate indexCtx
                 >>= loadAndApplyTemplate "templates/blog.html" (taggedPostCtx tags)
               
+    match "talk-archive.html" $ do
+        route idRoute
+        compile $ do
+            let indexCtx = field "posts" ( \_ -> postListByMonth tags "posts/*" 
+                                                  ((recentFirst :: [Item String] -> Compiler [Item String])>>= \x -> filterTalks))
+            getResourceBody
+                >>= applyKeywords
+                >>= applyAsTemplate indexCtx
+                >>= loadAndApplyTemplate "templates/blog.html" (taggedPostCtx tags)
+
     match "archive.html" $ do
         route idRoute
         compile $ do
@@ -112,15 +123,6 @@ main = hakyllWith hakyllConf $ do
                 >>= applyAsTemplate indexCtx
                 >>= loadAndApplyTemplate "templates/blog.html" (taggedPostCtx tags)
           
-    match "talk-archive.html" $ do
-        route idRoute
-        compile $ do
-            let indexCtx = field "posts" ( \_ -> postListByMonth tags "posts/*" getTalks)
-            getResourceBody
-                >>= applyKeywords
-                >>= applyAsTemplate indexCtx
-                >>= loadAndApplyTemplate "templates/blog.html" (taggedPostCtx tags)
-
     match "index.html" $ do
         route idRoute
         compile $ do
@@ -155,13 +157,12 @@ dateRoute = gsubRoute "posts/" (const "") `composeRoutes`
 
 --------------------------------------------------------------------------------
 
-getTalks :: [Item String] -> Compiler [Item String]
-getTalks items = do
-  itemsWithTime <- forM items $ \item -> do
+filterTalks :: [Item String] -> Compiler [Item String]
+filterTalks items = do
+  itemsWithTag <- forM items $ \item -> do
     talk <- isTalk $ itemIdentifier item
-    utc <- getItemUTC defaultTimeLocale $ itemIdentifier item
-    return (talk, (utc,item))
-  return $ map snd $ reverse $ sortBy (comparing fst) $ map snd $ filter fst itemsWithTime
+    return (talk, item)
+  return $ map snd $ filter fst itemsWithTag
   
 isTalk :: MonadMetadata m => Identifier -> m Bool 
 isTalk id' = do
