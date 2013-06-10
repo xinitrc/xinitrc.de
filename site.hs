@@ -145,7 +145,7 @@ main = hakyllWith hakyllConf $ do
                 loadAllSnapshots "posts/*" "teaser"
             renderAtom myFeedConfiguration feedCtx posts
 
-    match "templates/*" $ compile templateCompiler
+    match ("templates/*" .||. "partials/*") $ compile templateCompiler
 
 --------------------------------------------------------------------------------
 dateRoute :: Routes
