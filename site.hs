@@ -157,18 +157,20 @@ dateRoute = gsubRoute "posts/" (const "") `composeRoutes`
 
 --------------------------------------------------------------------------------
 
-filterTalks :: [Item String] -> Compiler [Item String]
-filterTalks items = do
+filterByMetaData :: MonadMetadata m => (Identifier -> m Bool) -> [Item String] -> m [Item String]
+filterByMetaData filterFn items = do
   itemsWithTag <- forM items $ \item -> do
-    talk <- isTalk $ itemIdentifier item
-    return (talk, item)
+    tag <- filterFn $ itemIdentifier item
+    return (tag, item)
   return $ map snd $ filter fst itemsWithTag
-  
-isTalk :: MonadMetadata m => Identifier -> m Bool 
-isTalk id' = do
-    metadata <- getMetadata id'
-    let typ = Data.Map.lookup "type" metadata
-    return (typ == Just "talk")
+
+filterTalks :: [Item String] -> Compiler [Item String]
+filterTalks = filterByMetaData isTalk
+              where
+                isTalk id' = do
+                    metadata <- getMetadata id'
+                    let typ = Data.Map.lookup "type" metadata
+                    return (typ == Just "talk")
 
 --------------------------------------------------------------------------------
 
