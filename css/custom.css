@@ -22,7 +22,6 @@ body {
     padding: 5px 20px 20px 20px;
     border-radius: 20px;
     margin-bottom: 20px;
-    box-shadow: 5px 5px 5px #33332d;
 }
 
 span.tag:after {
@@ -118,10 +117,6 @@ div.spacer {
     .navbar > .navbar-inner > .nav-collapse > ul.lefter {
 	margin-left: -60px;
     }
-}
-
-.navbar-inner {
-    box-shadow: 0 5px 10px #33332d;
 }
 
 header .date {
