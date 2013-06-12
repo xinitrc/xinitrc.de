@@ -28,7 +28,7 @@ processTikZs _ = error $ "Unexpeced tikzpicture"
 
   
 renderObjDesc :: TikZInfo -> String
-renderObjDesc (TikZInfo md5 w h )= "<div class=\"centered\"><object type=\"image/svg+xml\" data=\"/assets/tikzs/" ++
+renderObjDesc (TikZInfo md5 w h )= "<div class=\"tikz\"><object type=\"image/svg+xml\" data=\"/assets/tikzs/" ++
            (addExtension md5 "svg") ++
            "\" width=" ++ (show w) ++
            " height=" ++ (show h) ++
@@ -60,19 +60,21 @@ renderSVG (Tikz options tikz) = do
     where svgf = addExtension md5 "svg"
           md5 = makeDigest $ lines tikz
 
+optionPrint :: Maybe String -> String
+optionPrint (Just s) = "[" ++ s ++ "]"
+optionPrint Nothing = ""
 
-writeTikzTmp :: String -> String -> String -> IO ()
+writeTikzTmp :: String -> Maybe String -> String -> IO ()
 writeTikzTmp f options tikz = do
   h <- openFile f WriteMode
   hPutStrLn h "\\nonstopmode"
   hPutStrLn h "\\documentclass{minimal}"
   hPutStrLn h "\\def\\pgfsysdriver{pgfsys-tex4ht.def}"
   hPutStrLn h "\\usepackage{tikz}"
-  hPutStrLn h "\\usetikzlibrary{arrows, automata}"
+  hPutStrLn h "\\usetikzlibrary{arrows,automata,backgrounds,calc,calendar,er,intersections,mindmap,matrix,folding,patterns,plothandlers,plotmarks,shapes,snakes,topaths,trees}"
   hPutStrLn h "\\begin{document}"
-  hPutStr h "\\begin{tikzpicture}["
-  hPutStr h options
-  hPutStrLn h "]"
+  hPutStr h "\\begin{tikzpicture}"
+  hPutStrLn h $ optionPrint options
   hPutStrLn h tikz
   hPutStrLn h "\\end{tikzpicture}"
   hPutStrLn h "\\end{document}"

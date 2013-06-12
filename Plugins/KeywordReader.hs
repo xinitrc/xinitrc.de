@@ -16,7 +16,7 @@ data KeywordElement
     | Escaped
     | Youtube String
     | Vimeo String
-    | Tikz String String
+    | Tikz (Maybe String) String
     deriving (Show, Eq)
 
 
@@ -51,7 +51,7 @@ vimeo = try $ do
 tikz :: Parser KeywordElement
 tikz = try $ do 
         void $ string "§tikz("
-        options <- many1 $ noneOf ")"
+        options <- optionMaybe $ many1 $ noneOf ")"
         void $string ")§"
         tikz <- many1 $ noneOf "§"
         void $ string "§endtikz§"

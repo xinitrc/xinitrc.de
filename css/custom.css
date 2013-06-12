@@ -338,6 +338,26 @@ span.math {
   color: #33332d;
 }
 
+div.tikz {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 55%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+div.tikz object {
+  display: block;
+  position: absolute;
+  top:0;
+  left:0;
+  padding: 0;
+  margin: 0;
+  width: 100%; 
+  height: 100%; 
+}
+
 div.mathLatexToMML {
     padding: 0 3px 2px;
     /*  font-family: Monaco, Menlo, Consolas, "Courier New", monospace; */
