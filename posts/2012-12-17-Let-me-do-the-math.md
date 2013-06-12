@@ -104,7 +104,7 @@ latexblock liquid tag provided by the code above.
 {%latex e^{\pi\cdot i}+1=0 %}
 </pre>
 will result in: 
-$$e^{\pi\cdot i}+1=0$$
+\[e^{\pi\cdot i}+1=0\]
 and 
 
 <pre>
@@ -114,7 +114,7 @@ fib(n)=\pi_2 \left(\left(\begin{array}{cc}1 &amp; 1 \\ 1 &amp; 0\end{array}\righ
 </pre>
 
 will give you: 
-$$fib(n)=\pi_2 \left(\left(\begin{array}{cc}1 & 1 \\ 1 & 0\end{array}\right)^{n-1}\cdot\left(\begin{array}{c}1\\1\end{array}\right)\right)$$
+\[fib(n)=\pi_2 \left(\left(\begin{array}{cc}1 & 1 \\ 1 & 0\end{array}\right)^{n-1}\cdot\left(\begin{array}{c}1\\1\end{array}\right)\right)\]
 
 ## Conclusion
 
