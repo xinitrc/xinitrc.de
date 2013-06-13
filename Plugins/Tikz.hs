@@ -26,14 +26,6 @@ processTikZs t@(Tikz _ _) = renderObjDesc ts
                               where ts = unsafePerformIO $ renderSVG t
 processTikZs _ = error $ "Unexpeced tikzpicture"
 
-  
--- renderObjDesc :: TikZInfo -> String
--- renderObjDesc (TikZInfo md5 w h )= "<div class=\"tikz\"><object type=\"image/svg+xml\" data=\"/assets/tikzs/" ++
---            (addExtension md5 "svg") ++
---            "\" width=" ++ (show w) ++
---            " height=" ++ (show h) ++
---            "></object></div>"
-
 renderObjDesc :: TikZInfo -> String
 renderObjDesc (TikZInfo md5 w h )= "<div class=\"tikz\"><img type=\"image/svg+xml\" src=\"/assets/tikzs/" ++
            (addExtension md5 "svg") ++
