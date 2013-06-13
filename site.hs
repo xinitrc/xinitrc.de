@@ -31,8 +31,8 @@ import           Plugins.LogarithmicTagCloud
 pandocWriterOptions :: WriterOptions
 pandocWriterOptions = defaultHakyllWriterOptions 
     { writerHTMLMathMethod = MathML Nothing -- MathJax ""
-    , writerBiblioFiles = ["lit.bib"]
     , writerHtml5 = True
+    , writerSectionDivs = True
     , writerReferenceLinks = True
     }
 

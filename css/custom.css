@@ -517,5 +517,10 @@ text-align: right;
 }
  
 blockquote cite:before {
-content: "\2014 \2009";
+  content: "\2014 \2009";
+}
+
+section#references p {
+  text-indent: -1em;
+  margin-left: 1em;
 }
