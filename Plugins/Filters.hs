@@ -14,8 +14,6 @@ applyKeywords :: Compiler (Item String)
 applyKeywords = do
   b <- getResourceBody 
   aplKeywords b
-  -- b <- fmap itemBody getResourceBody
-  -- aplKeywords b
 
 aplKeywords :: Item String -> Compiler (Item String)
 aplKeywords item = do

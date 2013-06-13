@@ -8,7 +8,7 @@ import           Control.Monad                    (forM, filterM)
 import           Control.Arrow                    (first, second)
 
 import           Data.Ord
-import  qualified          Data.Set as S
+import qualified Data.Set as S
 import           Data.List                        (sortBy, groupBy)
 import           Data.Map                         (lookup)  
 import           Data.Monoid                      (mappend, mconcat)
