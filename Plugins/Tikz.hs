@@ -27,8 +27,15 @@ processTikZs t@(Tikz _ _) = renderObjDesc ts
 processTikZs _ = error $ "Unexpeced tikzpicture"
 
   
+-- renderObjDesc :: TikZInfo -> String
+-- renderObjDesc (TikZInfo md5 w h )= "<div class=\"tikz\"><object type=\"image/svg+xml\" data=\"/assets/tikzs/" ++
+--            (addExtension md5 "svg") ++
+--            "\" width=" ++ (show w) ++
+--            " height=" ++ (show h) ++
+--            "></object></div>"
+
 renderObjDesc :: TikZInfo -> String
-renderObjDesc (TikZInfo md5 w h )= "<div class=\"tikz\"><object type=\"image/svg+xml\" data=\"/assets/tikzs/" ++
+renderObjDesc (TikZInfo md5 w h )= "<div class=\"tikz\"><img type=\"image/svg+xml\" src=\"/assets/tikzs/" ++
            (addExtension md5 "svg") ++
            "\" width=" ++ (show w) ++
            " height=" ++ (show h) ++
@@ -58,7 +65,7 @@ renderSVG (Tikz options tikz) = do
   setCurrentDirectory pwd
   return (TikZInfo md5 w h)
     where svgf = addExtension md5 "svg"
-          md5 = makeDigest $ lines tikz
+          md5 = makeDigest tikz
 
 optionPrint :: Maybe String -> String
 optionPrint (Just s) = "[" ++ s ++ "]"
@@ -81,8 +88,8 @@ writeTikzTmp f options tikz = do
   hClose h
 
 
-makeDigest :: [String] -> String
-makeDigest p = show $ md5 $ C8.pack $ strip $ concat p
+makeDigest :: String -> String
+makeDigest = show . md5 . C8.pack
 
 getSVGDimensions :: String -> IO (Int, Int)
 getSVGDimensions svgf = do
