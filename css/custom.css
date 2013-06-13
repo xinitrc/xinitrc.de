@@ -1,3 +1,25 @@
+@font-face {
+    font-family: "Computer Modern";
+    src: url('http://mirrors.ctan.org/fonts/cm-unicode/fonts/otf/cmunss.otf');
+  }
+  @font-face {
+    font-family: "Computer Modern";
+    src: url('http://mirrors.ctan.org/fonts/cm-unicode/fonts/otf/cmunsx.otf');
+    font-weight: bold;
+  }
+  @font-face {
+    font-family: "Computer Modern";
+    src: url('http://mirrors.ctan.org/fonts/cm-unicode/fonts/otf/cmunsi.otf');
+    font-style: italic, oblique;
+  }
+  @font-face {
+    font-family: "Computer Modern";
+    src: url('http://mirrors.ctan.org/fonts/cm-unicode/fonts/otf/cmunbxo.otf');
+    font-weight: bold;
+    font-style: italic, oblique;
+  }
+
+
 body {
     font-size: 20px;
     line-height: 1.5em;
@@ -334,8 +356,17 @@ span.label a {
 }
 
 span.math {
-  display: block;
+/*  display: block; */
   color: #33332d;
+}
+
+math {
+  font-family: "Computer Modern", "STIXGeneral", "STIXGeneral-Italic", "STIXGeneral-Bold", "STIXGeneral-BoldItalic", "Menlo"; 
+}
+
+math[display="block"] {
+  display: block;
+  text-align: center;
 }
 
 div.tikz {
@@ -449,4 +480,42 @@ div.mathLatexToMML {
     .end {
 	display: block;
     }
+}
+
+blockquote {
+  font-family: "Lato", sans;
+  font-size: 20px;
+  /*font-style: italic;
+  /*width: 500px;*/
+  /*margin: 0.25em;*/
+  margin-left: auto;
+  margin-right: auto;
+  border: none;
+  border-radius: 10px;
+
+  padding: 0 30px;
+  position: relative;
+  color: #33332d;
+}
+
+blockquote:before {
+  display: block;
+  content: "\201C";
+  font-size: 80px;
+  position: absolute;
+  left: 0px;
+  top: 15px;
+  color: #9FB4CC;
+}
+
+blockquote cite {
+color: #9FB4CC;
+font-size: 14px;
+display: block;
+margin-top: 5px;
+text-align: right;
+}
+ 
+blockquote cite:before {
+content: "\2014 \2009";
 }

@@ -104,7 +104,7 @@ latexblock liquid tag provided by the code above.
 {%latex e^{\pi\cdot i}+1=0 %}
 </pre>
 will result in: 
-\[e^{\pi\cdot i}+1=0\]
+\(e^{\pi\cdot i}+1=0\)
 and 
 
 <pre>

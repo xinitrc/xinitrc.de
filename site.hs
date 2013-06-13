@@ -2,6 +2,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 import           Hakyll
 import           Hakyll.Web.Tags
+import           Hakyll.Web.Pandoc.Biblio
 
 import           Control.Applicative              ((<$>))
 import           Control.Monad                    (forM, filterM)
@@ -29,7 +30,10 @@ import           Plugins.LogarithmicTagCloud
 
 pandocWriterOptions :: WriterOptions
 pandocWriterOptions = defaultHakyllWriterOptions 
-    { writerHTMLMathMethod = MathJax ""
+    { writerHTMLMathMethod = MathML Nothing -- MathJax ""
+    , writerBiblioFiles = ["lit.bib"]
+    , writerHtml5 = True
+    , writerReferenceLinks = True
     }
 
 pandocReaderOptions :: ReaderOptions
@@ -72,6 +76,7 @@ myPandocExtensions = S.fromList
   , Ext_citations
   , Ext_raw_tex
   , Ext_raw_html
+  , Ext_tex_math_dollars
   , Ext_tex_math_single_backslash
   , Ext_latex_macros
   , Ext_fenced_code_blocks
@@ -133,8 +138,11 @@ main = hakyllWith hakyllConf $ do
     match "posts/*" $ do
         route $ dateRoute
         compile $ do
-            p  <- readPandocWith pandocReaderOptions <$> applyKeywords
-            saveSnapshot "teaser" $ writePandocWith pandocWriterOptions p
+            csl <- load "springer-lncs.csl"
+            bib <- load "lit.bib"
+            p  <- readPandocBiblio pandocReaderOptions (Just csl) bib <$> applyKeywords
+            p' <- p
+            saveSnapshot "teaser" $ writePandocWith pandocWriterOptions p'
             >>= loadAndApplyTemplate "templates/post.html" (taggedPostCtx tags)
             >>= loadAndApplyTemplate "templates/blog.html" (taggedPostCtx tags)
 
@@ -164,6 +172,11 @@ main = hakyllWith hakyllConf $ do
             renderAtom myFeedConfiguration feedCtx posts
 
     match ("templates/*" .||. "partials/*") $ compile templateCompiler
+
+
+    match "lit.bib" $ compile $ biblioCompiler
+    match "springer-lncs.csl" $ compile $ cslCompiler
+    match "chicago.csl" $ compile $ cslCompiler
 
 --------------------------------------------------------------------------------
 
