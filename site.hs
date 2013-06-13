@@ -139,7 +139,7 @@ main = hakyllWith hakyllConf $ do
         route $ dateRoute
         compile $ do
             csl <- load "springer-lncs.csl"
-            bib <- load "lit.bib"
+            bib <- load "ref.bib"
             p  <- readPandocBiblio pandocReaderOptions (Just csl) bib <$> applyKeywords
             p' <- p
             saveSnapshot "teaser" $ writePandocWith pandocWriterOptions p'
@@ -174,7 +174,7 @@ main = hakyllWith hakyllConf $ do
     match ("templates/*" .||. "partials/*") $ compile templateCompiler
 
 
-    match "lit.bib" $ compile $ biblioCompiler
+    match "ref.bib" $ compile $ biblioCompiler
     match "springer-lncs.csl" $ compile $ cslCompiler
     match "chicago.csl" $ compile $ cslCompiler
 
