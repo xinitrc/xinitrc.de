@@ -34,8 +34,8 @@ common :: String -> String -> String
 common service vid = "<div class=\"elastic-video\"><iframe src=\"" ++ service ++ vid ++ "\" frameborder=\"0\" allowfullscreen=\"\"></iframe></div>\n"
   
 videoBody :: KeywordElement -> String 
-videoBody (Youtube vid) = common "http://www.youtube.com/embed/" vid
-videoBody (Vimeo vid)   = common "http://player.vimeo.com/video/" vid
+videoBody (Youtube vid) = common "//www.youtube.com/embed/" vid
+videoBody (Vimeo vid)   = common "//player.vimeo.com/video/" vid
 videoBody _ = error $ "Unexpeced videoConfig"
 
 
