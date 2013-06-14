@@ -126,7 +126,6 @@ a:hover {
     color: #db4105;
 }
 
-
 a.brand {
     text-decoration: none;
 }
@@ -182,14 +181,41 @@ header .date a{
     }
 }
 
-h1 a, h2 a, h3 a, h4 a, h5 a {
+h2 a, h3 a, h4 a, h5 a {
+    color: #33332d;
+    text-decoration: none;
+}
+h1 a, h1 a:hover, h2 a, h2 a:hover {
+    color: #cccc9f;
+    text-decoration: none;
+}
+
+h1, h2 {
+    color: #cccc9f;
+    position: relative;
+    background-color: #33332d;
+    padding: 0 10px 5px 40px;
+    margin-left: -40px;
+    text-decoration: none;
+    position: relative;
+    border-radius: 10px 10px 10px 0px;
+    box-shadow: 5px 5px 5px black;
+}
+
+h2 a:hover, h3 a:hover, h4 a:hover, h5 a:hover {
     color: #33332d;
     text-decoration: none;
 }
 
-h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover, h5 a:hover {
-    color: #33332d;
-    text-decoration: none;
+h1:before, h2:before {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 0px;
+    height: 0;
+    width: 0;
+    border-top: 20px solid black;
+    border-left: 20px solid transparent;
 }
 
 li.archive {
