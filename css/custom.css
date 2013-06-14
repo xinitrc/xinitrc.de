@@ -1,20 +1,20 @@
 @font-face {
     font-family: "Computer Modern";
-    src: url('http://mirrors.ctan.org/fonts/cm-unicode/fonts/otf/cmunss.otf');
+    src: url('/fonts/cmunss.otf');
   }
   @font-face {
     font-family: "Computer Modern";
-    src: url('http://mirrors.ctan.org/fonts/cm-unicode/fonts/otf/cmunsx.otf');
+    src: url('/fonts/cmunsx.otf');
     font-weight: bold;
   }
   @font-face {
     font-family: "Computer Modern";
-    src: url('http://mirrors.ctan.org/fonts/cm-unicode/fonts/otf/cmunsi.otf');
+    src: url('/fonts/cmunsi.otf');
     font-style: italic, oblique;
   }
   @font-face {
     font-family: "Computer Modern";
-    src: url('http://mirrors.ctan.org/fonts/cm-unicode/fonts/otf/cmunbxo.otf');
+    src: url('/fonts/cmunbxo.otf');
     font-weight: bold;
     font-style: italic, oblique;
   }
