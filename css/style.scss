@@ -1,0 +1,318 @@
+@import "css/_base.scss";
+@import "css/zenburn.scss";
+
+body {
+  font-size: 20px;
+  line-height: 1.5em;
+  background-color: $dark;
+  color: $black;
+}
+
+hr {
+  border-top: 1px solid $dark;
+  border-bottom: 1px solid $dark;
+}
+
+a {
+  color: $orange;
+  text-decoration: underline;
+
+  .brand {
+    text-decoration: none;
+  }
+}
+
+iframe#latitude {
+  width: 100%;
+  height: 300px;
+}
+
+h1, h2 {
+  color: $dark;
+  position: relative;
+  background-color: $black;
+  padding: 0 10px 0 40px;
+  margin-left: -40px;
+  @include border-top-left-radius(10px);
+  @include border-top-right-radius(10px);
+  @include border-bottom-right-radius(10px);
+  @include box-shadow(5px 5px 5px black);
+
+  a {
+    color: $dark;
+    text-decoration: none;
+
+    :hover {
+      color: $dark;
+      text-decoration: none;
+    }
+  }
+
+  :before {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 0px;
+    height: 0;
+    width: 0;
+    border-top: 20px solid black;
+    border-left: 20px solid transparent;
+  }
+}
+
+h3, h4, h5 {
+  a {
+    color: $black;
+    text-decoration: none;
+    :hover {
+      color: $black;
+      text-decoration: none;
+    }
+  }
+}
+
+div {
+  .contentblock {
+    background: $sand;
+    padding: 5px 20px 20px 20px;
+    margin-bottom: 20px;
+    @include border-radius;
+  }
+
+  .archive {
+    font: {
+      family: "Lobster Two";
+      size: 40px;
+      weight: bold;
+      style: italic;
+    }
+    margin-top: 13px;
+    margin-bottom: 6px;
+    text-align: center;
+
+    a:hover {
+      color: $orange;
+    }
+  }
+  .more {
+    text-align: right;
+  }
+
+}
+
+table.meta td.heading {
+  vertical-align: top;
+}
+
+td.heading {
+  padding-right: 10px;
+}
+
+td.toptd {
+  vertical-align: top;
+}
+
+.date {
+  margin-right: 20px;
+}
+
+.centered {
+  text-align: center;
+}
+
+.disqus {
+  color: $black;
+  margin-right: 20px;
+
+  a {
+    color: $black;
+    text-decoration: none;
+    margin-right: 20px;
+    font-size: 75%;
+  }
+}
+
+.flattr {
+  margin-top: 25px;
+}
+
+.navbar-fixed-top .navbar-inner, .navbar-fixed-bottom .navbar-inner {
+  padding-left: 20px;
+  min-height: 40px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.rounded {
+  border-radius: 15px;
+}
+
+span.math {
+  /*  display: block; */
+  color: $black;
+}
+
+math {
+  font-family: "Computer Modern", "STIXGeneral", "STIXGeneral-Italic", "STIXGeneral-Bold", "STIXGeneral-BoldItalic", "Menlo";
+}
+
+math[display="block"] {
+  display: block;
+  text-align: center;
+}
+
+div.tikz {
+  text-align: center;
+}
+
+div.tikz object {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+div.tikz img {
+  max-width: 100%;
+  height: auto;
+}
+
+.elastic-video {
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 30px;
+  height: 0;
+  overflow: hidden;
+}
+
+.elastic-video iframe, .elastic-video object, .elastic-video embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+section#references p {
+  text-indent: -1em;
+  margin-left: 1em;
+}
+
+/* Lastly, apply responsive CSS fixes as necessary */
+@media (min-width: 1200px) {
+  #nikeplus {
+    width: 770px;
+  }
+}
+
+@media (min-width: 767px) and (max-width: 1199px) {
+  h1, h2 {
+    position: relative;
+    padding: 0 10px 0px 35px;
+    margin-left: -35px;
+    text-decoration: none;
+    position: relative;
+    border-radius: 10px 10px 10px 0px;
+    box-shadow: 5px 5px 5px black;
+  }
+
+  h1:before, h2:before {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 0px;
+    height: 0;
+    width: 0;
+    border-top: 15px solid black;
+    border-left: 15px solid transparent;
+  }
+
+}
+
+@media (min-width: 980px) {
+  iframe#latitude {
+    width: 100%;
+    height: 500px;
+  }
+  .navbar > .navbar-inner > .nav-collapse > ul.lefter {
+    margin-left: -60px;
+  }
+  .center.navbar .nav, .center.navbar .nav > li {
+    float: none;
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    vertical-align: top;
+  }
+
+  .center .navbar-inner {
+    text-align: center;
+  }
+  #nikeplus {
+    width: 620px;
+    height: 300px;
+  }
+}
+
+@media (max-width: 767px) {
+  body {
+    font-size: 16px;
+  }
+  h1 {
+    font-size: 40px;
+  }
+  h2 {
+    font-size: 31px;
+  }
+  h3 {
+    font-size: 23px;
+  }
+  h4 {
+    font-size: 16px;
+  }
+  div.archive {
+    font-size: 31px
+  }
+  .contact li {
+    margin-left: -25px;
+  }
+  #nikeplus {
+    width: 95%;
+    height: 300px;
+  }
+  [class*='span'].month {
+    width: 50%;
+    display: inline;
+  }
+  [class*='span'].year {
+    width: 50%;
+    display: inline;
+  }
+}
+
+@media (min-width: 768px) {
+  .right {
+    text-align: right;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
+  .start {
+    display: block;
+  }
+  .end {
+    display: block;
+  }
+  #nikeplus {
+    width: 476px;
+  }
+  .span4 h1, .span4 h2 {
+    padding: 0 10px 0px 15px;
+  }
+
+}
+

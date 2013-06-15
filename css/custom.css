@@ -45,11 +45,6 @@ body {
     margin-bottom: 20px;
 }
 
-span.tag:after {
-    text-decoration: none;
-    content: ' ';
-}
-
 span.postal-code:after {
     text-decoration: none;
     content: ' ';

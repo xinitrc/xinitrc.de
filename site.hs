@@ -125,9 +125,16 @@ main = hakyllWith hakyllConf $ do
         route   idRoute
         compile copyFileCompiler
          
-    match "css/*" $ do
-        route   idRoute
-        compile compressCssCompiler
+    -- match ("css/solarized.css" .||. "css/zenburn.css") $ do
+    --     route   idRoute
+    --     compile compressCssCompiler
+
+    match "css/style.scss" $ do 
+        route   $ setExtension "css"
+        compile $ getResourceString 
+            >>= withItemBody (unixFilter "sass" ["-s", "--scss", "--compass", "--style", "compressed"])
+            >>= return . fmap compressCss
+    
 
     match ("facts.html" .||. "contact.html" )$ do
         route idRoute
