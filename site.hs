@@ -211,7 +211,7 @@ filterTalks = filterM isTalk
 
 tagCloudCtx :: Tags -> Context String
 tagCloudCtx tags = field "tagcloud" $ \_ -> rendered 
-  where rendered = renderLogTagCloud 85.0 165.0 "%" tags
+  where rendered = renderLogTagCloud 0.8 1.8 "em" tags
 
 taggedPostCtx :: Tags -> Context String
 taggedPostCtx tags = mconcat [(tagsField "tags" tags), (tagCloudCtx tags), postCtx]
