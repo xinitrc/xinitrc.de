@@ -1,6 +1,7 @@
 ---
 title: From outer space
 tags: podcast, raummaschine
+type: article
 ---
 
 

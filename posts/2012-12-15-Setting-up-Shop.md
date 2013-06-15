@@ -1,6 +1,7 @@
 ---
 title: Setting up shop
 tags: jekyll, uberspace, git, setup, post-receive hook
+type: article
 ---
 
 Recently I put up serveral sites and blogs, most of them in

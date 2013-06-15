@@ -1,6 +1,7 @@
 ---
 title: This pod thingy
 tags: podcast, poddingens
+type: article
 ---
 
 

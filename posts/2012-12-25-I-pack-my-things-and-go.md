@@ -1,6 +1,7 @@
 ---
 title: I pack my things and go
 tags: packinglist, ccc, vandalism
+type: article
 ---
 
 

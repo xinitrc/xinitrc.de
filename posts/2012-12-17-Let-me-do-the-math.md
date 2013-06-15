@@ -1,6 +1,7 @@
 ---
 title: Let me do the math
 tags: jekyll, plugin, mathml, code
+type: article
 ---
 
 As this is my site and a big part of my life is math, I'd obiously like to have 

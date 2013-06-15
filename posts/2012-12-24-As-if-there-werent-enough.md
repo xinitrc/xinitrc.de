@@ -1,6 +1,7 @@
 ---
 title: As if there weren't enough
 tags: podcast, math, theoretical computer science, science
+type: article
 ---
 
 ... podcasts already. Anyway we started a new one and by we I mean

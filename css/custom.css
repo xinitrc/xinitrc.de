@@ -1,3 +1,12 @@
+/*
+    Color Theme
+    FFF8E3
+    CCCC9F
+    33332D
+    9FB4CC
+    DB4105
+*/
+
 @font-face {
     font-family: "Computer Modern";
     src: url('/fonts/cmunss.otf');
@@ -105,7 +114,8 @@ div.archive {
     text-align: center;
     font-weight: bold;
     font-style: italic;
-    margin-bottom: 10px;
+    margin-bottom: 6px;
+    margin-top: 13px;
 }
 
 h1, h2 {
@@ -114,7 +124,6 @@ h1, h2 {
     background-color: #33332d;
     padding: 0 10px 0px 40px;
     margin-left: -40px;
-    margin-right: 10px;
     text-decoration: none;
     position: relative;
     border-radius: 10px 10px 10px 0px;
