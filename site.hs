@@ -130,7 +130,7 @@ main = hakyllWith hakyllConf $ do
     match "css/style.scss" $ do 
         route   $ setExtension "css"
         compile $ getResourceString 
-            >>= withItemBody (unixFilter "sass" ["-s", "--scss", "--compass", "--style", "compressed"])
+            >>= withItemBody (unixFilter "sass" ["-s", "--no-cache", "--scss", "--compass", "--style", "compressed"])
             >>= return . fmap compressCss
     
 
