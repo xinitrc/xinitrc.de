@@ -123,9 +123,9 @@ main = hakyllWith hakyllConf $ do
         
     match ("scripts/*.js")  $ do
         route   idRoute
-        compile copyFileCompiler -- $ getResourceString 
---            >>= withItemBody (unixFilter "uglifyjs" ["-"])
---            >>= return
+        compile $ getResourceString 
+            >>= withItemBody (unixFilter "./compressJS.sh" [])
+            -- >>= withItemBody (unixFilter "/Users/martin/bin/compressJS.sh" [])
 
     match "css/style.scss" $ do 
         route   $ setExtension "css"
