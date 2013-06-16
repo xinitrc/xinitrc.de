@@ -33,6 +33,72 @@ iframe#latitude {
   height: 300px;
 }
 
+.navbar {
+  font: {
+    family: "Lobster Two";
+    weight: bold;
+    style: italic;
+  }
+  background-color: $textcolor;
+  border: none;
+
+}
+.navbar-inner {
+  background-image: none;
+  background-color: $textcolor;
+  border: none;
+}
+
+.navbar .btn-navbar {
+  @include background(linear-gradient($contentboxcolor, $background));
+}
+
+li {
+  line-height: 1.5em;
+}
+
+h1,h2,h3,h4,h5 {
+  font: {
+    family: "Lobster Two";
+    weight: bold;
+    style: italic;
+  }
+  line-height: 1.5em;
+}
+
+.navbar .nav>li>a {
+  color: $background;
+  display: block;
+  line-height: 1.5em;
+  text-decoration: none;
+  @include box-shadow(none);
+  @include text-shadow(none);
+
+  :hover {
+    color: $contentboxcolor;
+  }
+}
+
+.nav-collapse .nav>li>a, .nav-collapse .dropdown-menu a {
+  background-color: $textcolor;
+  color: $background;
+
+  :hover {
+    background-color: $textcolor;
+    color: $contentboxcolor;
+  }
+}
+
+.navbar .nav>.active>a, .navbar .nav>.active>a:hover, .navbar .nav>.active>a:focus {
+  color: $textcolor;
+  text-decoration: none;
+  background-color: $background;
+  @include box-shadow(none);
+  @include text-shadow(none);
+}
+
+
+
 h1, h2 {
   color: $background;
   position: relative;
@@ -214,6 +280,17 @@ section#references p {
   .right {
     text-align: right;
   }
+  .center.navbar .nav, .center.navbar .nav > li {
+    float: none;
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    vertical-align: top;
+  }
+
+  .center .navbar-inner {
+    text-align: center;
+  }
 }
 
 @media (min-width: 768px) and (max-width: 979px) {
@@ -227,17 +304,6 @@ section#references p {
     height: 500px;
   }
 
-  .center.navbar .nav, .center.navbar .nav > li {
-    float: none;
-    display: inline-block;
-    *display: inline;
-    *zoom: 1;
-    vertical-align: top;
-  }
-
-  .center .navbar-inner {
-    text-align: center;
-  }
 }
 
 @media (max-width: 1199px) {
