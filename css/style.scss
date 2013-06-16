@@ -7,6 +7,10 @@ body {
   line-height: 1.5em;
   background-color: $background;
   color: $textcolor;
+  font: {
+    weight: 300;
+    family: "Lato", "Helvetica Neue",Helvetica,Arial,sans-serif;
+  }
 }
 
 hr {
@@ -14,13 +18,14 @@ hr {
   border-bottom: 1px solid $background;
 }
 
-a {
+a, a:hover {
   color: $linkcolor;
   text-decoration: underline;
 
   .brand {
     text-decoration: none;
   }
+
 }
 
 iframe#latitude {
