@@ -16,6 +16,7 @@ data KeywordElement
     | Escaped
     | Youtube String
     | Vimeo String
+    | SlideShare String
     | Tikz (Maybe String) String
     deriving (Show, Eq)
 
@@ -26,13 +27,20 @@ readKeywords input = case parse keywords "" input of
     Right t -> t
 
 keywords :: Parser Keywords
-keywords = Keywords <$> (many1 $ chunk <|> escaped <|> youtube <|> vimeo <|> tikz)
+keywords = Keywords <$> (many1 $ chunk <|> escaped <|> youtube <|> vimeo <|> slideshare <|> tikz)
 
 chunk :: Parser KeywordElement
 chunk = Chunk <$> (many1 $ noneOf "§")
 
 escaped :: Parser KeywordElement
 escaped = Escaped <$ (try $ string "§§")
+
+slideshare :: Parser KeywordElement
+slideshare = try $ do
+        void $ string "§slideshare("
+        slidesID <- many1 $ noneOf ")"
+        void $ string ")§"
+        return $ SlideShare slidesID
 
 youtube :: Parser KeywordElement
 youtube = try $ do

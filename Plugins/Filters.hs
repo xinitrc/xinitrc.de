@@ -28,10 +28,11 @@ applyKeywords' = liftM concat . mapM applyKWs . unKeyword
     applyKWs m@(Youtube vid) = return $ videoBody m
     applyKWs m@(Vimeo vid) = return $ videoBody m
     applyKWs t@(Tikz _ _) = return $ processTikZs t
+    applyKWs (SlideShare sid) = return $ slideShare sid
     
 
 common :: String -> String -> String 
-common service vid = "<div class=\"elastic-video\"><iframe src=\"" ++ service ++ vid ++ "\" frameborder=\"0\" allowfullscreen=\"\"></iframe></div>\n"
+common service vid = "<div class=\"elastic-container\"><iframe src=\"" ++ service ++ vid ++ "\" frameborder=\"0\" allowfullscreen=\"\"></iframe></div>\n"
   
 videoBody :: KeywordElement -> String 
 videoBody (Youtube vid) = common "//www.youtube.com/embed/" vid
@@ -39,3 +40,6 @@ videoBody (Vimeo vid)   = common "//player.vimeo.com/video/" vid
 videoBody _ = error $ "Unexpeced videoConfig"
 
 
+slideShare :: String -> String
+slideShare sid = "<div class=\"elastic-container\"><iframe src=\"http://www.slideshare.net/slideshow/embed_code/" ++ sid ++ "\"" ++ 
+  "frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\"></iframe></div>"
