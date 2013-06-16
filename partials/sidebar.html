@@ -2,12 +2,12 @@
     <h1>Upcoming</h1>
 
     <div ng-controller="CalendarCTRL">
-        <ul>
+        <ul ng-cloak>
             <li ng-repeat='event in calendarEntries'>
-                <div class='dateli'>
-                    <span class='startdate'>{{event.start}}<span
-                            ng-show='event.end'> - </span></span>
-                    <span class='enddate'>{{event.end}}</span>
+                <div class='dateli' ng-cloak>
+                    <span class='startdate' ng-cloak>{{event.start}}<span
+                            ng-show='event.end' ng-cloak> - </span></span>
+                    <span class='enddate' ng-cloak>{{event.end}}</span>
                 </div>
                 <span ng-bind='event.summary'></span>
             </li>
