@@ -99,6 +99,7 @@ div {
 }
 
 table.meta td.heading {
+  font-weight: bold;
   vertical-align: top;
   padding-right: 10px;
 }
@@ -107,12 +108,21 @@ td.toptd {
   vertical-align: top;
 }
 
-.date {
+.day {
   margin-right: 20px;
 }
 
-.centered {
+.month {
   text-align: center;
+}
+
+.year {
+  font-weight: bold;
+  text-align: right;
+}
+
+.rounded {
+  border-radius: 15px;
 }
 
 .disqus {
@@ -138,10 +148,6 @@ td.toptd {
   padding-right: 20px;
 }
 
-.rounded {
-  border-radius: 15px;
-}
-
 span.math {
   color: $black;
 }
@@ -157,17 +163,6 @@ math[display="block"] {
 
 div.tikz {
   text-align: center;
-}
-
-div.tikz object {
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-  height: 100%;
 }
 
 div.tikz img {
@@ -191,6 +186,10 @@ div.tikz img {
   height: 100%;
 }
 
+.startdate, .enddate {
+  font-weight: bold;
+}
+
 section#references p {
   text-indent: -1em;
   margin-left: 1em;
@@ -201,13 +200,11 @@ section#references p {
 @media (max-width: 767px) {
   @include fontsizes(16px);
 
-  [class*='span'].month {
-    width: 50%;
-    display: inline;
-  }
-  [class*='span'].year {
-    width: 50%;
-    display: inline;
+  [class*='span'] {
+    .month, .year {
+      width: 50%;
+      display: inline;
+    }
   }
 }
 
@@ -218,10 +215,7 @@ section#references p {
 }
 
 @media (min-width: 768px) and (max-width: 979px) {
-  .start {
-    display: block;
-  }
-  .end {
+  .startdate, .endate {
     display: block;
   }
 }

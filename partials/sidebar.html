@@ -5,9 +5,9 @@
         <ul>
             <li ng-repeat='event in calendarEntries'>
                 <div class='dateli'>
-                    <span class='start'><strong ng-bind='event.start'></strong><span
+                    <span class='startdate'>{{event.start}}<span
                             ng-show='event.end'> - </span></span>
-                    <span class='end'><strong ng-bind='event.end'></strong></span>
+                    <span class='enddate'>{{event.end}}</span>
                 </div>
                 <span ng-bind='event.summary'></span>
             </li>

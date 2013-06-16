@@ -224,7 +224,7 @@ taggedPostCtx :: Tags -> Context String
 taggedPostCtx tags = mconcat [(tagsField "tags" tags), (tagCloudCtx tags), postCtx]
 
 postCtx :: Context String
-postCtx = mconcat [dateField "date" "%Y %b %d" , defaultContext]
+postCtx = mconcat [dateField "date" "%Y-%m-%d" , defaultContext]
 
 --------------------------------------------------------------------------------
 
@@ -246,7 +246,7 @@ postListByMonth tags pattern filterFun = do
     posts   <- bucketMonth =<< filterFun =<< loadAll pattern
     itemTpl <- loadBody "templates/month-item.html"
     monthTpl <- loadBody "templates/month.html"
-    let mkSection ((yr, _, mth), ps) =
+    let mkSection ((yr, mth), ps) =
             applyTemplateList itemTpl (taggedPostCtx tags `mappend` (dateField "day" "%d")) ps 
             >>= makeItem
             >>= applyTemplate monthTpl (monthContext yr mth)
@@ -257,7 +257,7 @@ postListByMonth tags pattern filterFun = do
         mapM tagWithMonth posts
     tagWithMonth p = do
         utcTime <- getItemUTC timeLocale $ itemIdentifier p
-        return ((formatTime timeLocale "%Y" utcTime, formatTime timeLocale "%m" utcTime, formatTime timeLocale "%b" utcTime ), p)
+        return ((formatTime timeLocale "%Y" utcTime, formatTime timeLocale "%m" utcTime), p)
     timeLocale = defaultTimeLocale
  
 monthContext :: String -> String -> Context String
