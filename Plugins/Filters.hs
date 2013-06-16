@@ -25,7 +25,9 @@ aplKeywords item = do
   return $ itemSetBody body item
 
 applyKeywords' :: Keywords -> Compiler String
-applyKeywords' kws = (sequence $ map applyKWs $ unKeyword kws) >>= \x -> return $ concat $ map itemBody x
+applyKeywords' kws = do
+  items <- sequence $ map applyKWs $ unKeyword kws
+  return $ concat $ map itemBody items
   where
     applyKWs (Chunk c) = makeItem c
     applyKWs (Escaped) = makeItem "§"
