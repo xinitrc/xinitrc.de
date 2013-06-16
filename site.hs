@@ -121,13 +121,11 @@ main = hakyllWith hakyllConf $ do
         route   $ gsubRoute "static/" (const "")
         compile copyFileCompiler
         
-    match ("scripts/**")  $ do
+    match ("scripts/*.js")  $ do
         route   idRoute
-        compile copyFileCompiler
-         
-    -- match ("css/solarized.css" .||. "css/zenburn.css") $ do
-    --     route   idRoute
-    --     compile compressCssCompiler
+        compile copyFileCompiler -- $ getResourceString 
+--            >>= withItemBody (unixFilter "uglifyjs" ["-"])
+--            >>= return
 
     match "css/style.scss" $ do 
         route   $ setExtension "css"
