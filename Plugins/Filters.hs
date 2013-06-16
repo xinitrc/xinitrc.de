@@ -49,4 +49,4 @@ vimeo :: String -> Compiler (Item String)
 vimeo = externalResource "templates/vimeo.html" "vid"
 
 slideShare :: String -> Compiler (Item String)
-slideShare = externalResource "templates/slideshare.html" "sid"
+slideShare = externalResource "templates/slideshare.html" "slidesID"
