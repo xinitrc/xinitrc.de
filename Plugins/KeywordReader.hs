@@ -1,4 +1,4 @@
-module Plugins.KeywordReader where 
+module Plugins.KeywordReader(Keywords(..), KeywordElement(..), readKeywords) where 
 
 import            Control.Applicative          ((<$), (<$>))
 import            Control.Monad                (void, liftM)
