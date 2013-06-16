@@ -9,7 +9,7 @@ body {
   color: $textcolor;
   font: {
     weight: 300;
-    family: "Lato", "Helvetica Neue",Helvetica,Arial,sans-serif;
+    family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
 }
 
@@ -37,8 +37,8 @@ h1, h2 {
   color: $background;
   position: relative;
   background-color: $textcolor;
-  padding: 0 10px 0 2*$trianglesize;
-  margin-left: -2*$trianglesize;
+  padding: 0 10px 0 $leftshift;
+  margin-left: -1 * $leftshift;
   @include border-radius(10px 10px 10px 0);
   @include box-shadow(5px 5px 5px black);
 
@@ -242,15 +242,15 @@ section#references p {
 
 @media (max-width: 1199px) {
   h1, h2 {
-    padding: 0 10px 0px $trianglesize / 2;
-    margin-left: -1.5 * $trianglesize;
+    padding: 0 10px 0px $leftshift;
+    margin-left: -1 * $leftshift;
     @include border-radius(10px 10px 10px 0px);
     @include box-shadow(5px 5px 5px black);
 
     :before {
-      bottom: -1 * $trianglesize / 2;
-      border-top: $trianglesize / 2 solid black;
-      border-left: $trianglesize / 2 solid transparent;
+      bottom: -1 * $trianglesize;
+      border-top: $trianglesize solid black;
+      border-left: $trianglesize solid transparent;
     }
   }
 }

@@ -153,7 +153,7 @@ main = hakyllWith hakyllConf $ do
 
     match "talks.html" $ do 
         route idRoute
-        compile $ genCompiler tags $ field "posts" (\_ -> postList $ fmap (take 3 . reverse) . 
+        compile $ genCompiler tags $ field "posts" (\_ -> postList $ fmap (take 4 . reverse) . 
                                                   ((recentFirst :: [Item String] -> Compiler [Item String])>>= \x -> filterTalks))
                                                                 
     match "talk-archive.html" $ do
@@ -166,7 +166,7 @@ main = hakyllWith hakyllConf $ do
           
     match "index.html" $ do
         route idRoute
-        compile $ genCompiler tags $ (field "posts" $ \_ -> postList $ fmap (take 3) . recentFirst)
+        compile $ genCompiler tags $ (field "posts" $ \_ -> postList $ fmap (take 4) . recentFirst)
                 
     create ["atom.xml"] $ do
         route idRoute
