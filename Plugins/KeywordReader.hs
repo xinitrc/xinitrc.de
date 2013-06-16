@@ -35,27 +35,22 @@ chunk = Chunk <$> (many1 $ noneOf "§")
 escaped :: Parser KeywordElement
 escaped = Escaped <$ (try $ string "§§")
 
-slideshare :: Parser KeywordElement
-slideshare = try $ do
-        void $ string "§slideshare("
-        slidesID <- many1 $ noneOf ")"
+simpleIdParserGenerator :: String -> (String -> KeywordElement) -> Parser KeywordElement
+simpleIdParserGenerator identifier constructor = try $ do
+        void $ string ("§"++ identifier ++ "(")
+        id <- many1 $ noneOf ")"
         void $ string ")§"
-        return $ SlideShare slidesID
+        return $ constructor id
+
+slideshare :: Parser KeywordElement
+slideshare = simpleIdParserGenerator "slideshare" SlideShare
 
 youtube :: Parser KeywordElement
-youtube = try $ do
-        void $ string "§youtube("
-        videoID <- many1 $ noneOf ")"
-        void $ string ")§"
-        return $ Youtube videoID
+youtube = simpleIdParserGenerator "youtube" Youtube
 
 vimeo :: Parser KeywordElement
-vimeo = try $ do 
-          void $ string "§vimeo("
-          videoID <- many1 $ noneOf ")"
-          void $ string ")§"
-          return $ Vimeo videoID
-          
+vimeo = simpleIdParserGenerator "vimeo" Vimeo
+
 tikz :: Parser KeywordElement
 tikz = try $ do 
         void $ string "§tikz("
