@@ -3,7 +3,7 @@ title: Resetting shop
 tags: jekyll, hakyll, bootstrapping
 ---
 
-After having set up this as a [Jekyll](http://jekyllrb.com/)-Blog last year I was quite happy with what I had worked out for blogging. If you want to know, you can look it up in [this article](/2012/12/15/Setting-up-Shop.html). But after not having an eye on the site for some month all hell broke loose and I had to start over.
+After having set up this site as a [Jekyll](http://jekyllrb.com/)-Blog last year I was quite happy with what I had worked out for blogging. If you want to know, you can look it up in [this article](/2012/12/15/Setting-up-Shop.html). But after not having an eye on the site for some month all hell broke loose and I had to start over.
 
 <!--more-->
 
