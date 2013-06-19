@@ -246,11 +246,11 @@ postListByMonth tags pattern filterFun = do
     posts   <- bucketMonth =<< filterFun =<< loadAll pattern
     itemTpl <- loadBody "templates/month-item.html"
     monthTpl <- loadBody "templates/month.html"
-    let mkSection ((yr, mth), ps) =
+    let makeSection ((yr, mth), ps) =
             applyTemplateList itemTpl (taggedPostCtx tags `mappend` (dateField "day" "%d")) ps 
             >>= makeItem
             >>= applyTemplate monthTpl (monthContext yr mth)
-    concatMap itemBody <$> mapM mkSection posts
+    concatMap itemBody <$> mapM makeSection posts
   where
     bucketMonth posts =
         reverse . map (second (map snd)) . buckets fst <$>
