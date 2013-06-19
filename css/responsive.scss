@@ -1,0 +1,179 @@
+@media (max-width: 767px) {
+  .social {
+    display: none;
+  }
+
+  body {
+    font-size: 16px;
+  }
+
+  #wrapper {
+    position: static;
+  }
+
+  .sidebar1 {
+    font-size: 10px;
+
+    margin-bottom: 0;
+    padding-bottom: 0;
+
+    nav {
+    ul {
+      display: inline;
+    }
+
+    ul li {
+      background-color: #33332d;
+      display: inline-block;
+
+      i {
+        display: none;
+      }
+
+    }
+    }
+    img {
+      float: left;
+      margin-right: 10px;
+    }
+
+    .uberspace {
+      display: none;
+    }
+  }
+
+  .content {
+    width: auto;
+  }
+
+  .next {
+    display: block;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
+  .sidebar1 {
+    width: 228px;
+  }
+
+  .sidebar2 {
+    width: 208px;
+  }
+}
+
+@media (min-width: 768px) {
+  #wrapper {
+    overflow: hidden;
+    min-height: 100%;
+  }
+
+  .content {
+    width: 476px;
+    margin-right: 20px;
+  }
+
+  .sidebar1 {
+    margin-right: 20px;
+
+    float: left;
+    width: 228px;
+    min-height: 100%;
+
+    img.logo {
+      width: 80px;
+      height: auto;
+    }
+  }
+}
+
+@media (min-width: 838px) {
+  .content {
+    width: 548px;
+  }
+}
+
+@media (min-width: 908px) {
+  .content {
+    width: 620px;
+    margin-right: 20px;
+  }
+}
+
+@media (min-width: 980px) {
+  .sidebar1 {
+    width: 300px;
+  }
+
+  .sidebar2 {
+    width: 280px;
+  }
+}
+
+@media (min-width: 1050px) {
+  .sidebar1 {
+    width: 370px;
+  }
+
+  .sidebar2 {
+    width: 350px;
+
+    .next {
+      display: block;
+    }
+  }
+
+}
+
+@media (min-width: 1210px) {
+  .contentwrapper {
+    float: left;
+  }
+
+  .content {
+    width: 620px;
+    margin-right: 20px;
+  }
+
+  .sidebar1 {
+    width: 228px;
+    margin-bottom: -5000px;
+    padding-bottom: 5000px;
+  }
+
+  .sidebar2 {
+    float: right;
+    width: 280px;
+    padding-top: 20px;
+
+    .next, .hrtags {
+      display: none;
+    }
+  }
+}
+
+@media (min-width: 1280px) {
+  .sidebar2 {
+    width: 350px;
+
+    .hrnext {
+      display: none;
+    }
+
+    .next, .hrtags {
+      display: block;
+    }
+
+  }
+}
+
+@media (min-width: 1362px) {
+  .sidebar1 {
+    width: 300px;
+  }
+}
+
+@media (min-width: 1432px) {
+  .sidebar1 {
+    width: 370px;
+  }
+}
