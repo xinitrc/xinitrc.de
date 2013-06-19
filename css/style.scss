@@ -1,4 +1,4 @@
-@import "css/_base.scss";
+@import "css/base.scss";
 
 html {
   height: 100%;
@@ -17,15 +17,82 @@ body {
   height: 100%;
 
   line-height: 1.5em;
+}
 
+p {
+  margin-bottom: 10px;
+}
+
+ul {
+  margin-bottom: 10px;
+}
+
+iframe#latitude {
+  height: 500px;
+  width: 100%;
+}
+
+ul li {
+  list-style: disc;
+  margin-left: 20px;
+}
+
+article {
+  line-height: 1.5em;
+}
+
+#wrapper {
+  overflow: hidden;
+}
+
+.half {
+  float: left;
+  width: 50%;
+}
+
+.looks {
+  float: right;
+  width: 200px;
+}
+
+.third {
+  float: left;
+  width: 33%;
+}
+
+td {
+  font-weight: 300;
+}
+
+td.day {
+  vertical-align: top;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-weight: 700;
+
+  margin: 10px 0 10px 0;
+
+  line-height: 1.5em;
+}
+
+h1, h2 {
+  color: $bgcolor;
+  background: $textcolor;
+}
+
+h2 {
+  font: {
+      size: 32px;
+  }
 }
 
 h1, h1 a, h1 a:hover {
-  color: $textcolor;
+  color: $bgcolor;
+  background: $textcolor;
 
   font: {
     size: 40px;
-    weight: 700;
   }
 
   text-decoration: none;
@@ -64,6 +131,59 @@ hr {
     margin-left: 5px;
     margin-right: 5px;
   }
+}
+
+.topd {
+  vertical-align: top;
+}
+
+.heading {
+  font-weight: 700;
+  vertical-align: top;
+  padding-right: 20px;
+}
+
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.clearfix:after {
+  clear: both;
+}
+
+ul.unstyled li {
+  list-style: none;
+  margin-left: 0;
+}
+
+.right {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.day {
+  padding-right: 20px;
+}
+
+.cc-icon img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.year, .month {
+  display: block;
+  float:left;
+width: 14.893617021276595%;
+}
+
+.year {
+  font-weight: 700;
 }
 
 .uberspace img {
@@ -114,6 +234,7 @@ a, a:hover {
 
     ul li {
       list-style: none;
+      margin-left: 0;
       font-size: 1.5em;
       text-align: left;
 
@@ -138,6 +259,7 @@ a, a:hover {
       }
 
       i {
+        padding-top: 10px;
         float: right;
       }
     }
@@ -166,6 +288,16 @@ a, a:hover {
   .next {
     display: none;
   }
+
+  .hrnext {
+    display: none;
+  }
+
+  ul li {
+    list-style: none;
+    margin-left: 0;
+    margin-bottom: 10px;
+  }
 }
 
 .dateli {
@@ -184,4 +316,4 @@ a, a:hover {
 
 }
 
-@import "css/responsive.scss";
+@import "css/responsive";
