@@ -1,39 +1,13 @@
 @import "css/base.scss";
 
+@import "css/basehtml.scss";
 
-html {
-  height: 100%;
-}
-
-body {
-  color: $textcolor;
-  background: $bgcolor;
-
-  font: {
-    family: "Lato";
-    weight: 300;
-    size: 20px;
-  }
-
-  height: 100%;
-
-  line-height: 1.5em;
+#wrapper {
+  overflow: hidden;
 }
 
 .flattr {
   margin: 10px 0 10px 0;
-}
-
-p {
-  margin-bottom: 10px;
-}
-
-span.tt {
-  font-family: "Monaco","Menlo","Consolas","Courier New",monospace
-}
-
-ul {
-  margin-bottom: 10px;
 }
 
 iframe#latitude {
@@ -41,29 +15,9 @@ iframe#latitude {
   width: 100%;
 }
 
-ul, ol {
-  li {
-    list-style: disc;
-    margin-left: 30px;
-  }
-}
-
-article {
-  line-height: 1.5em;
-}
-
-#wrapper {
-  overflow: hidden;
-}
-
 .half {
   float: left;
   width: 50%;
-}
-
-.looks {
-  float: right;
-  width: 200px;
 }
 
 .third {
@@ -71,49 +25,25 @@ article {
   width: 33%;
 }
 
-td {
-  font-weight: 300;
+.looks {
+  float: right;
+  width: 200px;
 }
 
-td.day {
-  vertical-align: top;
+.year, .month {
+  display: block;
+  float:left;
+  width: 14.893617021276595%;
 }
 
-h1,h2,h3,h4,h5,h6 {
+.year {
   font-weight: 700;
-
-  margin: 10px 0 10px 0;
-
-  line-height: 1.5em;
 }
 
-h1, h2 {
-  color: $bgcolor;
-  background: $textcolor;
+.day {
+  padding-right: 20px;
 }
 
-h2 {
-  font: {
-      size: 32px;
-  }
-}
-
-h1, h1 a, h1 a:hover {
-  color: $bgcolor;
-  background: $textcolor;
-
-  font: {
-    size: 40px;
-  }
-
-  text-decoration: none;
-
-  line-height: 1.5em;
-}
-
-hr {
-  border-top: 1px solid $textcolor;
-}
 
 .archive {
   font-size: 40px;
@@ -154,57 +84,6 @@ hr {
   padding-right: 20px;
 }
 
-.clearfix {
-  *zoom: 1;
-}
-.clearfix:before,
-.clearfix:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-.clearfix:after {
-  clear: both;
-}
-
-ul.unstyled li {
-  list-style: none;
-  margin-left: 0;
-}
-
-.right {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.day {
-  padding-right: 20px;
-}
-
-.cc-icon img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.year, .month {
-  display: block;
-  float:left;
-  width: 14.893617021276595%;
-}
-
-.year {
-  font-weight: 700;
-}
-
-strong {
-  font-weight: bold;
-}
-
-em {
-  font-style: italic;
-}
-
 .uberspace img {
   display: block;
 
@@ -213,30 +92,37 @@ em {
   margin-right: auto;
 }
 
-.cc-logo img {
+.cc-icon img {
   display: block;
+  
   margin-left: auto;
   margin-right: auto;
-
-  width: 150px;
-  height: auto;
 }
 
-div.more {
+.more {
   text-align: right;
 }
 
-a, a:hover {
-  color: $linkcolor;
+.contentwrapper {
+  float: right;
+}
 
-  text-decoration: underline;
+.content {
+  padding-top: 20px;
+  margin-bottom: 20px;
+  background: $textbody;
+  padding: 10px 10px 10px 10px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.dateli {
+  font-weight: 400;
 }
 
 .sidebar1 {
   color: $bgcolor;
   background: $textcolor;
-
-  font-size: 20px;
 
   h1, h1 a, h1 a:hover {
     color: $bgcolor;
@@ -328,21 +214,18 @@ a, a:hover {
   }
 }
 
-.dateli {
-  font-weight: 400;
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.clearfix:after {
+  clear: both;
 }
 
-.contentwrapper {
-  float: right;
-}
-
-.content {
-  padding-top: 20px;
-  margin-bottom: 20px;
-  background: $textbody;
-  padding: 10px 10px 10px 10px;
-  margin-left:auto;
-  margin-right:auto;
-}
 
 @import "css/responsive";
