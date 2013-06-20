@@ -1,7 +1,7 @@
-<div class="contentblock" id='upcoming' ng-app="Calendar">
-    <h1>Next</h1>
-
-    <div ng-controller="CalendarCTRL">
+<div class="sidebar2">
+    <div class="next" ng-app="Calendar" ng-controller="CalendarCTRL">
+        <hr class="hrnext"/>
+        <h1>Upcoming</h1>
         <ul ng-cloak>
             <li ng-repeat='event in calendarEntries'>
                 <div class='dateli' ng-cloak>
@@ -13,8 +13,13 @@
             </li>
         </ul>
     </div>
-</div>
-<div class="contentblock">
-    <h1>Tags</h1>
-    $tagcloud$
+    <div class="tagcloud">
+        <hr class="hrtags"/>
+        <h1>Tags</h1>
+        $tagcloud$
+    </div>
+    <div class="uberspace">
+        <hr/>
+        <a href="https://uberspace.de"><img src="/assets/images/uberpsace_black.png"/></a>
+    </div>
 </div>

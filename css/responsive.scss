@@ -1,0 +1,259 @@
+@import "compass/css3/shared";
+
+$experimental-support-for-opera: true;
+
+.elastic-container {
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 30px;
+  height: 0;
+  overflow: hidden;
+}
+
+.elastic-container iframe, .elastic-video object, .elastic-video embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 767px) {
+  .third, .half {
+    float: none;
+    display: block;
+    width: 100%;
+  }
+
+  .looks {
+    float: none;
+    width: 100%;
+    display: block;
+  }
+
+  .next {
+    font-size: 16px;
+  }
+
+  .month {
+    float: none;
+    display: inline;
+  }
+
+  iframe#latitude {
+    height: 300px;
+  }
+
+  #wrapper {
+    position: static;
+  }
+
+  .contentwrapper {
+    float: none;
+  }
+
+  .content {
+    width: auto;
+  }
+
+  .sidebar1 {
+    font-size: 10px;
+
+    margin-bottom: 0;
+    padding-bottom: 0;
+
+    nav {
+      ul {
+        display: inline;
+      }
+
+      ul li {
+        background-color: #33332d;
+        display: inline-block;
+
+        i {
+          display: none;
+        }
+      }
+    }
+    img {
+      float: left;
+      margin-right: 10px;
+    }
+
+    .uberspace {
+      display: none;
+    }
+  }
+
+  .sidebar2 {
+    .next {
+      display: block;
+    }
+  }
+
+  .vcard, .contacts {
+    float: none;
+    display: block;
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .hrlogo, .social {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
+  .sidebar1 {
+    width: 228px;
+  }
+
+  .sidebar2 {
+    width: 208px;
+  }
+
+  .contentwrapper {
+    @include experimental-value(width, calc(100% - 248px));
+  }
+}
+
+@media (min-width: 768px) {
+  #wrapper {
+    min-height: 100%;
+  }
+
+  .content {
+    width: 476px;
+  }
+
+  .sidebar1 {
+    margin-right: 20px;
+
+    float: left;
+    min-height: 100%;
+
+    img.logo {
+      width: 80px;
+      height: auto;
+    }
+  }
+}
+
+@media (min-width: 838px) {
+  .content {
+    width: 548px;
+  }
+}
+
+@media (min-width: 908px) {
+  .content {
+    width: 620px;
+  }
+}
+
+@media (min-width: 980px) {
+  .sidebar1 {
+    width: 300px;
+  }
+
+  .sidebar2 {
+    width: 280px;
+  }
+
+  .contentwrapper {
+    @include experimental-value(width, calc(100% - 320px));
+  }
+}
+
+@media (min-width: 1050px) {
+  .sidebar1 {
+    width: 370px;
+  }
+
+  .sidebar2 {
+    width: 350px;
+
+    .next, .hrnext {
+      display: block;
+    }
+  }
+  .contentwrapper {
+    @include experimental-value(width, calc(100% - 390px));
+  }
+}
+
+@media (min-width: 1210px) {
+  .contentwrapper {
+    float: left;
+
+    @include experimental-value(width, calc(100% - 548px));
+  }
+
+  .content {
+    width: 620px;
+  }
+
+  .sidebar1 {
+    width: 228px;
+    margin-bottom: -8000px;
+    padding-bottom: 8000px;
+  }
+
+  .sidebar2 {
+    float: right;
+    width: 280px;
+
+    .next, .hrtags {
+      display: none;
+    }
+  }
+}
+
+@media (min-width: 1280px) {
+  .contentwrapper {
+    @include experimental-value(width, calc(100% - 648px));
+  }
+
+  .sidebar2 {
+    width: 350px;
+
+    .hrnext {
+      display: none;
+    }
+
+    .next, .hrtags {
+      display: block;
+    }
+  }
+}
+
+@media (min-width: 1352px) {
+  .sidebar1 {
+    width: 300px;
+  }
+
+  .contentwrapper {
+    @include experimental-value(width, calc(100% - 720px));
+  }
+}
+
+@media (min-width: 1422px) {
+  .sidebar1 {
+    width: 370px;
+  }
+  .content {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .contentwrapper {
+    @include experimental-value(width, calc(100% - 780px));
+  }
+}
+
+@media (min-width: 1570px) {
+  .content {
+    width: 770px;
+  }
+}

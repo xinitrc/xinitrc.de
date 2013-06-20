@@ -1,0 +1,103 @@
+html {
+  height: 100%;
+}
+
+body {
+  color: $textcolor;
+  background: $bgcolor;
+
+  font: {
+    family: "Lato";
+    weight: 300;
+    size: 20px;
+  }
+
+  height: 100%;
+
+  line-height: 1.5em;
+}
+td {
+  font-weight: 300;
+}
+
+td.day {
+  vertical-align: top;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-weight: 700;
+
+  margin: 10px 0 10px 0;
+
+  line-height: 1.5em;
+}
+
+h1, h2 {
+  color: $bgcolor;
+  background: $textcolor;
+}
+
+h2 {
+  font: {
+    size: 32px;
+  }
+}
+
+h1, h1 a, h1 a:hover {
+  color: $bgcolor;
+  background: $textcolor;
+
+  font: {
+    size: 40px;
+  }
+
+  text-decoration: none;
+
+  line-height: 1.5em;
+}
+
+p {
+  margin-bottom: 10px;
+}
+
+strong {
+  font-weight: bold;
+}
+
+em {
+  font-style: italic;
+}
+
+hr {
+  border-top: 1px solid $textcolor;
+}
+
+a, a:hover {
+  color: $linkcolor;
+
+  text-decoration: underline;
+}
+
+article {
+  line-height: 1.5em;
+}
+
+ul {
+  margin-bottom: 10px;
+}
+
+ul, ol {
+  li {
+    list-style: disc;
+    margin-left: 30px;
+  }
+}
+
+ul.unstyled li {
+  list-style: none;
+  margin-left: 0;
+}
+
+.tt {
+  font-family: "Droid Sans Mono","Monaco","Menlo","Consolas","Courier New",monospace
+}

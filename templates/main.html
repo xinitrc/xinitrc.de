@@ -2,10 +2,16 @@
 <html lang="en">
 $partial("partials/mainhead.html")$
 <body>
-$partial("partials/navbar.html")$
+<div id="wrapper">
+    $partial("partials/navbar.html")$
 
-<div class="container">
-    $body$
+    <div class="contentwrapper">
+        <div class="content">
+            $body$
+        </div>
+    </div>
+
+    $partial("partials/sidebar.html")$
 </div>
 $partial("partials/mainfooter.html")$
 </body>
