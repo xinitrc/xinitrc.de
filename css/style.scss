@@ -19,8 +19,16 @@ body {
   line-height: 1.5em;
 }
 
+.flattr {
+  margin: 10px 0 10px 0;
+}
+
 p {
   margin-bottom: 10px;
+}
+
+span.tt {
+  font-family: "Monaco","Menlo","Consolas","Courier New",monospace
 }
 
 ul {
@@ -184,6 +192,14 @@ width: 14.893617021276595%;
 
 .year {
   font-weight: 700;
+}
+
+strong {
+  font-weight: bold;
+}
+
+em {
+  font-style: italic;
 }
 
 .uberspace img {
