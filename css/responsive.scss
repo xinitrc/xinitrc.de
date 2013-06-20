@@ -1,7 +1,6 @@
 @import "compass/css3/shared";
 
 $experimental-support-for-opera: true;
-// Optional, since it's off by default
 
 .elastic-container {
   position: relative;
@@ -122,7 +121,6 @@ $experimental-support-for-opera: true;
   }
 
   .contentwrapper {
-//    width: calc(100% - 248px);
     @include experimental-value(width, calc(100% - 248px));
   }
 
@@ -174,7 +172,6 @@ $experimental-support-for-opera: true;
   }
 
   .contentwrapper {
-//    width: calc(100% - 320px);
     @include experimental-value(width, calc(100% - 320px));
   }
 }
@@ -212,8 +209,8 @@ $experimental-support-for-opera: true;
 
   .sidebar1 {
     width: 228px;
-    margin-bottom: -5000px;
-    padding-bottom: 5000px;
+    margin-bottom: -8000px;
+    padding-bottom: 8000px;
   }
 
   .sidebar2 {
@@ -228,7 +225,6 @@ $experimental-support-for-opera: true;
 
 @media (min-width: 1280px) {
   .contentwrapper {
-//    width: calc(100% - 648px);
     @include experimental-value(width, calc(100% - 648px));
   }
   .sidebar2 {
@@ -251,7 +247,6 @@ $experimental-support-for-opera: true;
   }
 
   .contentwrapper {
-//    width: calc(100% - 720px);
     @include experimental-value(width, calc(100% - 720px));
   }
 }
@@ -266,7 +261,6 @@ $experimental-support-for-opera: true;
   }
 
   .contentwrapper {
-//    width: calc(100% - 780px);
     @include experimental-value(width, calc(100% - 780px));
   }
 }
