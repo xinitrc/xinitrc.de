@@ -41,9 +41,11 @@ iframe#latitude {
   width: 100%;
 }
 
-ul li {
-  list-style: disc;
-  margin-left: 30px;
+ul, ol {
+  li {
+    list-style: disc;
+    margin-left: 30px;
+  }
 }
 
 article {
