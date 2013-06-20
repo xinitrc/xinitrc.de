@@ -190,7 +190,7 @@ ul.unstyled li {
 .year, .month {
   display: block;
   float:left;
-width: 14.893617021276595%;
+  width: 14.893617021276595%;
 }
 
 .year {
@@ -211,6 +211,15 @@ em {
   margin-bottom: 20px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.cc-logo img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+
+  width: 150px;
+  height: auto;
 }
 
 div.more {

@@ -149,7 +149,7 @@ main = hakyllWith hakyllConf $ do
             p' <- p
             saveSnapshot "teaser" $ writePandocWith pandocWriterOptions p'
             >>= loadAndApplyTemplate "templates/post.html" (taggedPostCtx tags)
-            >>= loadAndApplyTemplate "templates/blog.html" (taggedPostCtx tags)
+            >>= loadAndApplyTemplate "templates/main.html" (taggedPostCtx tags)
 
     match "talks.html" $ do 
         route idRoute
@@ -189,7 +189,7 @@ main = hakyllWith hakyllConf $ do
 genCompiler tags posts = 
               applyKeywords
                 >>= applyAsTemplate posts
-                >>= loadAndApplyTemplate "templates/blog.html" (taggedPostCtx tags)
+                >>= loadAndApplyTemplate "templates/main.html" (taggedPostCtx tags)
   
 --------------------------------------------------------------------------------
 
