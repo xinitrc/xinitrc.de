@@ -1,5 +1,6 @@
 @import "css/base.scss";
 
+
 html {
   height: 100%;
 }
@@ -329,7 +330,8 @@ a, a:hover {
   margin-bottom: 20px;
   background: $textbody;
   padding: 10px 10px 10px 10px;
-
+  margin-left:auto;
+  margin-right:auto;
 }
 
 @import "css/responsive";

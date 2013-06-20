@@ -1,3 +1,8 @@
+@import "compass/css3/shared";
+
+$experimental-support-for-opera: true;
+// Optional, since it's off by default
+
 .elastic-container {
   position: relative;
   padding-bottom: 56.25%;
@@ -30,7 +35,6 @@
     width: 100%;
     display: block;
   }
-
 
   body {
     font-size: 20px;
@@ -112,6 +116,12 @@
   .sidebar2 {
     width: 208px;
   }
+
+  .contentwrapper {
+//    width: calc(100% - 248px);
+    @include experimental-value(width, calc(100% - 248px));
+  }
+
 }
 
 @media (min-width: 768px) {
@@ -122,7 +132,6 @@
 
   .content {
     width: 476px;
-    margin-right: 20px;
   }
 
   .sidebar1 {
@@ -148,7 +157,6 @@
 @media (min-width: 908px) {
   .content {
     width: 620px;
-    margin-right: 20px;
   }
 }
 
@@ -159,6 +167,11 @@
 
   .sidebar2 {
     width: 280px;
+  }
+
+  .contentwrapper {
+//    width: calc(100% - 320px);
+    @include experimental-value(width, calc(100% - 320px));
   }
 }
 
@@ -174,22 +187,23 @@
       display: block;
     }
   }
-}
-
-@media (min-width: 1051px) and (max-width: 1209px) {
   .contentwrapper {
-    width: 62%;
+//    width: calc(100% - 390px);
+    @include experimental-value(width, calc(100% - 390px));
   }
 }
 
 @media (min-width: 1210px) {
   .contentwrapper {
     float: left;
+
+//    width: calc(100% - 548px);
+    @include experimental-value(width, calc(100% - 548px));
+
   }
 
   .content {
     width: 620px;
-    margin-right: 20px;
   }
 
   .sidebar1 {
@@ -209,6 +223,10 @@
 }
 
 @media (min-width: 1280px) {
+  .contentwrapper {
+//    width: calc(100% - 648px);
+    @include experimental-value(width, calc(100% - 648px));
+  }
   .sidebar2 {
     width: 350px;
 
@@ -227,6 +245,11 @@
   .sidebar1 {
     width: 300px;
   }
+
+  .contentwrapper {
+//    width: calc(100% - 720px);
+    @include experimental-value(width, calc(100% - 720px));
+  }
 }
 
 @media (min-width: 1422px) {
@@ -234,24 +257,18 @@
     width: 370px;
   }
   .content {
-    margin-left:auto;
-    margin-right:auto;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .contentwrapper {
-    width: 40%;
+//    width: calc(100% - 780px);
+    @include experimental-value(width, calc(100% - 780px));
   }
-
 }
 
 @media (min-width: 1570px) {
   .content {
     width: 770px;
-    margin-left:auto;
-    margin-right:auto;
-  }
-
-  .contentwrapper {
-    width: 50%;
   }
 }

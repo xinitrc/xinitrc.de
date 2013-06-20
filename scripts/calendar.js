@@ -23,15 +23,18 @@ var calendarCTRL = function ($scope, $http) {
         });
 
         arr.sort(function (a, b) {
-            a = new Date(a.start);
-            b = new Date(b.start);
-            return a < b ? -1 : a > b ? 1 : 0;
+            return Date.parse(a.start) - Date.parse(b.start);
         });
+//        arr.sort(function (a, b) {
+//            a = new Date(a.start);
+//            b = new Date(b.start);
+//            return a < b ? -1 : a > b ? 1 : 0;
+//        });
         $scope.calendarEntries = arr;
 
     }).error(function (error) {
-        console.log(error)
-    });
+            console.log(error)
+        });
 }
 
 calendarCTRL.$inject = ['$scope', '$http'];
