@@ -6,6 +6,21 @@
   overflow: hidden;
 }
 
+[ng\:cloak], [ng-cloak], .ng-cloak {
+  display: none;
+}
+
+.date {
+  background: $datebgcolor;
+  float: right;
+  width: 110px;
+  border-left: 2px solid $bgcolor;
+  padding: 0 10px 0 10px;
+  line-height: 3;
+  font-weight: bold;
+}
+
+
 .flattr {
   margin: 10px 0 10px 0;
 }
@@ -128,7 +143,7 @@ iframe#latitude {
 .content {
   padding-top: 20px;
   margin-bottom: 20px;
-  background: $textbody;
+  background: $bgcolor;
   padding: 10px 10px 10px 10px;
   margin-left:auto;
   margin-right:auto;
@@ -245,5 +260,8 @@ iframe#latitude {
   clear: both;
 }
 
-
+#references p {
+  text-indent: -1em;
+  margin-left: 1em;
+}
 @import "css/responsive";
