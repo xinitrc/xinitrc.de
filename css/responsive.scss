@@ -82,7 +82,7 @@ $experimental-support-for-opera: true;
     }
     img {
       float: left;
-      margin-right: 10px;
+      margin-right: 20px;
     }
 
     .uberspace {
@@ -103,7 +103,7 @@ $experimental-support-for-opera: true;
     margin-left: 0;
   }
 
-  .hrlogo, .social {
+ .social, .hrsocial, .hrlogo, .hrmenu {
     display: none;
   }
 }
@@ -114,7 +114,7 @@ $experimental-support-for-opera: true;
   }
 
   .sidebar2 {
-    width: 208px;
+    width: 228px;
   }
 
   .contentwrapper {
@@ -127,12 +127,15 @@ $experimental-support-for-opera: true;
     min-height: 100%;
   }
 
+  .hrnext {
+    display: none;
+  }
   .content {
     width: 476px;
   }
 
   .sidebar1 {
-    margin-right: 20px;
+    margin-right: 10px;
 
     float: left;
     min-height: 100%;
@@ -157,12 +160,8 @@ $experimental-support-for-opera: true;
 }
 
 @media (min-width: 980px) {
-  .sidebar1 {
+  .sidebar1, .sidebar2 {
     width: 300px;
-  }
-
-  .sidebar2 {
-    width: 280px;
   }
 
   .contentwrapper {
@@ -176,7 +175,7 @@ $experimental-support-for-opera: true;
   }
 
   .sidebar2 {
-    width: 350px;
+    width: 370px;
 
     .next, .hrnext {
       display: block;
@@ -198,6 +197,10 @@ $experimental-support-for-opera: true;
     width: 620px;
   }
 
+  .hrsocial {
+    display: none;
+  }
+
   .sidebar1 {
     width: 228px;
     margin-bottom: -8000px;
@@ -206,9 +209,9 @@ $experimental-support-for-opera: true;
 
   .sidebar2 {
     float: right;
-    width: 280px;
+    width: 300px;
 
-    .next, .hrtags {
+    .next, .hrnext {
       display: none;
     }
   }
@@ -220,13 +223,13 @@ $experimental-support-for-opera: true;
   }
 
   .sidebar2 {
-    width: 350px;
+    width: 370px;
 
-    .hrnext {
+    .hrsocial {
       display: none;
     }
 
-    .next, .hrtags {
+    .next, .hrnext {
       display: block;
     }
   }
