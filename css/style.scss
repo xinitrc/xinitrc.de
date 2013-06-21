@@ -10,19 +10,37 @@
   display: none;
 }
 
-.date {
-  background: $datebgcolor;
-  float: right;
-  width: 110px;
-  border-left: 2px solid $bgcolor;
-  padding: 0 10px 0 10px;
-  line-height: 3;
-  font-weight: bold;
+header {
+  display: table;
+  width: 100%;
+
+  h1 {
+    display: table-cell;
+  }
+
+  .date {
+    display: table-cell;
+
+    vertical-align: middle;
+
+    width: 130px;
+    line-height: 3;
+
+    background: $datebgcolor;
+    border-left: 2px solid $bgcolor;
+
+    padding-left: 20px;
+    font-weight: bold;
+  }
 }
 
 
 .flattr {
   margin: 10px 0 10px 0;
+}
+
+article {
+  margin-bottom: 20px;
 }
 
 .basicStats {
