@@ -241,7 +241,7 @@ $experimental-support-for-opera: true;
   }
 
   .contentwrapper {
-    @include experimental-value(width, calc(100% - 720px));
+    @include experimental-value(width, calc(100% - 690px));
   }
 }
 
@@ -255,7 +255,7 @@ $experimental-support-for-opera: true;
   }
 
   .contentwrapper {
-    @include experimental-value(width, calc(100% - 780px));
+    @include experimental-value(width, calc(100% - 760px));
   }
 }
 
