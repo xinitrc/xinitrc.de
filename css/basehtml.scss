@@ -86,16 +86,26 @@ ul {
   margin-bottom: 10px;
 }
 
-ul, ol {
+ul {
   li {
     list-style: disc;
     margin-left: 30px;
   }
 }
 
+ol li {
+  list-style: decimal;
+  margin-left: 30px;
+}
+
 ul.unstyled li {
   list-style: none;
   margin-left: 0;
+}
+
+sup {
+  vertical-align: super;
+  font-size: 60%;
 }
 
 .tt {
