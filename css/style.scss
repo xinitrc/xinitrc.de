@@ -1,5 +1,4 @@
 @import "css/base.scss";
-
 @import "css/basehtml.scss";
 
 #wrapper {
@@ -31,7 +30,6 @@ header {
     background: $datebgcolor;
 
     text-align: center;
-    padding-left: 20px;
     font-weight: bold;
   }
 }
@@ -48,10 +46,6 @@ article {
   width: 48.93617021276595%;
   *width: 48.88297872340425%;
   float: left;
-}
-
-time {
-  margin-right: 20px;
 }
 
 .looks {
@@ -84,7 +78,7 @@ iframe#latitude {
 
 .year, .month {
   display: block;
-  float:left;
+  float: left;
   width: 14.893617021276595%;
 }
 
@@ -95,7 +89,6 @@ iframe#latitude {
 .day {
   padding-right: 20px;
 }
-
 
 .archive {
   font-size: 40px;
@@ -146,7 +139,7 @@ iframe#latitude {
 
 .cc-icon img {
   display: block;
-  
+
   margin-left: auto;
   margin-right: auto;
 }
@@ -164,8 +157,8 @@ iframe#latitude {
   margin-bottom: 20px;
   background: $bgcolor;
   padding: 10px 10px 10px 10px;
-  margin-left:auto;
-  margin-right:auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .dateli {
@@ -215,13 +208,13 @@ iframe#latitude {
 
         line-height: 1.5em;
         padding: 10px 5px 10px 5px;
-      }
-      a.active,
-      a:hover {
-        color: $textcolor;
-        background: $bgcolor;
+        &.active,
+        &:hover {
+          color: $textcolor;
+          background: $bgcolor;
 
-        text-decoration: none;
+          text-decoration: none;
+        }
       }
 
       i {
@@ -257,12 +250,6 @@ iframe#latitude {
     padding: 0 10px 0 10px;
   }
 
-/*
-  .hrnext {
-    display: none;
-  }
-*/
-
   ul li {
     list-style: none;
     margin-left: 0;
@@ -273,12 +260,14 @@ iframe#latitude {
 .clearfix {
   *zoom: 1;
 }
+
 .clearfix:before,
 .clearfix:after {
   display: table;
   content: "";
   line-height: 0;
 }
+
 .clearfix:after {
   clear: both;
 }
@@ -287,4 +276,5 @@ iframe#latitude {
   text-indent: -1em;
   margin-left: 1em;
 }
+
 @import "css/responsive";
