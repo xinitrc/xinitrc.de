@@ -9,6 +9,19 @@
   display: none;
 }
 
+.tikz img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+
+  max-width: 100%;
+  height: auto;
+}
+
+td time {
+  margin-right: 20px;
+}
+
 header {
   display: table;
   width: 100%;
