@@ -219,7 +219,7 @@ $experimental-support-for-opera: true;
 
 @media (min-width: 1280px) {
   .contentwrapper {
-    @include experimental-value(width, calc(100% - 648px));
+    @include experimental-value(width, calc(100% - 620px));
   }
 
   .sidebar2 {
