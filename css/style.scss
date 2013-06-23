@@ -18,6 +18,10 @@
   height: auto;
 }
 
+time {
+  font-weight: bold;
+}
+
 td time {
   margin-right: 20px;
 }
@@ -43,7 +47,6 @@ header {
     background: $datebgcolor;
 
     text-align: center;
-    font-weight: bold;
   }
 }
 
