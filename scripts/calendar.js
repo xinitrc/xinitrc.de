@@ -19,18 +19,15 @@ var calendarCTRL = function ($scope, $http) {
                 start: startTime,
                 end: endTime,
                 summary: d.summary,
-                location: d.location
+                location: d.location,
+                mapsURL:"http://maps.google.de/maps?q=" + encodeURIComponent(d.location)+ "&hl=en"
             });
         });
 
         arr.sort(function (a, b) {
             return Date.parse(a.start) - Date.parse(b.start);
         });
-//        arr.sort(function (a, b) {
-//            a = new Date(a.start);
-//            b = new Date(b.start);
-//            return a < b ? -1 : a > b ? 1 : 0;
-//        });
+
         $scope.calendarEntries = arr;
 
     }).error(function (error) {

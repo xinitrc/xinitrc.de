@@ -8,7 +8,7 @@
                             ng-show='event.end' ng-cloak> - </span></span>
                     <span class='enddate' ng-cloak>{{event.end}}</span>
                 </div>
-                <span ng-bind='event.summary'></span><span ng-show="event.location"> - {{event.location}}</span>
+                <span ng-bind='event.summary'></span><span> - <a href="{{event.mapsURL}}">{{event.location}}</a></span>
             </li>
         </ul>
     </div>
