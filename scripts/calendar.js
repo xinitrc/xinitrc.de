@@ -14,11 +14,12 @@ var calendarCTRL = function ($scope, $http) {
                 : new Date(d.start.date).format(dateFormat);
             var endTime = d.end.dateTime ? new Date(d.end.dateTime).format(datetimeFormat)
                 : new Date(d.end.date).format(dateFormat);
-
+ 
             arr.push({
                 start: startTime,
                 end: endTime,
-                summary: d.summary
+                summary: d.summary,
+                location: d.location
             });
         });
 
