@@ -154,12 +154,13 @@ main = hakyllWith hakyllConf $ do
     match "talks.html" $ do 
         route idRoute
         compile $ genCompiler tags $ field "posts" (\_ -> postList $ fmap (take 4 . reverse) . 
-                                                  ((recentFirst :: [Item String] -> Compiler [Item String])>>= \x -> filterTalks))
+                                                  ((recentFirst :: [Item String] -> Compiler [Item String]) >>= \x -> filterTalks))
                                                                 
     match "talk-archive.html" $ do
         route idRoute
         compile $ genCompiler tags $ field "posts" ( \_ -> postListByMonth tags "posts/*" 
-                                                  ((recentFirst :: [Item String] -> Compiler [Item String])>>= \x -> filterTalks))
+                                                  ((recentFirst :: [Item String] -> Compiler [Item String]) >>= \x -> filterTalks))
+                                                  
     match "archive.html" $ do
         route idRoute
         compile $ genCompiler tags $ field "posts" ( \_ -> postListByMonth tags "posts/*" recentFirst)
@@ -172,8 +173,7 @@ main = hakyllWith hakyllConf $ do
         route idRoute
         compile $ do
             let feedCtx = postCtx `mappend` bodyField "description"
-            posts <- fmap (take 10) . recentFirst =<<
-                loadAllSnapshots "posts/*" "teaser"
+            posts <- fmap (take 10) . recentFirst =<< loadAllSnapshots "posts/*" "teaser"
             renderAtom myFeedConfiguration feedCtx posts
 
     match ("templates/*" .||. "partials/*") $ compile templateCompiler
