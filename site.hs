@@ -16,11 +16,10 @@ import           Data.Time.Format                 (formatTime)
 
 import           System.Locale                    (defaultTimeLocale)
 
+import           Plugins.Filters (applyKeywords)
+import           Plugins.LogarithmicTagCloud (renderLogTagCloud)
+
 import           Text.Pandoc.Options
-
-import           Plugins.Filters
-import           Plugins.LogarithmicTagCloud
-
 
 --------------------------------------------------------------------------------
 
