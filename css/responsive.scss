@@ -183,84 +183,11 @@ $experimental-support-for-opera: true;
     }
   }
   .contentwrapper {
-    @include experimental-value(width, calc(100% - 390px));
+    @include experimental-value(width, calc(100% - 380px));
   }
 }
 
-@media (min-width: 1210px) {
-  .contentwrapper {
-    float: left;
-
-    @include experimental-value(width, calc(100% - 548px));
-  }
-
-  .content {
-    width: 620px;
-  }
-
-  .hrsocial {
-    display: none;
-  }
-
-  .sidebar1 {
-    width: 228px;
-    margin-bottom: -8000px;
-    padding-bottom: 8000px;
-  }
-
-  .sidebar2 {
-    float: right;
-    width: 300px;
-
-    .next, .hrnext {
-      display: none;
-    }
-  }
-}
-
-@media (min-width: 1280px) {
-  .contentwrapper {
-    @include experimental-value(width, calc(100% - 620px));
-  }
-
-  .sidebar2 {
-    width: 370px;
-
-    .hrsocial {
-      display: none;
-    }
-
-    .next, .hrnext {
-      display: block;
-    }
-  }
-}
-
-@media (min-width: 1352px) {
-  .sidebar1 {
-    width: 300px;
-  }
-
-  .contentwrapper {
-    @include experimental-value(width, calc(100% - 690px));
-  }
-}
-
-@media (min-width: 1422px) {
-  .sidebar1 {
-    width: 370px;
-  }
-  .content {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .contentwrapper {
-    @include experimental-value(width, calc(100% - 760px));
-  }
-}
-
-@media (min-width: 1570px) {
+@media (min-width: 1200px) {
   .content {
     width: 770px;
   }
