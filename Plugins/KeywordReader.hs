@@ -1,7 +1,7 @@
 module Plugins.KeywordReader(Keywords(..), KeywordElement(..), readKeywords) where 
 
 import            Control.Applicative          ((<$), (<$>))
-import            Control.Monad                (void, liftM)
+import            Control.Monad                (void)
 
 import            Text.Parsec
 import            Text.Parsec.String
@@ -38,9 +38,9 @@ escaped = Escaped <$ try (string "§§")
 simpleIdParserGenerator :: String -> (String -> KeywordElement) -> Parser KeywordElement
 simpleIdParserGenerator identifier constructor = try $ do
         void $ string ("§"++ identifier ++ "(")
-        id <- many1 $ noneOf ")"
+        embedId <- many1 $ noneOf ")"
         void $ string ")§"
-        return $ constructor id
+        return $ constructor embedId
 
 slideshare :: Parser KeywordElement
 slideshare = simpleIdParserGenerator "slideshare" SlideShare
@@ -56,7 +56,7 @@ tikz = try $ do
         void $ string "§tikz("
         options <- optionMaybe $ many1 $ noneOf ")"
         void $string ")§"
-        tikz <- many1 $ noneOf "§"
+        tikzImage <- many1 $ noneOf "§"
         void $ string "§endtikz§"
-        return $ Tikz options tikz
+        return $ Tikz options tikzImage
           

@@ -1,8 +1,8 @@
 module Plugins.LogarithmicTagCloud(renderLogTagCloud) where
 
-import           Hakyll.Web.Tags
+import           Hakyll.Web.Tags (Tags, renderTags)
 
-import           Hakyll.Core.Compiler
+import           Hakyll.Core.Compiler (Compiler)
 import qualified Text.Blaze.Html5                 as H
 import qualified Text.Blaze.Html5.Attributes      as A
 import           Text.Blaze.Html.Renderer.String  (renderHtml)
