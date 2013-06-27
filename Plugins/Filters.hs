@@ -26,8 +26,8 @@ aplKeywords item = do
 
 applyKeywords' :: Keywords -> Compiler String
 applyKeywords' kws = do
-  items <- sequence $ map applyKWs $ unKeyword kws
-  return $ concat $ map itemBody items
+  items <- mapM applyKWs $ unKeyword kws
+  return $ concatMap itemBody items
   where
     applyKWs (Chunk c) = makeItem c
     applyKWs (Escaped) = makeItem "§"
@@ -38,10 +38,7 @@ applyKeywords' kws = do
     
     
 externalResource :: Identifier -> String -> String -> Compiler (Item String)
-externalResource templateId fieldName id = do 
-                  makeItem "" 
-                  >>= loadAndApplyTemplate templateId (constField fieldName id)
-
+externalResource templateId fieldName id = makeItem "" >>= loadAndApplyTemplate templateId (constField fieldName id)
 
 youtube :: String -> Compiler (Item String)
 youtube = externalResource "templates/youtube.html" "vid"

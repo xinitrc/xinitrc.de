@@ -1,6 +1,6 @@
 module Plugins.Tikz(processTikZs) where
 
-import Control.Monad (forM)
+import Control.Monad (forM, unless, when)
 import Data.List (isPrefixOf)
 import System.Directory (doesFileExist, renameFile,
                          createDirectoryIfMissing, removeDirectoryRecursive,
@@ -24,13 +24,13 @@ data TikZInfo = TikZInfo { digest :: String,
 processTikZs :: KeywordElement -> String
 processTikZs t@(Tikz _ _) = renderObjDesc ts
                               where ts = unsafePerformIO $ renderSVG t
-processTikZs _ = error $ "Unexpeced tikzpicture"
+processTikZs _ = error "Unexpeced tikzpicture"
 
 renderObjDesc :: TikZInfo -> String
 renderObjDesc (TikZInfo md5 w h )= "<div class=\"tikz\"><img type=\"image/svg+xml\" src=\"/assets/tikzs/" ++
-           (addExtension md5 "svg") ++
-           "\" width=" ++ (show w) ++
-           " height=" ++ (show h) ++
+           addExtension md5 "svg" ++
+           "\" width=" ++ show w ++
+           " height=" ++ show h ++
            "></object></div>"
   
   
@@ -40,18 +40,14 @@ renderSVG (Tikz options tikz) = do
   pwd <- getCurrentDirectory
   setCurrentDirectory "_site/assets/tikzs"
   exists <- doesFileExist svgf
-  if exists
-    then return ()
-    else do
+  unless exists $ do
     createDirectoryIfMissing True "tmp"
     setCurrentDirectory "tmp"
     writeTikzTmp "tmp.tex" options tikz 
     system "htlatex tmp.tex 2>&1 > /dev/null"
     status <- doesFileExist "tmp-1.svg"
     setCurrentDirectory ".."
-    if status
-      then renameFile "tmp/tmp-1.svg" svgf
-      else return ()
+    when status $ renameFile "tmp/tmp-1.svg" svgf
     removeDirectoryRecursive "tmp"
   (w, h) <- getSVGDimensions svgf
   setCurrentDirectory pwd

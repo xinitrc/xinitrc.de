@@ -4,7 +4,7 @@ module Site where
 import           Hakyll
 
 import           Control.Applicative              ((<$>))
-import           Control.Monad                    (filterM)
+import           Control.Monad                    (filterM, liftM, (>=>))
 import           Control.Arrow                    (first, second)
 
 import qualified Data.Set as S
@@ -112,33 +112,30 @@ main = hakyllWith hakyllConf $ do
                posts <- constField "posts" <$> postLst pattern "templates/tag-item.html" (taggedPostCtx tags) recentFirst
     
                makeItem ""
-                   >>= loadAndApplyTemplate "templates/tagpage.html" (posts `mappend` (taggedPostCtx tags))
+                   >>= loadAndApplyTemplate "templates/tagpage.html" (posts `mappend` taggedPostCtx tags)
   
-    match ("static/**")  $ do
+    match "static/**" $ do
         route   $ gsubRoute "static/" (const "")
         compile copyFileCompiler
         
-    match ("scripts/*.js")  $ do
+    match "scripts/*.js" $ do
         route   idRoute
         compile $ getResourceString 
             >>= withItemBody (unixFilter "./compressJS.sh" [])
-            -- >>= withItemBody (unixFilter "/Users/martin/bin/compressJS.sh" [])
 
     match "css/style.scss" $ do 
         route   $ setExtension "css"
-        compile $ getResourceString 
+        compile $ liftM (fmap compressCss) getResourceString 
             >>= withItemBody (unixFilter "sass" ["-s", "--no-cache", "--scss", "--compass", "--style", "compressed"])
-            >>= return . fmap compressCss
     
 
     match ("facts.html" .||. "contact.html" )$ do
         route idRoute
-        compile $ do
-                applyKeywords
-                >>= loadAndApplyTemplate "templates/main.html" (taggedPostCtx tags)
+        compile $ applyKeywords
+                  >>= loadAndApplyTemplate "templates/main.html" (taggedPostCtx tags)
                 
     match "posts/*" $ do
-        route $ dateRoute
+        route dateRoute
         compile $ do
             csl <- load "springer-lncs.csl"
             bib <- load "ref.bib"
@@ -150,11 +147,11 @@ main = hakyllWith hakyllConf $ do
 
     match "talks.html" $ do 
         route idRoute
-        compile $ genCompiler tags $ field "posts" (\_ -> postList $ fmap (take 4 . reverse) . (\x -> recentFirst x >>= filterTalks))
+        compile $ genCompiler tags $ field "posts" (\_ -> postList $ fmap (take 4 . reverse) . (recentFirst >=> filterTalks))
                                                                 
     match "talk-archive.html" $ do
         route idRoute
-        compile $ genCompiler tags $ field "posts" ( \_ -> postListByMonth tags "posts/*" (\x -> recentFirst x >>= filterTalks)) 
+        compile $ genCompiler tags $ field "posts" ( \_ -> postListByMonth tags "posts/*" (recentFirst >=> filterTalks)) 
 
     match "archive.html" $ do
         route idRoute
@@ -162,7 +159,7 @@ main = hakyllWith hakyllConf $ do
           
     match "index.html" $ do
         route idRoute
-        compile $ genCompiler tags $ (field "posts" $ \_ -> postList $ fmap (take 4) . recentFirst)
+        compile $ genCompiler tags (field "posts" $ \_ -> postList $ fmap (take 4) . recentFirst)
                 
     create ["atom.xml"] $ do
         route idRoute
@@ -175,9 +172,8 @@ main = hakyllWith hakyllConf $ do
     match ("templates/*" .||. "partials/*") $ compile templateCompiler
 
 
-    match "ref.bib" $ compile $ biblioCompiler
-    match "springer-lncs.csl" $ compile $ cslCompiler
-    match "chicago.csl" $ compile $ cslCompiler
+    match "ref.bib" $ compile biblioCompiler
+    match "springer-lncs.csl" $ compile cslCompiler
 
 --------------------------------------------------------------------------------
 
@@ -213,11 +209,11 @@ filterTalks = filterByType "talk"
 --------------------------------------------------------------------------------
 
 tagCloudCtx :: Tags -> Context String
-tagCloudCtx tags = field "tagcloud" $ \_ -> rendered 
+tagCloudCtx tags = field "tagcloud" $ const rendered 
   where rendered = renderLogTagCloud 0.8 1.8 "em" tags
 
 taggedPostCtx :: Tags -> Context String
-taggedPostCtx tags = mconcat [(tagsField "tags" tags), (tagCloudCtx tags), postCtx]
+taggedPostCtx tags = mconcat [tagsField "tags" tags, tagCloudCtx tags, postCtx]
 
 postCtx :: Context String
 postCtx = mconcat [dateField "date" "%Y-%m-%d" , defaultContext]
@@ -228,8 +224,7 @@ postLst :: Pattern -> Identifier -> Context String -> ([Item String] -> Compiler
 postLst pattern template context sortFilter = do
     posts   <- sortFilter =<< loadAll pattern
     itemTpl <- loadBody template
-    list    <- applyTemplateList itemTpl ((teaserField "teaser" "teaser") `mappend` context) posts
-    return list
+    applyTemplateList itemTpl (teaserField "teaser" "teaser" `mappend` context) posts
 
 postList :: ([Item String] -> Compiler [Item String]) -> Compiler String
 postList = postLst "posts/*" "templates/post-item.html" postCtx
@@ -243,7 +238,7 @@ postListByMonth tags pattern filterFun = do
     itemTpl <- loadBody "templates/month-item.html"
     monthTpl <- loadBody "templates/month.html"
     let makeSection ((yr, mth), ps) =
-            applyTemplateList itemTpl (taggedPostCtx tags `mappend` (dateField "day" "%d")) ps 
+            applyTemplateList itemTpl (taggedPostCtx tags `mappend` dateField "day" "%d") ps 
             >>= makeItem
             >>= applyTemplate monthTpl (monthContext yr mth)
     concatMap itemBody <$> mapM makeSection posts

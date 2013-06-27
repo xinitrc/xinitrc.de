@@ -27,13 +27,13 @@ readKeywords input = case parse keywords "" input of
     Right t -> t
 
 keywords :: Parser Keywords
-keywords = Keywords <$> (many1 $ chunk <|> escaped <|> youtube <|> vimeo <|> slideshare <|> tikz)
+keywords = Keywords <$> many1 (chunk <|> escaped <|> youtube <|> vimeo <|> slideshare <|> tikz)
 
 chunk :: Parser KeywordElement
-chunk = Chunk <$> (many1 $ noneOf "§")
+chunk = Chunk <$> many1 (noneOf "§")
 
 escaped :: Parser KeywordElement
-escaped = Escaped <$ (try $ string "§§")
+escaped = Escaped <$ try (string "§§")
 
 simpleIdParserGenerator :: String -> (String -> KeywordElement) -> Parser KeywordElement
 simpleIdParserGenerator identifier constructor = try $ do

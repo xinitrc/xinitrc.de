@@ -18,7 +18,7 @@ renderLogTagCloud :: Double
                -> String
                -> Tags
                -> Compiler String
-renderLogTagCloud minSize maxSize unit = renderTags makeLink (intercalate " ")
+renderLogTagCloud minSize maxSize unit = renderTags makeLink unwords
   where
     makeLink tag url count min' max' = renderHtml $
         H.a ! A.style (toValue $ "font-size: " ++ size count min' max')
@@ -30,4 +30,4 @@ renderLogTagCloud minSize maxSize unit = renderTags makeLink (intercalate " ")
         let diff = (log (fromIntegral max') - log (fromIntegral min'))
             relative = (log (fromIntegral count) - log (fromIntegral min')) / diff
             size' = minSize + relative * (maxSize - minSize)
-        in (printf "%.2f" size') ++ unit
+        in printf "%.2f" size' ++ unit
