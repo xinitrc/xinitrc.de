@@ -1,39 +1,33 @@
 module Plugins.Tikz(processTikZs) where
 
-import Control.Monad (forM, unless, when)
-import Data.List (isPrefixOf)
+import Control.Monad (unless, when)
+
 import System.Directory (doesFileExist, renameFile,
                          createDirectoryIfMissing, removeDirectoryRecursive,
                          getCurrentDirectory, setCurrentDirectory)
+
 import System.IO (openFile, hPutStrLn, hPutStr, hClose, IOMode(..))
-import System.FilePath (addExtension)
 import System.Cmd (system)
+import System.FilePath (addExtension)
 import System.IO.Unsafe (unsafePerformIO)
-import Data.Digest.Pure.MD5
-import qualified Text.HTML.TagSoup as TS
-import qualified Data.ByteString.Lazy.Char8 as C8
-import Plugins.KeywordReader
 
-import Hakyll
+import Data.Digest.Pure.MD5 (md5)
+import Data.ByteString.Lazy.Char8 (pack)
 
-data TikZInfo = TikZInfo { digest :: String,
-                           w :: Int, h :: Int
-                           } deriving Show
+import Plugins.KeywordReader (KeywordElement(..))
 
+data TikZInfo = TikZInfo String deriving Show
 
 processTikZs :: KeywordElement -> String
 processTikZs t@(Tikz _ _) = renderObjDesc ts
-                              where ts = unsafePerformIO $ renderSVG t
+    where ts = unsafePerformIO $ renderSVG t
 processTikZs _ = error "Unexpeced tikzpicture"
 
 renderObjDesc :: TikZInfo -> String
-renderObjDesc (TikZInfo md5 w h )= "<div class=\"tikz\"><img type=\"image/svg+xml\" src=\"/assets/tikzs/" ++
-           addExtension md5 "svg" ++
-           "\" width=" ++ show w ++
-           " height=" ++ show h ++
-           "></object></div>"
-  
-  
+renderObjDesc (TikZInfo md5) = "<div class=\"tikz\"><img type=\"image/svg+xml\" src=\"/assets/tikzs/" ++
+                               addExtension md5 "svg" ++ 
+                               "\"></object></div>"
+    
 renderSVG :: KeywordElement -> IO TikZInfo
 renderSVG (Tikz options tikz) = do
   createDirectoryIfMissing True "_site/assets/tikzs"
@@ -49,11 +43,10 @@ renderSVG (Tikz options tikz) = do
     setCurrentDirectory ".."
     when status $ renameFile "tmp/tmp-1.svg" svgf
     removeDirectoryRecursive "tmp"
-  (w, h) <- getSVGDimensions svgf
   setCurrentDirectory pwd
-  return (TikZInfo md5 w h)
-    where svgf = addExtension md5 "svg"
-          md5 = makeDigest tikz
+  return (TikZInfo md5)
+      where svgf = addExtension md5 "svg"
+            md5 = makeDigest tikz
 
 optionPrint :: Maybe String -> String
 optionPrint (Just s) = "[" ++ s ++ "]"
@@ -75,25 +68,5 @@ writeTikzTmp f options tikz = do
   hPutStrLn h "\\end{document}"
   hClose h
 
-
 makeDigest :: String -> String
-makeDigest = show . md5 . C8.pack
-
-getSVGDimensions :: String -> IO (Int, Int)
-getSVGDimensions svgf = do
-  cont <- readFile svgf
-  let svgtags = filter (TS.isTagOpenName "svg") $ TS.parseTags cont
-  case svgtags of
-    [] -> error "Failed to find \"svg\" tag in TikZ-rendered SVG file"
-    _ -> return $ extractDimensions $ head svgtags
-  where extractDimensions :: TS.Tag String -> (Int, Int)
-        extractDimensions tag = (w, h)
-          where ws = (fst . head . lex) $ TS.fromAttrib "width" tag
-                hs = (fst . head . lex) $ TS.fromAttrib "height" tag
-                w = floor (scale * read ws :: Float)
-                h = floor (scale * read hs :: Float)
-                scale = 1.35
-
-strip :: String -> String
-strip = takeWhile (not . isWs) . dropWhile isWs
-  where isWs c = c `elem` " \t\r\n"
+makeDigest = show . md5 . pack

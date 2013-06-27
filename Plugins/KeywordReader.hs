@@ -23,8 +23,8 @@ data KeywordElement
 
 readKeywords :: String -> Keywords
 readKeywords input = case parse keywords "" input of
-    Left err -> error $ "Cannot parse keywords: " ++ show err
-    Right t -> t
+                       Left err -> error $ "Cannot parse keywords: " ++ show err
+                       Right t -> t
 
 keywords :: Parser Keywords
 keywords = Keywords <$> many1 (chunk <|> escaped <|> youtube <|> vimeo <|> slideshare <|> tikz)
