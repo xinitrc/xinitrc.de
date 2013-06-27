@@ -1,14 +1,12 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
+module Site where
 import           Hakyll
-import           Hakyll.Web.Tags
-import           Hakyll.Web.Pandoc.Biblio
 
 import           Control.Applicative              ((<$>))
-import           Control.Monad                    (forM, filterM)
+import           Control.Monad                    (filterM)
 import           Control.Arrow                    (first, second)
 
-import           Data.Ord
 import qualified Data.Set as S
 import           Data.List                        (sortBy, groupBy)
 import           Data.Map                         (lookup)  
@@ -22,7 +20,6 @@ import           System.Locale                    (defaultTimeLocale)
 import           Text.Pandoc.Options
 
 import           Plugins.Filters
-import           Plugins.Tikz
 import           Plugins.LogarithmicTagCloud
 
 
@@ -109,7 +106,7 @@ main = hakyllWith hakyllConf $ do
 
     tags <- buildTags "posts/*" (fromCapture "tags/*.html")
 
-    tagsRules tags $ \tag pattern -> do
+    tagsRules tags $ \_ pattern -> do
            route idRoute
            compile $ do
                posts <- constField "posts" <$> postLst pattern "templates/tag-item.html" (taggedPostCtx tags) recentFirst
@@ -153,13 +150,12 @@ main = hakyllWith hakyllConf $ do
 
     match "talks.html" $ do 
         route idRoute
-        compile $ genCompiler tags $ field "posts" (\_ -> postList $ fmap (take 4 . reverse) . 
-                                                  ((recentFirst :: [Item String] -> Compiler [Item String])>>= \x -> filterTalks))
+        compile $ genCompiler tags $ field "posts" (\_ -> postList $ fmap (take 4 . reverse) . (\x -> recentFirst x >>= filterTalks))
                                                                 
     match "talk-archive.html" $ do
         route idRoute
-        compile $ genCompiler tags $ field "posts" ( \_ -> postListByMonth tags "posts/*" 
-                                                  ((recentFirst :: [Item String] -> Compiler [Item String])>>= \x -> filterTalks))
+        compile $ genCompiler tags $ field "posts" ( \_ -> postListByMonth tags "posts/*" (\x -> recentFirst x >>= filterTalks)) 
+
     match "archive.html" $ do
         route idRoute
         compile $ genCompiler tags $ field "posts" ( \_ -> postListByMonth tags "posts/*" recentFirst)
@@ -185,7 +181,7 @@ main = hakyllWith hakyllConf $ do
 
 --------------------------------------------------------------------------------
 
--- genCompiler :: Tags -> Compiler String -> Compiler (Item String)
+genCompiler :: Tags -> Context String -> Compiler (Item String)
 genCompiler tags posts = 
               applyKeywords
                 >>= applyAsTemplate posts
@@ -203,7 +199,7 @@ dateRoute = gsubRoute "posts/" (const "") `composeRoutes`
                              | otherwise = c
 
 --------------------------------------------------------------------------------
-filterByType :: MonadMetadata m => String -> [Item String] -> m[Item String]
+filterByType :: (MonadMetadata m, Functor m) => String -> [Item String] -> m[Item String]
 filterByType tpe = filterM hasType
               where
                 hasType item = do
@@ -211,7 +207,7 @@ filterByType tpe = filterM hasType
                     let typ = Data.Map.lookup "type" metadata
                     return (typ == Just tpe)
 
-filterTalks :: MonadMetadata m => [Item String] -> m[Item String]
+filterTalks :: (MonadMetadata m, Functor m) => [Item String] -> m[Item String]
 filterTalks = filterByType "talk"
 
 --------------------------------------------------------------------------------
