@@ -23,7 +23,7 @@ So here is what I decided to do:
 Meaning that by the end of July I'd like to have a first release of a useful project with or around Meteor.
 If you buy into Meteors claim:
 
-    > Meteor is an open-source platform for building **top-quality web apps** in a **fraction of the time**, whether you're an expert developer or just getting started.
+    > Meteor is an open-source platform for building **top-quality web apps** in a **fraction of the time**, whether you're an expert developer or just getting started. <small>Meteor Claim</small>
 
     This should be at least doable.
 

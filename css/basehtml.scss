@@ -117,4 +117,10 @@ blockquote {
   background: $datebgcolor;
   border-left: 15px solid $textcolor;
   font-weight: 400;
+
+  small {
+    font-size: 14px;
+    display: block;
+    text-align: right;
+  }
 }
