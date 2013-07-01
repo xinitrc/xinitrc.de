@@ -82,7 +82,7 @@ article {
   line-height: 1.5em;
 }
 
-ul {
+ul, ol {
   margin-bottom: 10px;
 }
 
@@ -110,4 +110,11 @@ sup {
 
 .tt {
   font-family: "Droid Sans Mono","Monaco","Menlo","Consolas","Courier New",monospace
+}
+
+blockquote {
+  padding: 10px 20px 10px 20px;
+  background: $datebgcolor;
+  border-left: 15px solid $textcolor;
+  font-weight: 400;
 }
