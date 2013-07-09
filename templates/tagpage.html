@@ -8,10 +8,15 @@ $partial("partials/mainhead.html")$
     <div class="contentwrapper">
         <div class="content">
             <div class="contentblock">
+	      <article>
+	      <header>
                 <h1>Tag: $title$</h1>
-                <table>
+	        <span class="rss"><a href="/tags/$tag$.xml"><i class="icon-large icon-rss-sign"></i></a></span>
+	      </header>
+	      <table>
                     $posts$
                 </table>
+		</article>
             </div>
         </div>
     </div>

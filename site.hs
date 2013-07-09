@@ -21,6 +21,7 @@ import           Plugins.LogarithmicTagCloud (renderLogTagCloud)
 
 import           Text.Pandoc.Options
 
+
 --------------------------------------------------------------------------------
 
 pandocWriterOptions :: WriterOptions
@@ -44,6 +45,15 @@ myFeedConfiguration = FeedConfiguration
                       , feedAuthorEmail = "mail@xinitrc.de"
                       , feedRoot        = "https://xinitrc.de"
                       }
+
+feedConfiguration :: String -> FeedConfiguration
+feedConfiguration title = FeedConfiguration
+                          { feedTitle = title
+                          , feedDescription = "xinitrc.de Tag Configuration"
+                          , feedAuthorName = "Martin Hilscher"
+                          , feedAuthorEmail = "mail@xinitrc.de"
+                          , feedRoot = "https://xinitrc.de"
+                          }
 
 dontIgnoreHtaccess :: String -> Bool
 dontIgnoreHtaccess ".htaccess" = False
@@ -102,14 +112,20 @@ main :: IO ()
 main = hakyllWith hakyllConf $ do
     tags <- buildTags "posts/*" (fromCapture "tags/*.html")
 
-    tagsRules tags $ \_ pattern -> do
+    tagsRules tags $ \tag pattern -> do
+           let title = "Posts tagged " ++ tag
            route idRoute
            compile $ do
                posts <- constField "posts" <$> postLst pattern "templates/tag-item.html" (taggedPostCtx tags) recentFirst
     
                makeItem ""
-                   >>= loadAndApplyTemplate "templates/tagpage.html" (posts `mappend` taggedPostCtx tags)
-  
+                   >>= loadAndApplyTemplate "templates/tagpage.html" (posts `mappend` constField "tag" tag `mappend` taggedPostCtx tags)
+           version "rss" $ do
+            route   $ setExtension "xml"
+            compile $ loadAllSnapshots pattern "teaser"
+                >>= fmap (take 10) . recentFirst
+                >>= renderAtom (feedConfiguration title) feedContext
+
     match "static/**" $ do
         route   $ gsubRoute "static/" (const "")
         compile copyFileCompiler
@@ -201,6 +217,14 @@ filterByType tpe = filterM hasType
 
 filterTalks :: (MonadMetadata m, Functor m) => [Item String] -> m[Item String]
 filterTalks = filterByType "talk"
+
+--------------------------------------------------------------------------------
+
+feedContext :: Context String
+feedContext = mconcat
+    [ bodyField "description"
+    , defaultContext
+    ]
 
 --------------------------------------------------------------------------------
 

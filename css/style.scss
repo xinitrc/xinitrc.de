@@ -48,6 +48,21 @@ header {
 
     text-align: center;
   }
+
+  .rss {
+    display: table-cell;
+    vertical-align: middle;
+
+    width: 80px;
+    background: $datebgcolor;
+
+    text-align: center;
+
+    a {
+      color: $textcolor;
+      text-decoration: none;
+    }
+  }
 }
 
 .flattr {
