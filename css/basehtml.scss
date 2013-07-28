@@ -114,7 +114,8 @@ sup {
 
 blockquote {
   padding: 10px 20px 10px 20px;
-  background: $datebgcolor;
+  background: $blockquotebgcolor;
+  border: thin solid $textcolor;
   border-left: 15px solid $textcolor;
   font-weight: 400;
 

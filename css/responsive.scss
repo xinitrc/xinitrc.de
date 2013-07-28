@@ -72,7 +72,7 @@ $experimental-support-for-opera: true;
       }
 
       ul li {
-        background-color: #33332d;
+        background-color: $textcolor;
         display: inline-block;
 
 	a {
