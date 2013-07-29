@@ -38,7 +38,6 @@ header {
 
   .date {
     display: table-cell;
-    border: thin solid $textcolor;
 
     vertical-align: middle;
 
@@ -54,8 +53,7 @@ header {
   .rss {
     display: table-cell;
     vertical-align: middle;
-    border: thin solid $textcolor;
-
+  
     width: 64px;
     color: $bgcolor;
     background: $textcolor;
