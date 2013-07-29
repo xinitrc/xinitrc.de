@@ -93,6 +93,11 @@ $experimental-support-for-opera: true;
     }
   }
 
+  .social {
+    padding-top: 20px;
+    padding-bottom: 5px;
+  }
+
   .sidebar2 {
     .next {
       display: block;
@@ -106,7 +111,7 @@ $experimental-support-for-opera: true;
     margin-left: 0;
   }
 
- .social, .hrsocial, .hrlogo, .hrmenu {
+ .hrlogo, .hrmenu {
     display: none;
   }
 }
