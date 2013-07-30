@@ -134,7 +134,9 @@ iframe#latitude {
   margin-top: 40px;
   margin-bottom: 20px;
   text-align: center;
-  font-weight: bold;
+  a {
+    font-weight: 700;
+  }
 }
 
 .social {

@@ -33,6 +33,10 @@ h1,h2,h3,h4,h5,h6 {
   margin: 10px 0 10px 0;
 
   line-height: 1.5em;
+
+  a {
+    font-weight: 700;
+  }
 }
 
 h1, h2 {
@@ -50,6 +54,7 @@ h2 {
 h1, h1 a, h1 a:hover {
   color: $bgcolor;
   background: $textcolor;
+  font-weight: 700;
 
   font: {
     size: 40px;
@@ -80,6 +85,7 @@ a, a:hover {
   color: $linkcolor;
 
   text-decoration: underline;
+  font-weight: 400;
 }
 
 article {
