@@ -25,6 +25,53 @@
   font-weight: bold;
   font-style: italic, oblique;
 }
+@font-face {
+  font-family: "Fira Sans OT";
+  src: local('FiraSansOT-Regular'), url('/fonts/fira-sans/OTF/FiraSansOT-Regular.otf'), url('/fonts/fira-sans/TTF/FiraSansOT-Regular.ttf');
+}
+@font-face {
+  font-family: "Fira Sans OT";
+  src: local('FiraSansOT-Light'), url('/fonts/fira-sans/OTF/FiraSansOT-Light.otf'), url('/fonts/fira-sans/TTF/FiraSansOT-Light.ttf');
+  font-weight: 300;
+}
+@font-face {
+  font-family: "Fira Sans OT";
+  src: local('FiraSansOT-Bold'), url('/fonts/fira-sans/OTF/FiraSansOT-Bold.otf'), url('/fonts/fira-sans/TTF/FiraSansOT-Bold.ttf');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "Fira Sans OT";
+  src: local('FiraSansOT-Italic'), url('/fonts/fira-sans/OTF/FiraSansOT-Italic.otf'), url('/fonts/fira-sans/TTF/FiraSansOT-Italic.ttf');
+  font-style: italic;
+}
+@font-face {
+  font-family: "Fira Sans OT";
+  src: local('FiraSansOT-BoldItalic'), url('/fonts/fira-sans/OTF/FiraSansOT-BoldItalic.otf'), url('/fonts/fira-sans/TTF/FiraSansOT-BoldItalic.ttf');
+  font-weight: bold;
+  font-style: italic;
+}
+@font-face {
+  font-family: "Fira Sans OT";
+  src: local('FiraSansOT-LightItalic'), url('/fonts/fira-sans/OTF/FiraSansOT-LightItalic.otf'), url('/fonts/fira-sans/TTF/FiraSansOT-LightItalic.ttf');
+  font-weight: 300;
+  font-style: italic;
+}
+/*@font-face {
+  font-family: "Fira Sans OT";
+  src: local('FiraSansOT-LightItalic'), url('/fonts/fira-sans/OTF/FiraSansOT-LightItalic.otf'), url('/fonts/fira-sans/TTF/FiraSansOT-LightItalic.ttf');
+  font-weight: 300;
+  font-style: italic, oblique;
+}*/
+@font-face {
+  font-family: "Fira Mono OT";
+  src: local('FiraMonoOT-Regular'), url('/fonts/fira-sans/OTF/FiraMonoOT-Regular.otf'), url('/fonts/fira-sans/TTF/FiraMonoOT-Regular.ttf');
+}
+@font-face {
+  font-family: "Fira Mono OT";
+  src: local('FiraMonoOT-Bold'), url('/fonts/fira-sans/OTF/FiraMonoOT-Bold.otf'), url('/fonts/fira-sans/TTF/FiraMonoOT-Bold.ttf');
+  font-weight: bold;
+}
 
 $textcolor: #000;
 $blockquotebgcolor: #FFF8E3;

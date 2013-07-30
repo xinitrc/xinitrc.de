@@ -10,7 +10,7 @@ body {
   background: $bgcolor;
 
   font: {
-    family: "Lato";
+    family: "Fira Sans OT", "Lato", sans-serif;
     weight: 300;
     size: 20px;
   }
@@ -38,6 +38,7 @@ h1,h2,h3,h4,h5,h6 {
 h1, h2 {
   color: $bgcolor;
   background: $textcolor;
+  padding: 5px 0;
 }
 
 h2 {
@@ -112,7 +113,7 @@ sup {
 }
 
 .tt {
-  font-family: "Droid Sans Mono","Monaco","Menlo","Consolas","Courier New",monospace
+  font-family: "Fira Mono OT", "Droid Sans Mono","Monaco","Menlo","Consolas","Courier New",monospace
 }
 
 blockquote {
