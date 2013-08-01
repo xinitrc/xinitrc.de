@@ -2,6 +2,6 @@
 *.o
 site
 .idea
-*
 data
-
+_cache
+_site
