@@ -10,7 +10,7 @@ body {
   background: $bgcolor;
 
   font: {
-    family: "Fira Sans OT", "Lato", sans-serif;
+    family: "FiraSans", "Lato", sans-serif;
     weight: 300;
     size: 20px;
   }
@@ -119,7 +119,7 @@ sup {
 }
 
 .tt {
-  font-family: "Fira Mono OT", "Droid Sans Mono","Monaco","Menlo","Consolas","Courier New",monospace
+  font-family: "FiraMono", "Droid Sans Mono","Monaco","Menlo","Consolas","Courier New",monospace
 }
 
 blockquote {
