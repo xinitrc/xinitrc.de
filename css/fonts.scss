@@ -61,21 +61,15 @@
 }
 @font-face {
   font-family: 'FiraMono';
-  src: url('/fonts/FiraSans/FiraSans-Medium.eot');
-  src: url('/fonts/FiraSans/FiraSans-Medium.eot?#iefix') format('embedded-opentype'),
-  url('/fonts/FiraSans/FiraSans-Medium.woff') format('woff'),
-  url('/fonts/FiraSans/FiraSans-Medium.ttf') format('truetype'),
-  url('/fonts/FiraSans/FiraSans-Medium.svg#mozttregular') format('svg');
-  font-weight: 500;
+  src: url('/fonts/FiraMono/FiraMono-Regular.otf'),
+  url('/fonts/FiraMono/FiraMono-Regular.ttf') format('truetype');
+  font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'FiraMono';
-  src: url('/fonts/FiraSans/FiraSans-Bold.eot');
-  src: url('/fonts/FiraSans/FiraSans-Bold.eot?#iefix') format('embedded-opentype'),
-  url('/fonts/FiraSans/FiraSans-Bold.woff') format('woff'),
-  url('/fonts/FiraSans/FiraSans-Bold.ttf') format('truetype'),
-  url('/fonts/FiraSans/FiraSans-Bold.svg#mozttregular') format('svg');
+  src: url('/fonts/FiraMono/FiraMono-Bold.otf'),
+  url('/fonts/FiraMono/FiraMono-Bold.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
 }
