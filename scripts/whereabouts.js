@@ -6,7 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-var app = angular.module('Whereabouts', ["leaflet-directive","google-maps"]);
+var app = angular.module('Whereabouts', ["leaflet-directive"]);
 
 var whereaboutCTRL = function ($scope, $http) {
 
@@ -31,7 +31,7 @@ var whereaboutCTRL = function ($scope, $http) {
             $scope.center.lat = data[0].lat;
             $scope.markers.whereabouts.lng = data[0].lon;
             $scope.markers.whereabouts.lat = data[0].lat;
-/*            $scope.markers.whereabouts.message = calctime(data[0].t); */
+/*            $scope.markers.whereabouts.message = calctime(data[0].t); */m
         }
     });
 
