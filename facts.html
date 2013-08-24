@@ -86,11 +86,17 @@ facts: true
     <div class="clearfix"></div>
     <h2>Whereabouts</h2>
 
+    <div ng-app="Whereabouts">
+        <div ng-controller="WhereaboutCTRL" >
+            <leaflet width="100%" height="400px" center="center" markers="markers" defaults="defaults"></leaflet> <!-- markers="markers" defaults="defaults" width="100%" height="400px"></leaflet>
+            <div class="google-map" center="center" zoom="zoom" markers="markrs" style="height:400px; width: 100%"></div>-->
+        </div>
+    </div>
     <!-- whereabouts -- >
     <!-- {% include whereabouts.html %} -->
     <!-- Google Public Location Badge -->
-    <iframe src="https://latitude.google.com/latitude/apps/badge/api?user=-5286596973246875030&type=iframe&maptype=roadmap&hl=de"
-            id="latitude" frameborder="0"></iframe>
+    <!-- <iframe src="https://latitude.google.com/latitude/apps/badge/api?user=-5286596973246875030&type=iframe&maptype=roadmap&hl=de"
+            id="latitude" frameborder="0"></iframe>-->
     <!-- To disable location sharing, you *must* visit https://www.google.com/latitude/apps/badge and disable the Google Public Location badge. Removing this code snippet is not enough! -->
     <!-- whereabouts-->
 </div>
