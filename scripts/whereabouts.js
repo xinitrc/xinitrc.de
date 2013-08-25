@@ -15,14 +15,14 @@ var whereaboutCTRL = function ($scope, $http) {
 
         var intervals = ['sec', 'min', 'hours'];
         var i = 0;
-        var dist =  t - now / 1000;
+        var dist =  (now/ 1000) - t ;
 
         while (dist >= 60 && i < 3) {
             dist /= 60;
             i = i + 1;
         }
 
-        return "Last seen here " + Math.floor(dist) + intervals[i] + "ago";
+        return "Last seen here " + Math.floor(dist) + " " + intervals[i] + " ago";
     }
 
     $http.get('/data/location.json').success(function (data) {
@@ -31,7 +31,8 @@ var whereaboutCTRL = function ($scope, $http) {
             $scope.center.lat = data[0].lat;
             $scope.markers.whereabouts.lng = data[0].lon;
             $scope.markers.whereabouts.lat = data[0].lat;
-/*            $scope.markers.whereabouts.message = calctime(data[0].t); */m
+
+//            $scope.markers.whereabouts.message = calctime(data[0].t);
         }
     });
 
