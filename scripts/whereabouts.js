@@ -13,7 +13,7 @@ var whereaboutCTRL = function ($scope, $http) {
     var calctime = function (t) {
         var now = new Date().getTime();
 
-        var intervals = ['sec', 'min', 'hours'];
+        var intervals = ['second', 'minute', 'hour'];
         var i = 0;
         var dist =  (now/ 1000) - t ;
 
@@ -22,7 +22,13 @@ var whereaboutCTRL = function ($scope, $http) {
             i = i + 1;
         }
 
-        return "Last seen here about " + Math.floor(dist) + " " + intervals[i] + " ago and mostly stationary since.";
+        var str = "Last seen here about " + Math.floor(dist) + " " + intervals[i];
+        if (Math.floor(dist) !== 1) {
+            str += "s"
+        }
+        str += " ago and mostly stationary since.";
+
+        return str;
     }
 
     $http.get('/data/location.json').success(function (data) {
