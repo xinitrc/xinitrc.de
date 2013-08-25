@@ -6,7 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-var app = angular.module('Whereabouts', ["leaflet-directive"]);
+var app = angular.module('xinitrc');/*, []);*/
 
 var whereaboutCTRL = function ($scope, $http) {
 

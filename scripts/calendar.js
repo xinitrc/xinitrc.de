@@ -1,4 +1,4 @@
-var app = angular.module('Calendar', []);
+var app = angular.module('xinitrc', ["leaflet-directive"]);
 
 var calendarCTRL = function ($scope, $http) {
     $scope.calendarEntries = [];
