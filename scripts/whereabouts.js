@@ -22,7 +22,7 @@ var whereaboutCTRL = function ($scope, $http) {
             i = i + 1;
         }
 
-        return "Last seen here " + Math.floor(dist) + " " + intervals[i] + " ago";
+        return "Last seen here about " + Math.floor(dist) + " " + intervals[i] + " ago and mostly stationary since.";
     }
 
     $http.get('/data/location.json').success(function (data) {
@@ -32,6 +32,7 @@ var whereaboutCTRL = function ($scope, $http) {
             $scope.markers.whereabouts.lng = data[0].lon;
             $scope.markers.whereabouts.lat = data[0].lat;
 
+            $scope.message = calctime(data[0].t);
 //            $scope.markers.whereabouts.message = calctime(data[0].t);
         }
     });
@@ -47,7 +48,6 @@ var whereaboutCTRL = function ($scope, $http) {
                 lat: 0, /*53.143672943115234,*/
                 lng: 0, /*8.176630973815918,*/
                 message: "Last seen here",
-                focus: true
             }
         },
         defaults: {
