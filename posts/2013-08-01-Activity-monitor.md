@@ -23,7 +23,7 @@ Actually <span class="tt">if</span> is more like an "<span class="tt">isDefined<
 
 That's it.
 
-## A work through the code
+## A walk through the code
 
 Let's make that a little more detailed, probably nobody understood it from the tl;dr anyway. I take the [facts](/facts.html) page to illustrate it, but it works the same for all the other entries.
 

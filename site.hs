@@ -3,7 +3,7 @@
 import           Hakyll
 
 import           Control.Applicative              ((<$>))
-import           Control.Monad                    (filterM, liftM, (>=>))
+import           Control.Monad                    (filterM, liftM, (>=>), (<=<))
 import           Control.Arrow                    (first, second)
 
 import qualified Data.Set as S
@@ -159,7 +159,7 @@ main = hakyllWith hakyllConf $ do
 
     match "talks.html" $ do 
         route idRoute
-        compile $ genCompiler tags $ field "posts" (\_ -> postList $ fmap (take 5) . (recentFirst >=> filterTalks))
+        compile $ genCompiler tags (field "posts" $ \_ -> postList $ fmap (take 5) . (recentFirst >=> filterTalks))
                                                                 
     match "talk-archive.html" $ do
         route idRoute
@@ -182,7 +182,6 @@ main = hakyllWith hakyllConf $ do
             renderAtom myFeedConfiguration feedCtx posts
 
     match ("templates/*" .||. "partials/*") $ compile templateCompiler
-
 
     match "ref.bib" $ compile biblioCompiler
     match "springer-lncs.csl" $ compile cslCompiler
@@ -242,7 +241,7 @@ postCtx = mconcat [dateField "date" "%Y-%m-%d" , defaultContext]
 
 postLst :: Pattern -> Identifier -> Context String -> ([Item String] -> Compiler [Item String]) -> Compiler String
 postLst pattern template context sortFilter = do
-    posts   <- sortFilter =<< loadAll pattern
+    posts   <- return =<< sortFilter =<< loadAll pattern
     itemTpl <- loadBody template
     applyTemplateList itemTpl (teaserField "teaser" "teaser" `mappend` context) posts
 
