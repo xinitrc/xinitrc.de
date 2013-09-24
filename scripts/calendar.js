@@ -8,7 +8,7 @@ var calendarCTRL = function ($scope, $http) {
     $http.get('/data/calendar.json').success(function (data) {
         angular.forEach(data.items, function (d) {
             var datetimeFormat = "yyyy-mm-dd HH:MM";
-            var dateFormat = "yyyy-mm-dd"
+            var dateFormat = "yyyy-mm-dd";
 
             var startTime = d.start.dateTime ? new Date(d.start.dateTime).format(datetimeFormat)
                 : new Date(d.start.date).format(dateFormat);

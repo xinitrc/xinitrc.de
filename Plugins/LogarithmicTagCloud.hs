@@ -13,10 +13,10 @@ import Text.Printf                                (printf)
 
 
 renderLogTagCloud :: Double
-               -> Double
-               -> String
-               -> Tags
-               -> Compiler String
+                  -> Double
+                  -> String
+                  -> Tags
+                  -> Compiler String
 renderLogTagCloud minSize maxSize unit = renderTags makeLink unwords
     where
       makeLink tag url count min' max' = renderHtml $

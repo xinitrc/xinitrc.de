@@ -27,14 +27,14 @@ applyKeywords' :: Keywords -> Compiler String
 applyKeywords' kws = do
   items <- mapM applyKWs $ unKeyword kws
   return $ concatMap itemBody items
-    where
-      applyKWs (Chunk c) = makeItem c
-      applyKWs (Escaped) = makeItem "§"
-      applyKWs m@(Youtube vid) = youtube vid
-      applyKWs m@(Vimeo vid) = vimeo vid
-      applyKWs t@(Tikz _ _) = makeItem $ processTikZs t
-      applyKWs (SlideShare sid) = slideShare sid
-
+      where
+        applyKWs (Chunk c) = makeItem c
+        applyKWs (Escaped) = makeItem "§"
+        applyKWs m@(Youtube vid) = youtube vid
+        applyKWs m@(Vimeo vid) = vimeo vid
+        applyKWs t@(Tikz _ _) = makeItem $ processTikZs t
+        applyKWs (SlideShare sid) = slideShare sid
+                                    
 externalResource :: Identifier -> String -> String -> Compiler (Item String)
 externalResource templateId fieldName id = makeItem "" >>= loadAndApplyTemplate templateId (constField fieldName id)
 

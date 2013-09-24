@@ -19,7 +19,7 @@ data KeywordElement
     | SlideShare String
     | Tikz (Maybe String) String
     deriving (Show, Eq)
-
+             
 
 readKeywords :: String -> Keywords
 readKeywords input = case parse keywords "" input of
@@ -37,10 +37,10 @@ escaped = Escaped <$ try (string "§§")
 
 simpleIdParserGenerator :: String -> (String -> KeywordElement) -> Parser KeywordElement
 simpleIdParserGenerator identifier constructor = try $ do
-        void $ string ("§"++ identifier ++ "(")
-        embedId <- many1 $ noneOf ")"
-        void $ string ")§"
-        return $ constructor embedId
+                                                   void $ string ("§"++ identifier ++ "(")
+                                                   embedId <- many1 $ noneOf ")"
+                                                   void $ string ")§"
+                                                   return $ constructor embedId
 
 slideshare :: Parser KeywordElement
 slideshare = simpleIdParserGenerator "slideshare" SlideShare
@@ -53,10 +53,10 @@ vimeo = simpleIdParserGenerator "vimeo" Vimeo
 
 tikz :: Parser KeywordElement
 tikz = try $ do 
-        void $ string "§tikz("
-        options <- optionMaybe $ many1 $ noneOf ")"
-        void $string ")§"
-        tikzImage <- many1 $ noneOf "§"
-        void $ string "§endtikz§"
-        return $ Tikz options tikzImage
+         void $ string "§tikz("
+         options <- optionMaybe $ many1 $ noneOf ")"
+         void $string ")§"
+         tikzImage <- many1 $ noneOf "§"
+         void $ string "§endtikz§"
+         return $ Tikz options tikzImage
           

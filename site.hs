@@ -114,7 +114,7 @@ main = hakyllWith hakyllConf $ do
 
     tagsRules tags $ \tag pattern -> do
            let title = "Posts tagged " ++ tag
-           route idRoute
+           route $ gsubRoute " " (const "-") -- idRoute
            compile $ do
                posts <- constField "posts" <$> postLst pattern "templates/tag-item.html" (taggedPostCtx tags) recentFirst
     
