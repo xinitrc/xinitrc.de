@@ -121,7 +121,7 @@ main = hakyllWith hakyllConf $ do
                makeItem ""
                    >>= loadAndApplyTemplate "templates/tagpage.html" (posts `mappend` constField "tag" tag `mappend` taggedPostCtx tags)
            version "rss" $ do
-            route   $ setExtension "xml"
+            route   $ gsubRoute " " (const "-") `composeRoutes` setExtension "xml"
             compile $ loadAllSnapshots pattern "teaser"
                 >>= fmap (take 10) . recentFirst
                 >>= renderAtom (feedConfiguration title) feedContext
