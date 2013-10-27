@@ -15,23 +15,19 @@ Options +FollowSymlinks
 
 RewriteEngine on
 RewriteCond %{HTTP_HOST}        ^blog.xinitrc.de [NC]
-RewriteRule ^$          https://xinitrc.de/ [L,R]
+RewriteRule ^$          http://xinitrc.de/ [L,R]
 
 RewriteCond %{HTTP_HOST}        ^blog.xinitrc.de [NC]
-RewriteRule ^(.*)$      https://xinitrc.de/$1 [R]
+RewriteRule ^(.*)$      http://xinitrc.de/$1 [R]
 
 RewriteCond %{HTTP_HOST}        ^www.xinitrc.de [NC]
-RewriteRule ^(.*)$      https://xinitrc.de/$1 [R]
+RewriteRule ^(.*)$      http://xinitrc.de/$1 [R]
 
 RewriteCond %{HTTP_HOST}        ^pad.xinitrc.de [NC]
 RewriteRule ^$ http://localhost:12004/ [P]
 
 RewriteCond %{HTTP_HOST}        ^pad.xinitrc.de [NC]
 RewriteRule ^(.*)$ http://localhost:12004/$1 [P]
-
-RewriteCond %{HTTPS} !=on
-RewriteCond %{ENV:HTTPS} !=on
-RewriteRule .* https://xinitrc.de%{REQUEST_URI} [R=301,L]
 
 
 # ADAPTIVE IMAGES 
