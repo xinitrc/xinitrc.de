@@ -1,5 +1,5 @@
 ---
-title: Vectors
+title: Vectors everywhere
 tags: svg, tikz, hakyll
 ---
 
