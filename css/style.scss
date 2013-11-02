@@ -11,8 +11,7 @@
 
 .tikz img {
   display: block;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 20px auto;
 
   max-width: 100%;
   height: auto;
@@ -317,6 +316,60 @@ article {
 #references p {
   text-indent: -1em;
   margin-left: 1em;
+}
+
+input {
+  @include appearance(none);
+  border-radius: 0px;
+}
+
+/* Form wrapper styling */
+.search {
+  @include experimental-value(width, calc(100% - 20px));
+  padding: 0 10px;
+  margin: 0px auto 0px auto;
+}
+
+/* Form text input */
+
+.search input, .search input:active, .search input:focus {
+  @include experimental-value(width, calc(100% - 70px));
+  height: 20px;
+  padding: 10px 5px;
+  float: left;
+  font-size: 20px;;
+  border: 0;
+  outline: 0;
+  border-radius: 5px 0 0 5px;
+
+}
+
+/* Form submit button */
+.search button {
+  overflow: visible;
+  outline: 0;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  height: 40px;
+  width: 60px;
+  font-size: 20px;
+  color: #fff;
+  text-transform: uppercase;
+  background: $linkcolor;
+  border-radius: 0 5px 5px 0;
+}
+
+div.definition {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-style: italic;		
+}
+
+div.problemstatement {
+  margin: 20px;
+  padding: 10px;
+  border: thin solid $textcolor;
 }
 
 @import "css/responsive";
