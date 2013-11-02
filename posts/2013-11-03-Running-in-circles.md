@@ -1,6 +1,6 @@
 ---
 title: Running in circles
-tags: math, svg, graphs, graph theory
+tags: math, svg, graphs, graph theory, cycles, cycle freeness
 ---
 
 Even though the title would work for the reason this blog post is out so late, it should have been published monday evening, I still like to do a little math (it's better for my blood pressure anyways).
@@ -28,7 +28,7 @@ A **graph** \(G\) is a tuple \(G=(V,E)\) with \(V\) being a set the **vertices**
 
 If you are a mathematician or at least have a good ability to read mathematical definitions, this might be enough for you and you can skip the next paragraph.
 
-For anybody else let me try to explain what this means. First we have a set of vertices \(V\). Every vertex is just a "thing" that we can somehow connect with some other "thing" (vertex) by a relation e.g. train stations, people or dots. The second part, the edges \(E\), are precisely these relations, every edge (\(e\in E\)) connects exactly two "things" (vertices) with one another (\(\forall e\in E \bullet |e|=2\)), going on with the examples above, you can thing of an edge as train tracks connecting two train stations, friendships connecting two people or simply a line connecting two dots. In the special case stated above we can't distinguish between an "origin" and a "target" of the relations, so they are symmetrical which only means if \(a\) and \(b\) are train stations and there is a track between them we can't say the track only goes from \(a\) to \(b\) but not the other way around. There is one more technicality we don't allow loops e.g. one vertex \(v\in V\) having an edge going from \(v\) back to \(v\) is forbidden. For the reminder of this exercise this makes no big difference, but makes the formulation above a little easier. 
+For anybody else let me try to explain what this means. First we have a set of vertices \(V\). Every vertex is just a "thing" that we can somehow connect with some other "thing" (vertex) by a relation e.g. train stations, people or dots. The second part, the edges \(E\), are precisely these relations, every edge (\(e\in E\)) connects exactly two "things" (vertices) with one another (\(\forall e\in E \bullet |e|=2\)), going on with the examples above, you can think of an edge as train tracks connecting two train stations, friendships connecting two people or simply a line connecting two dots. In the special case stated above we can't distinguish between an "origin" and a "target" of the relations, so they are symmetrical which only means if \(a\) and \(b\) are train stations and there is a track between them we can't say the track only goes from \(a\) to \(b\) but not the other way around. There is one more technicality we don't allow loops e.g. one vertex \(v\in V\) having an edge going from \(v\) back to \(v\) is forbidden. For the reminder of this exercise this makes no big difference, but makes the formulation above a little easier. 
 
 For obvious reasons we resort to showing graphs as dots and lines between them. So here is an example:
 
@@ -71,7 +71,7 @@ In the above example it is easy to see what our property states, the graph has f
 
 Two remarks here: 
 
-1. The property does not state that we can't make a cycle in a graph with less than edges then vertices. It only states that if we have at least as many edges as vertices we are guaranteed to have a cycle.
+1. The property does not state that we can't make a cycle in a graph with less edges than vertices. It only states that if we have at least as many edges as vertices we are guaranteed to have a cycle.
 2. From your math education in school you might remember that any number of example can't be a proof that this holds in general. 
 
 In this case however the property holds and now let's proof that. 
@@ -104,7 +104,7 @@ We proof this lemma by reductio ad absurdum or contradiction, that is, we say: "
 
 **Claim:** There is a cycle-free graph \(G=(V,E)\) with \(|V|=n\) where all vertices \(v\) have \(deg(v)\geq 2\).
 
-If we have such a graph, then we construct a path \(<v_0, v_1, \ldots , v_n>\) as follows: We take any vertex \(v_0\), since this vertex has \(deg(v_0)\geq 2\) there is an edge \(\{v_0, v_1\} \in E\). And we can select \(v_1\) as the second vertex, and so on. Since for all vertices \(deg(v_i)\geq 2\) we can always select \(v_{i-1}, v_{i}, v_{i+1}\) such that \(v_{i-1} \not= v_{i+1}\), so the incoming edge is different from the outgoing edge. But now we have a problem \(<v_0, v_1, \ldots , v_n>\) contains \(n+1\) vertices (just count from \(0\) to \(n\)) but \(V\) only contains \(n\) vertices, so two vertices in this path need to be the same, which means, yes you guessed it, there has to be a cycle. So the graph can't be cycle-free and we have our contradiction and by that know that our lemma holds.
+If we have such a graph, then we construct a path \(<v_0, v_1, \ldots , v_n>\) as follows: We take any vertex \(v_0\), since this vertex has \(deg(v_0)\geq 2\) there is an edge \(\{v_0, v_1\} \in E\). And we can select \(v_1\) as the second vertex, and so on. Since for all vertices \(deg(v_i)\geq 2\) we can always select \(v_{i-1}, v_{i}, v_{i+1}\) such that \(v_{i-1} \not= v_{i+1}\), so the incoming edge is different from the outgoing edge. But now we have a problem \(<v_0, v_1, \ldots , v_n>\) contains \(n+1\) vertices (just count from \(0\) to \(n\)) but \(V\) only contains \(n\) vertices, so two vertices in this path need to be the same. Which means, yes you guessed it, there has to be a cycle. So the graph can't be cycle-free and we have our contradiction and by that know that our lemma holds.
 
 ### Theorem 
 
@@ -126,7 +126,7 @@ This takes care of the base case.
 
 **Induction hypothesis:** For every graph \(G=(V,E)\) with \(|V|=n\), if \(G\) is cycle-free \(|E|<|V|\) holds.
 
-**Induction step:** Let \(G=(V,E)\) be a cycle-free graph with \(|V|=n+1\) vertices. Than, due to our lemma from above, \(V\) contains at least one node \(v\in V\) with \(deg(v)\leq 2\). We construct a new graph \(G^{\prime}=(V^{\prime}, E^{\prime})\), where \(V^{\prime}=V\backslash\{v\}\), so we remove \(v\) from \(V\) and we construct \(E^{\prime}\) by removing all edges connecting \(v\) with any other vertex \(E^{\prime}=E\backslash \{\{u,v\} | u\in V\}\). Obviously \(|V^{\prime}|=|V|-1\), since we removed 1 vertex, and \(| E^{\prime} | \geq |E|-1\), since we removed at most one edge, due to \(deg(v)\leq 1\). As we couldn't have added a cycle by removing one vertex \(G^{\prime}\) is also cycle-free. We can now use the induction hypothesis, because \(G^{\prime}\) only contains \(n\) vertices and is cycle-free. By that we know \(| E^{\prime} | < | V^{\prime} | = n-1 \), therefore \(|E| < n\).
+**Induction step:** Let \(G=(V,E)\) be a cycle-free graph with \(|V|=n+1\) vertices. Than, due to our lemma from above, \(V\) contains at least one node \(v\in V\) with \(deg(v)\leq 2\). We construct a new graph \(G^{\prime}=(V^{\prime}, E^{\prime})\), where \(V^{\prime}=V\backslash\{v\}\), so we remove \(v\) from \(V\) and we construct \(E^{\prime}\) by removing all edges connecting \(v\) with any other vertex \(E^{\prime}=E\backslash \{\{u,v\} | u\in V\}\). Obviously \(|V^{\prime}|=|V|-1\), since we removed 1 vertex, and \(| E^{\prime} | \geq |E|-1\), since we removed at most one edge, due to \(deg(v)\leq 1\). As we couldn't have added a cycle by removing one vertex \(G^{\prime}\) is also cycle-free. We can now use the induction hypothesis, because \(G^{\prime}\) only contains \(n\) vertices and is cycle-free. By that we know \(| E^{\prime} | < | V^{\prime} | = n \), therefore \(|E| < n + 1\).
 
 And we are done. The rest is taken care of by the induction principle. Since we have the base case, we can use the induction step to get a solution for two vertices, after we have that we can continue for three, four and so on.
 
