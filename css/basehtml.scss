@@ -135,3 +135,20 @@ blockquote {
     text-align: right;
   }
 }
+
+
+dt {
+   font-weight: bold;
+   float: left;
+   clear: left;
+   width: 60px;
+   text-align: right;
+}
+
+dt:after {
+   content: ":";
+}
+
+dd {
+  margin-left: 70px;
+}
