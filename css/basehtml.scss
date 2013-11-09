@@ -1,13 +1,16 @@
 html {
   height: 100%;
 }
-
+img {
+  max-width: 100%;
+  height: auto;
+}
 body {
   color: $textcolor;
   background: $bgcolor;
 
   font: {
-    family: "Lato";
+    family: "FiraSans", "Lato", sans-serif;
     weight: 300;
     size: 20px;
   }
@@ -30,11 +33,16 @@ h1,h2,h3,h4,h5,h6 {
   margin: 10px 0 10px 0;
 
   line-height: 1.5em;
+
+  a {
+    font-weight: 700;
+  }
 }
 
 h1, h2 {
   color: $bgcolor;
   background: $textcolor;
+  padding: 5px 0;
 }
 
 h2 {
@@ -46,6 +54,7 @@ h2 {
 h1, h1 a, h1 a:hover {
   color: $bgcolor;
   background: $textcolor;
+  font-weight: 700;
 
   font: {
     size: 40px;
@@ -76,21 +85,27 @@ a, a:hover {
   color: $linkcolor;
 
   text-decoration: underline;
+  font-weight: 400;
 }
 
 article {
   line-height: 1.5em;
 }
 
-ul {
+ul, ol {
   margin-bottom: 10px;
 }
 
-ul, ol {
+ul {
   li {
     list-style: disc;
     margin-left: 30px;
   }
+}
+
+ol li {
+  list-style: decimal;
+  margin-left: 30px;
 }
 
 ul.unstyled li {
@@ -98,6 +113,42 @@ ul.unstyled li {
   margin-left: 0;
 }
 
+sup {
+  vertical-align: super;
+  font-size: 60%;
+}
+
 .tt {
-  font-family: "Droid Sans Mono","Monaco","Menlo","Consolas","Courier New",monospace
+  font-family: "FiraMono", "Droid Sans Mono","Monaco","Menlo","Consolas","Courier New",monospace
+}
+
+blockquote {
+  padding: 10px 20px 10px 20px;
+  background: $blockquotebgcolor;
+  border: thin solid $textcolor;
+  border-left: 15px solid $textcolor;
+  font-weight: 400;
+
+  small {
+    font-size: 14px;
+    display: block;
+    text-align: right;
+  }
+}
+
+
+dt {
+   font-weight: bold;
+   float: left;
+   clear: left;
+   width: 60px;
+   text-align: right;
+}
+
+dt:after {
+   content: ":";
+}
+
+dd {
+  margin-left: 70px;
 }

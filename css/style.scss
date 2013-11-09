@@ -1,5 +1,4 @@
 @import "css/base.scss";
-
 @import "css/basehtml.scss";
 
 #wrapper {
@@ -8,6 +7,22 @@
 
 [ng\:cloak], [ng-cloak], .ng-cloak {
   display: none;
+}
+
+.tikz img {
+  display: block;
+  margin: 20px auto;
+
+  max-width: 100%;
+  height: auto;
+}
+
+time {
+  font-weight: bold;
+}
+
+td time {
+  margin-right: 20px;
 }
 
 header {
@@ -28,12 +43,26 @@ header {
     width: 130px;
     line-height: 3;
 
-    background: $datebgcolor;
-    border-left: 5px solid $bgcolor;
+    color: $bgcolor;
+    background: $textcolor;
 
     text-align: center;
-    padding-left: 20px;
-    font-weight: bold;
+  }
+
+  .rss {
+    display: table-cell;
+    vertical-align: middle;
+
+    width: 64px;
+    color: $bgcolor;
+    background: $textcolor;
+
+    text-align: center;
+
+    a {
+      color: $bgcolor;
+      text-decoration: none;
+    }
   }
 }
 
@@ -43,16 +72,18 @@ header {
 
 article {
   margin-bottom: 20px;
+
+  img {
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 .basicStats {
   width: 48.93617021276595%;
   *width: 48.88297872340425%;
   float: left;
-}
-
-time {
-  margin-right: 20px;
 }
 
 .looks {
@@ -63,7 +94,7 @@ time {
   *margin-left: 2.074468085106383%;
 }
 
-iframe#latitude {
+.leaflet-container {
   height: 500px;
   width: 100%;
 }
@@ -85,7 +116,7 @@ iframe#latitude {
 
 .year, .month {
   display: block;
-  float:left;
+  float: left;
   width: 14.893617021276595%;
 }
 
@@ -97,13 +128,14 @@ iframe#latitude {
   padding-right: 20px;
 }
 
-
 .archive {
   font-size: 40px;
   margin-top: 40px;
   margin-bottom: 20px;
   text-align: center;
-  font-weight: bold;
+  a {
+    font-weight: 700;
+  }
 }
 
 .social {
@@ -113,7 +145,7 @@ iframe#latitude {
   a, a:hover {
     display: inline;
     color: $bgcolor;
-    background: $textcolor;
+    /*background: $textcolor;*/
     text-decoration: none;
   }
 
@@ -147,7 +179,8 @@ iframe#latitude {
 
 .cc-icon img {
   display: block;
-  
+
+  margin-top: 20px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -165,8 +198,8 @@ iframe#latitude {
   margin-bottom: 20px;
   background: $bgcolor;
   padding: 10px 10px 10px 10px;
-  margin-left:auto;
-  margin-right:auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .dateli {
@@ -215,14 +248,14 @@ iframe#latitude {
         text-decoration: none;
 
         line-height: 1.5em;
-        padding: 10px 5px 10px 5px;
-      }
-      a.active,
-      a:hover {
-        color: $textcolor;
-        background: $bgcolor;
+        padding: 10px 5px 10px 15px;
+        &.active,
+        &:hover {
+          color: $textcolor;
+          background: $bgcolor;
 
-        text-decoration: none;
+          text-decoration: none;
+        }
       }
 
       i {
@@ -258,12 +291,6 @@ iframe#latitude {
     padding: 0 10px 0 10px;
   }
 
-/*
-  .hrnext {
-    display: none;
-  }
-*/
-
   ul li {
     list-style: none;
     margin-left: 0;
@@ -274,12 +301,14 @@ iframe#latitude {
 .clearfix {
   *zoom: 1;
 }
+
 .clearfix:before,
 .clearfix:after {
   display: table;
   content: "";
   line-height: 0;
 }
+
 .clearfix:after {
   clear: both;
 }
@@ -288,4 +317,59 @@ iframe#latitude {
   text-indent: -1em;
   margin-left: 1em;
 }
+
+input {
+  @include appearance(none);
+  border-radius: 0px;
+}
+
+/* Form wrapper styling */
+.search {
+  @include experimental-value(width, calc(100% - 20px));
+  padding: 0 10px;
+  margin: 0px auto 0px auto;
+}
+
+/* Form text input */
+
+.search input, .search input:active, .search input:focus {
+  @include experimental-value(width, calc(100% - 70px));
+  height: 20px;
+  padding: 10px 5px;
+  float: left;
+  font-size: 20px;;
+  border: 0;
+  outline: 0;
+  border-radius: 5px 0 0 5px;
+
+}
+
+/* Form submit button */
+.search button {
+  overflow: visible;
+  outline: 0;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  height: 40px;
+  width: 60px;
+  font-size: 20px;
+  color: #fff;
+  text-transform: uppercase;
+  background: $linkcolor;
+  border-radius: 0 5px 5px 0;
+}
+
+div.definition {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-style: italic;		
+}
+
+div.problemstatement {
+  margin: 20px;
+  padding: 10px;
+  border: thin solid $textcolor;
+}
+
 @import "css/responsive";

@@ -72,6 +72,7 @@ facts: true
             <li><a href="http://nodejs.org">Node.JS</a></li>
             <li><a href="http://couchdb.apache.org">CouchDB</a></li>
             <li><a href="http://angularjs.org">AngularJS</a></li>
+            <li><a href="https://meteor.com">Meteor</a></li>
         </ul>
     </div>
     <div class="third">
@@ -85,11 +86,10 @@ facts: true
     <div class="clearfix"></div>
     <h2>Whereabouts</h2>
 
-    <!-- whereabouts -- >
-    <!-- {% include whereabouts.html %} -->
-    <!-- Google Public Location Badge -->
-    <iframe src="https://latitude.google.com/latitude/apps/badge/api?user=-5286596973246875030&type=iframe&maptype=roadmap&hl=de"
-            id="latitude" frameborder="0"></iframe>
-    <!-- To disable location sharing, you *must* visit https://www.google.com/latitude/apps/badge and disable the Google Public Location badge. Removing this code snippet is not enough! -->
-    <!-- whereabouts-->
+    <div>
+        <div ng-controller="WhereaboutCTRL">
+            <leaflet center="center" markers="markers" defaults="defaults"></leaflet>
+            <div ng-bind="message"></div>
+        </div>
+    </div>
 </div>
