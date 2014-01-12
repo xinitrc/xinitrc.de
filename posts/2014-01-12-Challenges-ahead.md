@@ -1,6 +1,6 @@
 ---
 title: Challenges ahead
-tag: python, last year, javascript, ux, norwegian
+tags: python, last year, javascript, ux, norwegian
 ---
 
 Every year I set out to learn something new, and just to keep a memory of that and maybe for you to hold me to what I "promised" I'd like to post it here. 
