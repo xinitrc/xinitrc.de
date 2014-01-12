@@ -30,7 +30,7 @@ RewriteCond %{HTTP_HOST}        ^pad.xinitrc.de [NC]
 RewriteRule ^(.*)$ http://localhost:12004/$1 [P]
 
 RewriteCond %{ENV:HTTPS} on
-RewriteCond %{HTTP_HOST} ^couch.xinitrc.de [OR]
+RewriteCond %{HTTP_HOST} ^couch.xinitrc.de
 RewriteRule ^(.*)$      http://localhost:21864/$1 [P]
 
 # ADAPTIVE IMAGES 
