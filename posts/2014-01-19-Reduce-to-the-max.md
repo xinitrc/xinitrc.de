@@ -1,7 +1,7 @@
 ---
 title: Reduce to the max
 tags: xmonad, configuration, minimalism
-published: 2014-01-19 22:30
+published: 2014-01-19 23:00
 ---
 
 For the last 10 years now I am a Apple user. Nevertheless I really like Linux and that's not only on servers and in embedded devices but for the Desktop. I actually don't see Linux fitting on the Desktop of anybody who is not tech savvy even though Ubunutu is not that bad. But for so called power users Linux actually is a very valid Desktop environment. So as a second Workspace I have VMWare Linux instance running on my machine almost 24-7. And since I have been asked now at least one to many times how my "strange" Desktop Environment is configured. I'd like to share that with you.
@@ -40,8 +40,16 @@ As a little visual gimmick I also added is FadeInactive, which makes windows not
 
 ## Here are the files
 
-As alway I hope this prooves usefull for somenone so I give you the files: The main file [xmonad.hs](/assets/documents/xmonad.hs) and the [Topics.hs](/assets/documents/Topics.hs) which generates the topic space configuration. You will obviously want to change the configuration to your needs, but I think it should be obvious how to do that. 
+As alway I hope this proves usefull for somenone so I give you the files: The main file [xmonad.hs](/assets/documents/xmonad.hs) and the [Topics.hs](/assets/documents/Topics.hs) which generates the topic space configuration. You will obviously want to change the configuration to your needs, but I think it should be obvious how to do that. 
 
 And before I get asked where to put these files, the xmonad.hs goes in your .xmonad directory the Topic.hs in .xmonad/lib/Topics/ and than everything should work out fine after a <span class="tt">xmonad --recompile</span>.
+
+And just for the reference here are some screenshots of the Desktop
+
+[![Desktop Screenshot](/assets/images/Desktop_thumb.jpg)](/assets/images/Desktop.jpg)
+
+and the creation of this blog post.
+
+[![Blogpost Screenshot](/assets/images/Blogpost_thumb.jpg)](/assets/images/Blogpost.jpg)
 
 Happy tiling.
