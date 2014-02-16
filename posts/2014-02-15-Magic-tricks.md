@@ -23,7 +23,7 @@ Ok now for the second operation \(\otimes_m\) we simply use the same "trick" we 
 
 \[C = A \otimes_{m} B \Leftrightarrow c_{ij} = \oplus_{k=0}^{n} (a_{kj} \otimes b_{ik})\]
 
-where \(\n) is the size of the matrix.
+where \(n\) is the size of the matrix.
 
 What remains open are the neutral elements, but these both are easy. To do nothing to any component we can add \(\mathbf{0}\) from the underlying semiring, since we already know this doesn't change anything, due to the rules of the underlying semiring, it wont change anything in the square matrixes. So \(\mathbf{0}_m\) is just a square matrix consisting of all compontents \(\mathbf{0}\). 
 
