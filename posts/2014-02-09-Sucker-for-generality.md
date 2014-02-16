@@ -199,8 +199,44 @@ instance Semiring Tropical where
 ~~~~
 
 
-
 ## Wrapping up 
 
 So now I hope I haven't confused you to much, if I have, try reading it again. If it is still unclear and you want to understand it or if you think I might have made a mistake, which is very well in the realm of possible, the comment section is your friend. If necessary I'll update this post accordingly. Next time (not necessaryly next blog post) I'll try to put the above to good use, especially the Semiring stuff.
 
+
+
+## Update: *-semiring
+
+I have to make small addition to this post, I forgot to explain one algebraic structure the *-semiring. It is actually a just a small addition to a Semring. We add another operation which we call asteration or star (\(*\)) this operation has to satisfy the following property for any \(x\in X\)
+\[x^* = \mathbf{1}\oplus (x\otimes x^*) = \mathbf{1}\oplus (x^*\otimes x)\]
+It is whats called a fixpoint operator. Depending on the setting it might e.g. work as repetition or simple be instantiated to a specific value. From this star operation we can derive another which is called plus. Plus simply omits the base case and can be defined by:
+\[x^+=x\otimes x*\]
+
+One detail we will need for the next blog post is that these operators can be defined in terms of each other. We defined \(+\) in terms of \(*\). The reverse direction works as follows. 
+
+\[x^*=1\oplus x^+\]
+
+### Example
+
+In our remaining two examples of a semiring we could define the following asteration operations:
+
+In the \((N, +, \cdot, 0, 1)\) semiring \(*\) could be defined of the infinite sum \(x*=1+\sum_{i}^{\infty}x\) this is not very helpful and we wont use it later on. 
+
+In the \((N\cup \{\infty\}, min, +, \infty, 0)\) semiring on the other hand \(x* = 0\) satisfies our property perfectly. Just by the simple fact that \(\oplus=min(x,y)\) and that the minimum of \(0\) and any other number in \(N\cup \{\infty\}\) will always be \(0\). This is actually more useful and find it's way into the next blog post.
+
+### Haskell 
+
+In Haskell we can write a semiring as follows, obviously for any instance we would have to override one of the both to not fall into the trap of an infinite recursion. For the same reason I will omit a definition of the school arithmatic semiring, it simply wont finish computing anyway. However you will find the definition for the Tropical Semiring below. 
+
+~~~~ {.haskell}
+class Semiring a => StarSemiring a where
+  star :: a -> a
+  star x = one <+> (plus x)
+  plus :: a -> a
+  plus x = x <.> (star x)
+  
+
+class Starsemiring Tropical where 
+  star _ = one
+
+~~~~
