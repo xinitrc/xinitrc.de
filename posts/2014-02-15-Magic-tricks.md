@@ -1,5 +1,5 @@
 ---
-title: Magick tricks
+title: Magic tricks
 tags: haskell, graphs, semiring
 ---
 
