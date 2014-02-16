@@ -311,7 +311,7 @@ instance StarSemiring MinMax where
 
 ## MaxMult \(*\)-semiring
 
-So final example for this blog post. Another semiring, this time \( ([0,1], max(x,y), \cdot, 0, 1) \). This time I fully trust you that you can check that this is a semiring and that you can find a suitable \(*\) operation.
+So final example for this blog post. Another semiring, this time \(([0,1], max(x,y), \cdot, 0, 1)\). This time I fully trust you that you can check that this is a semiring and that you can find a suitable \(*\) operation.
 
 ### Application 
 
