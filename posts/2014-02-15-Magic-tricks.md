@@ -269,13 +269,13 @@ Let's do two more semirings.
 
 ## MaxMin \(*\)-semiring
 
-Another semiring we could think up is this \( (\mathbb{N}\cup{\infty}, max(x,y), min(x,y), 0, \infty) \). I have trust in you that you can check that this ins indeed a semiring on your own. For the \(*\) operation I give you some help, even though this is easy too. Once again the definining property is:
+Another semiring we could think up is this \((\mathbb{N}\cup\{\infty\}, max(x,y), min(x,y), 0, \infty)\). I have trust in you that you can check that this ins indeed a semiring on your own. For the \(*\) operation I give you some help, even though this is easy too. Once again the definining property is:
 
 \[x^*=\mathbf{1}\oplus x\otimes x^*\]
 
 which in this case means:
 
-\[x^*=max(\infty, min(x,x^*)\]
+\[x^*=max(\infty, min(x,x^*))\]
 
 and once again short circut evaluation yields simply that \(x^*=\infty\) since the maximum of \(\infty\) and anything else will be \(\infty\).
 
