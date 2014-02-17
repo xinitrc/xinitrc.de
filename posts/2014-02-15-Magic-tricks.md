@@ -36,11 +36,11 @@ Now you have only to suffer through the next section for an implementation, whic
 One application of square matrixes is to describe the connections of graphs. Actually depending on your definition of a graph the matrix can be used as a complete definition of the graph, so let's do so. First we need a type to hold the edges. Since we don't want to specify what we can put in those edges, this will later help us to use one representation of graphs and edges for multiple purposes. 
 
 ~~~~ {.haskell}
-data Edge a = a :-> a deriving (Eq, Ord, Boudned, Ix)
+data Edge a = a :-> a deriving (Eq, Ord, Bounded, Ix)
 
 ~~~~
 
-Here we have an Edge datatyp with a constructor <span class="tt">:-&gt;</span>. And we let the Haskell compiler figure out how we can check for Equality (**EQ**), that we can order edges (**Ord**), that there is a min and a maximum bound (**Bounded**) on all the types and that we can Index (**Ix**) especially the last two will be very useful later on.
+Here we have an Edge datatyp with a constructor <span class="tt">:-&gt;</span>. And we let the Haskell compiler figure out how we can check for Equality (**Eq**), that we can order edges (**Ord**), that there is a min and a maximum bound (**Bounded**) on all the types and that we can Index (**Ix**) especially the last two will be very useful later on.
 
 Now we come to our matrix type. For a Matrix we need two types of input parameters, the type of index data, and the type of the content. The index data tells us how to address the components. In Haskell we could use any type for this as long as we have some mapping to the integers. This is a little more flexible in writing than always having to switch bewteen your mental model and if it is [x][y] or [y][x]. 
 
