@@ -147,6 +147,10 @@ article {
     color: $bgcolor;
     /*background: $textcolor;*/
     text-decoration: none;
+
+    .socialtext {
+      display: none;
+    }
   }
 
   ul li {
