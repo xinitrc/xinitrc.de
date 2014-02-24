@@ -23,19 +23,19 @@ Let's go through this and decipher what it means.
 
 1. \(\emptyset\) this is simple. If we write nothing, it is a valid regular expression. And since we can't leave blank space in a definition and think that everybody picks up that this is a significant syntactical element we write this as \(\emptyset\).
 2. \(\epsilon\) we need to construct a word that has no letters, to do that we use the symbol \(\epsilon\). You might ask what is the difference between nothing and a a word of no letters. It is the same difference as between \({0}\) and \(\emptyset\) one is a set containing something of no value, the other is simply empty, same goes here.
-3. If we have a letter \(l\) writing just that letter is a valid regular expression.
-4. \(re_1 + re_2\) If we have two regular expressions already, we can either use the left or the right. The plus-sign is somewhat of a convention for regular expressions, but you might have already guessed what will make it's way into our semiring in the end.
-5. \(re_1 \cdot re_2\) this is called concatenation or sequential compositon it simply states that we can look for something that matches the first regular expression followed by something that matches the second regular expression. If there is no danger of misreading it we usually ommit the \(\cdot\) just like with multiplication.
+3. If we have a letter \(l\), writing just that letter is a valid regular expression.
+4. \(re_1 + re_2\) If we have two regular expressions already, we can either use the left or the right, appropriatly this is usually called **alternative** or **choice**. The plus-sign is somewhat of a convention for regular expressions, but you might have already guessed what will make it's way into our semiring in the end.
+5. \(re_1 \cdot re_2\) this is called **concatenation** or **sequential compositon** it simply states that we can look for something that matches the first regular expression followed by something that matches the second regular expression. If there is no danger of misreading it we usually ommit the \(\cdot\) just like with multiplication.
 6. \(re^*\) this finally is arbitrary iteration, if we have a regular expression we can match it an arbitrary amount of times.
 
-Usually you define some form of rules that say we can ommit some of the parens by saying \(*\) binds stronger than \(\cdot\) which in turn binds stronger than \(+\). Since this just looks like basic arithmatic than I trust you can follow.
+Usually you define some form of rules that say we can ommit some of the parens by saying \(*\) binds stronger than \(\cdot\) which in turn binds stronger than \(+\). Since this just looks like basic arithmetic I trust you can follow.
 
 ### Example
 Let's give an example, suppose we have this regular expression: 
 
 \[re_{example}=a (bd + ce)\]
 
-Then let's first check that it is a valid regular expression for the alphabet \{a,b,c,d,e\}. After stating this, we know that the individual letters \(a,b,c,d\) are valid regular expressions. Next we combine \(b\) and \(d\) with \(\cdot\) and get \((b\cdot d)\) same for \(c\) and \(e\) now we can apply \(+\) and get \((b\cdot d+c\cdot e)\). As a last step we combine \(a\) and \((b\cdot d+c\cdot e)\) and get \(a\cdot (bd+ce)\). Ommiting the \(\cdot\)'s we get that the regular expression is valid. 
+Then let's first check that it is a valid regular expression for the alphabet \(\{a,b,c,d,e\}\). After stating this, we know that the individual letters \(a,b,c,d\) are valid regular expressions. Next we combine \(b\) and \(d\) with \(\cdot\) and get \((b\cdot d)\) same for \(c\) and \(e\) now we can apply \(+\) and get \((b\cdot d+c\cdot e)\). As a last step we combine \(a\) and \((b\cdot d+c\cdot e)\) and get \(a\cdot (bd+ce)\). Ommiting the \(\cdot\)'s we get that the regular expression is valid. 
 
 #### Now what does it "mean"
 
@@ -74,7 +74,7 @@ Let's do a quick check if our properties hold.
 1. \(a\oplus b = b\oplus a\) since \(+\) is the same as **or** this holds.
 2. \((a\oplus b)\oplus c = a\oplus (b\oplus c)\), by almost the same argument, if we first decide between \(a\) or \(b\) and then between the result of that decission or \(c\) it's the same as deciding the other way around.
 3. \(a \oplus \mathbf{0}=\mathbf{0}\oplus a=a\), this is by the definition given above. 
-4. \((a \otimes b)\otimes  c = a \otimes  (b \otimes c)\) the concatenation of \(a\) and \(b\) yields ab that concatenated with \(c\) yields abc which is the same as first concatenating \(b\) and \(c\) to \(bc\) and then prepending \(a\).
+4. \((a \otimes b)\otimes  c = a \otimes  (b \otimes c)\) the concatenation of \(a\) and \(b\) yields \(ab\) that concatenated with \(c\) yields \(abc\) which is the same as first concatenating \(b\) and \(c\) to \(bc\) and then prepending \(a\).
 5. \(a \otimes \mathbf{1} = \mathbf{1} \otimes  a = a\) concatenating the empty word to anything will not change anything, so this is ok too.
 6. \(a \otimes  \mathbf{0} = \mathbf{0} \otimes  a = \mathbf{0}\) that's by the definition above. 
 7. \(a \otimes (b \oplus c) = (a\otimes b) \oplus (a\otimes b)\), this is simply either first doing \(a\) and then deciding between \(b\) or \(c\) or first deciding to go \(ab\) or \(ac\) so this holds true to.
@@ -164,11 +164,11 @@ reGraph = fmap (maybe zero re)
 This simply takes a matrix, where there might be an entry at any index and transforms that into a regular expression of one letter and takes the entry itself as letter, if there is no entry present at that point it just uses \(\epsilon\). 
 
 
-### What about the Matrix
+## What about the Matrix
 
 What remains is to clear up is what our \(*\) operation matrixes does now. What we saw in the post from last week is that the algorithm minimized or maximized some property we calculated. This time it's a little different. Operations like \(max\), \(min\) and \(||\) "discard" one of their operatands but the \(+\) operation from regular expressions doesn't it creates an alternative. So for any node we can use as an intermediate what we get is "Either use the path we already know **OR** the path we can construct by using the intermediate node we are currently testing." Now there might not be a path leading from our start to our target node using the specific intermediate node, then we get back a \(\emptyset\) as an alternative path, which is the only value that is acutally discarded by \(+\). So what we get in the end is a regular expression specifying **all** pathes we can take to get from a start to a target node.
 
-Oh by the way with this we implemented another well known algorithm with the same 7 lines of code I presented in the last blog post. It's called the McNaughton-Yamada algorithmn or the Kleene-Construction and is taught to probably every computer science major on the planet. (And forgotten about 5 minutes later ;-) )
+Oh by the way with this we implemented another well known algorithm with the same 7 lines of code I presented in the last blog post. It's called the McNaughton-Yamada algorithm or the Kleene-Construction and is taught to probably every computer science major on the planet. (And forgotten about 5 minutes later ;-) )
 
 ## Wrapping up
 
