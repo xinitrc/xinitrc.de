@@ -147,6 +147,10 @@ article {
     color: $bgcolor;
     /*background: $textcolor;*/
     text-decoration: none;
+
+    .socialtext {
+      display: none;
+    }
   }
 
   ul li {
@@ -270,8 +274,8 @@ article {
   color: $bgcolor;
   background: $textcolor;
 
-  margin-bottom: -8000px;
-  padding-bottom: 8000px;
+  margin-bottom: -20000px;
+  padding-bottom: 20000px;
 
   h1, h1 a, h1 a:hover {
     color: $bgcolor;

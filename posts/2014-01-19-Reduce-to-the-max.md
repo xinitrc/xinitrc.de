@@ -4,7 +4,7 @@ tags: xmonad, configuration, minimalism
 published: 2014-01-19 23:00
 ---
 
-For the last 10 years now I am a Apple user. Nevertheless I really like Linux and that's not only on servers and in embedded devices but for the Desktop. I actually don't see Linux fitting on the Desktop of anybody who is not tech savvy even though Ubunutu is not that bad. But for so called power users Linux actually is a very valid Desktop environment. So as a second Workspace I have VMWare Linux instance running on my machine almost 24-7. And since I have been asked now at least one to many times how my "strange" Desktop Environment is configured. I'd like to share that with you.
+For the last 10 years now I am a Apple user. Nevertheless I really like Linux and that's not only on servers and in embedded devices but for the Desktop. I actually don't see Linux fitting on the Desktop of anybody who is not tech savvy even though Ubuntu is not that bad. But for so called power users Linux actually is a very valid Desktop environment. So as a second Workspace I have VMWare Linux instance running on my machine almost 24-7. And since I have been asked now at least one to many times how my "strange" Desktop Environment is configured. I'd like to share that with you.
 
 <!--more-->
 
