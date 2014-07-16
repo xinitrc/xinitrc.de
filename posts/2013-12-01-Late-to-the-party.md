@@ -1,6 +1,10 @@
 ---
 title: Late to the party
 tags: iPad, apps, evernote, iAnnotate, Reader, iSSH, AirVideo HD, iAWriter
+bgimage: /assets/images/apple.jpg
+position: br
+credit: GnustANG
+crediturl: https://www.flickr.com/photos/zealair/
 ---
 
 Since I bought my first iPad this week, the new iPad Air to be precise, this weeks post basically wrote itself. Actually two blogpost would be rather foreseeable. One which has me raving about how much I like my newest gadget. This I'd like to postpone a little to have a fair chance of disliking something. And one about what applications made their way into my daily workflow within one week (3 days actually) and could therefor very well be must haves. To be fair I like to postpone the first of these a bit, to give myself the fair chance to dislike something, at the moment the "New-Gadget-High" is still present, so it wouldn't be a very good review.

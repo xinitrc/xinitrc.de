@@ -2,6 +2,10 @@
 title: Setting up shop
 tags: jekyll, uberspace, git, setup, post-receive hook
 type: article
+bgimage: /assets/images/globaltradingco.jpg
+position: tl
+credit: memories_by_mike
+crediturl: https://www.flickr.com/photos/memoriesbymike/
 ---
 
 Recently I put up serveral sites and blogs, most of them in

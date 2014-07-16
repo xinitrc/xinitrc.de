@@ -151,7 +151,7 @@ main = hakyllWith hakyllConf $ do
         compile $ do
             csl <- load "springer-lncs.csl"
             bib <- load "ref.bib"
-            p  <- readPandocBiblio pandocReaderOptions (Just csl) bib <$> applyKeywords
+            p  <- readPandocBiblio pandocReaderOptions csl bib <$> applyKeywords
             p' <- p
             saveSnapshot "teaser" $ writePandocWith pandocWriterOptions p'
             >>= loadAndApplyTemplate "templates/post.html" (taggedPostCtx tags)
@@ -235,7 +235,22 @@ taggedPostCtx :: Tags -> Context String
 taggedPostCtx tags = mconcat [tagsField "tags" tags, tagCloudCtx tags, postCtx]
 
 postCtx :: Context String
-postCtx = mconcat [dateField "date" "%Y-%m-%d" , defaultContext]
+postCtx = mconcat [dateField "date" "%Y-%m-%d" , abstractField "abstract", contentField "content", defaultContext]
+
+abstractField :: String -> Context String
+abstractField key = field key $ \item -> do 
+  let body = (itemBody item) in 
+    case needlePrefix "<!--more-->" body of 
+      Nothing -> fail $ "No abstract defined for " ++ show (itemIdentifier item)
+      Just t ->  return t
+
+contentField :: String -> Context String 
+contentField key = field key $ \item ->
+  let body = (itemBody item) in 
+    case needlePrefix "<!--more-->" body of 
+      Nothing -> fail $ "No abstract defined for " ++ show (itemIdentifier item)
+      Just t -> return $ drop (length t) body
+
 
 --------------------------------------------------------------------------------
 

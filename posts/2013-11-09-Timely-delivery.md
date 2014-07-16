@@ -1,6 +1,10 @@
 ---
 title: Timely delivery
 tags: angular, angularjs, subtle changes, ajax, $http, sanitization
+bgimage: /assets/images/watchiii.jpg
+position: tl
+credit: primenerd
+crediturl: https://www.flickr.com/photos/hiroic/
 ---
 
 Yesterday AngularJS 1.2 was finally released and appropriately named "timely-delivery" (\*couch\*). After spending yesterdays evening porting one application I'm currently working on. I'd like to give some hints at subtle api changes that took me quite some time to find. Hopefully this helps others/you not to step into the same traps or solve similar problems faster.

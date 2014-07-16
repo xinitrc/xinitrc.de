@@ -1,6 +1,10 @@
 ---
 title: Everybody gets one
 tags: couchdb, per-user database, example
+bgimage: /assets/images/couch.jpg
+position: tl
+credit: Jim
+crediturl: https://www.flickr.com/photos/alphageek/
 ---
 
 In the recent past I started working on a document management system for our department at the university again. And since I like CouchDB very much and it is perfect for the job due to it's superb replication abilites I opted for using it. As part of that is a quite involved replication scheme, someone going to a conference and only having restricted or flunky internet access, like I had three month ago while on a conference in Shanghai, is a common case in academia. In search of some examples on replication setups I touched on per-user databases, which are commonly tossed around for restricting read access in CouchDB. What I couldn't find actually was an example on how to set those up. So this is an attempt to explain per-user databsaes in a modestly complex example.

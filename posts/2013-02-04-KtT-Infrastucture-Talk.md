@@ -2,6 +2,10 @@
 title: KtT-Infrastructure talk
 tags: hackspace, infrastructure, jira, confluence, drupal, etherpad light, talk
 type: talk
+bgimage: /assets/images/cable.jpg
+position: tl
+credit: jACK TWO
+crediturl: https://www.flickr.com/photos/jacktwo/
 ---
 
 I held a talk on the techincal infrastructure our club provides. Especially:

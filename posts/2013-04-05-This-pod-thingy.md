@@ -2,6 +2,10 @@
 title: This pod thingy
 tags: podcast, poddingens
 type: article
+bgimage: /assets/images/ipod.jpg
+position: tl
+credit: daisy.r
+crediturl: https://www.flickr.com/photos/jazzcatmeow/
 ---
 
 
@@ -11,3 +15,4 @@ in Poddingens and once again it's in german. We talked
 about, among other things, studying in germany, schools, strange
 business decisions of the largest german ISP and more. If you are
 interested you can go find it at [poddingens.de](http://poddingens.de/019/).
+<!--more-->

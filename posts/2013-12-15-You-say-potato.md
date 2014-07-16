@@ -1,9 +1,13 @@
 ---
 title: You say potato &hellip;
 tags: potato salat, recipe, mayonnaise, christmas dinner
+bgimage: /assets/images/potato_salad.jpg
+position: tr
+credit: Katrin Morenz
+crediturl: https://www.flickr.com/photos/diekatrin/
 ---
 
-One of the very few traditions I hold dear is my/our families christmas dinner, which is potato salat and wieners. Actually this is one of the christmas dinners that is tradition all over Germany, independent of social status and wealth. I actually don't know how it developed but I would assume that if you ask three germans what they eat on christmas eve, at least one would answer potato salat. 
+One of the very few traditions I hold dear is my/our families christmas dinner, which is potato salad and wieners. Actually this is one of the christmas dinners that is tradition all over Germany, independent of social status and wealth. I actually don't know how it developed but I would assume that if you ask three germans what they eat on christmas eve, at least one would answer potato salat. 
 
 Another "tradition", at least in my family, is that we don't have a recipe handed down the generations, but each generation makes up their own. So after the click you will find my attempt at an recipe. 
 

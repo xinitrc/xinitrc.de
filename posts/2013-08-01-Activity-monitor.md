@@ -1,6 +1,10 @@
 ---
 title: Activity Monitor
 tags: hakyll, activity, css
+bgimage: /assets/images/ekg.jpg
+position: bl
+credit: Rob Larsen
+crediturl: https://www.flickr.com/photos/rob_react/
 ---
 
 This post actually serves two purposes:

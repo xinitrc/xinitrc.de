@@ -1,6 +1,10 @@
 ---
 title: Where in the world is ...
 tags: openpaths, angularjs, locating, leaflet
+bgimage: /assets/images/compass.jpg
+position: tl
+credit: gwen roolf
+crediturl: https://www.flickr.com/photos/nimariel/
 ---
 
 As you might have already seen on my [facts](/facts.html) page I have
