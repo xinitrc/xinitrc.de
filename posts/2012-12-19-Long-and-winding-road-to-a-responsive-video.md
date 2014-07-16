@@ -2,6 +2,10 @@
 title: Long and winding road to a responsive video
 tags: jekyll, plugin, youtube, vimeo, code, responsive web design
 type: article
+bgimage: /assets/images/winding_road.jpg
+position: tl
+credit: jbdodane
+crediturl: https://www.flickr.com/photos/jbdodane/
 ---
 
 As already suspected in my [first blog post](/private/2012/12/15/Setting-up-Shop.html), the updates to this site
