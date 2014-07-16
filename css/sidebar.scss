@@ -1,0 +1,315 @@
+@import "css/base";
+@import "css/colors";
+@import "css/utils";
+
+#sidebar {
+  font-size: 1 * $baseunit;
+
+  color: $sidebartextcolor;
+  background-color: $sidebarcolor;
+
+  h1 {
+    font-size: 3em;
+    font-weight: 700;
+  }
+
+  .leaver {
+    @include fixer(0, 0, auto, 0);
+
+    z-index: 100;
+
+    width: 100%;
+    height: 5em;
+
+    background-color: $leaverbgcolor;
+
+    .trigger {
+      @include absoluter(0, auto, auto, 0);
+
+      height: 5em;
+      width: 5em;
+
+      overflow: hidden;
+
+      text-align: center;
+      line-height: 2em;
+
+      @include transition(all .3s ease);
+
+      div {
+        position: absolute;
+
+        width: 3em;
+        height: 3em;
+
+        padding: 1em;
+
+        @include transition(all .3s ease);
+        @include translate3d(0, -100%, 0);
+
+        img {
+          width: 3em;
+          height: auto;
+        }
+      }
+
+      .menu-close {
+        top: 0;
+
+        background-color: $activetriggercolor;
+      }
+
+      .menu {
+        top: 5em;
+        left: 0;
+
+        background-color: $triggercolor;
+      }
+    }
+
+    svg.logo {
+      @include absoluter(auto, 0, 0, auto);
+      height: 5em;
+      width: 5em;
+    }
+
+    footer.logo {
+      @include absoluter(auto, 0, 0, auto);
+
+      img.logo {
+        display: block;
+
+        margin: 0 auto;
+
+        width: 5em;
+        height: autos;
+      }
+    }
+  }
+
+  .sidebar-content {
+    @include fixer(5em, 0, 0, 0);
+
+    z-index: 75;
+
+    background-color: $sidebarcolor;
+
+    @include transition(all .3s ease);
+    @include transform(translate3d(-100%, -100%, 0) translate3d(5em, 0, 0));
+
+    section.menu {
+      @include absoluter(1.25em, 3.5em, 11em, 3.5em);
+    }
+
+    nav {
+      line-height: 1.2;
+
+      a, a:visited {
+        margin-bottom: 0.5em;
+        padding: 0.5em 1.5em 0.5em 1.5em;
+
+        font-weight: 700;
+        display: block;
+        color: $sidebartextcolor;
+        text-decoration: none;
+
+        border: 1px solid transparent;
+        background-color: $sidebarcolor;
+
+        opacity: 0;
+
+        @include translate3d(0, -1em, 0);
+        @include transition(opacity .3s ease, transform .3s ease, border-color .3s ease);
+
+        h1 {
+          font-size: 3em;
+        }
+
+        h2 {
+          line-height: 1.4;
+          font-size: 1.25em;
+          font-weight: 300;
+        }
+      }
+
+      @for $i from 1 through 6 {
+        a:nth-child(#{$i}) {
+          @include transition-delay(.3s + $i * .05, .3s + $i * .05, 0);
+        }
+      }
+
+      a:hover {
+        border: 1px solid $cblightgrey;
+
+        z-index: 2;
+      }
+    }
+  }
+
+  footer.details {
+    @include absoluter(auto, 0, 0, 0);
+
+    margin: 0 5rem;
+    height: 10.5rem;
+
+    font-size: 1 * $baseunit;
+    font-weight: 300;
+    line-height: 1.4;
+
+    border-top: 1px solid $cblightgrey;
+
+    opacity: 0;
+    @include translate3d(0, -1em, 0);
+    @include transition(all .3s .65s ease);
+
+    a, a:visited {
+      color: $sidebartextcolor;
+      text-decoration: underline;
+
+      img {
+        display: block;
+        margin: 1em 0 0 auto;
+      }
+    }
+
+    div.vcard {
+      width: 10rem;
+      margin-top: .5em;
+
+      .n {
+        font-weight: 500;
+      }
+
+      & > div {
+        margin-bottom: .5em;
+      }
+    }
+
+    div.licence {
+      @include absoluter(.5em, 0, auto, auto);
+
+      width: 12em;
+
+      text-align: right;
+
+      h1 {
+        font-size: 1em;
+        font-weight: 500;
+        margin-bottom: .5em;
+      }
+    }
+  }
+}
+
+#sidebar.open {
+  .leaver .trigger div {
+    @include translate3d(0, 0, 0);
+  }
+
+  nav {
+    a, a:visited {
+      opacity: 1;
+      @include translate3d(0, 0, 0);
+    }
+  }
+
+  .sidebar-content {
+    @include translate3d(0,0,0);
+
+    footer.details {
+      font-size: 1em;
+      opacity: 1;
+      @include translate3d(0, 0, 0);
+    }
+
+  }
+}
+
+@media (min-width: 40rem) {
+  #sidebar {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 50rem) {
+  #sidebar {
+    font-size: 1rem;
+
+    .leaver {
+      @include fixer(0, auto, 0, 0);
+
+      width: 5em;
+      height: 100%;
+
+      .trigger {
+        div {
+          @include translate3d(-100%, 0, 0);
+        }
+
+        .menu {
+          top: 0;
+          left: 5em;
+        }
+      }
+
+      svg.logo {
+        @include absoluter(auto, auto, 0, auto);
+        height: 5em;
+        width: 5em;
+      }
+
+      footer.logo {
+        @include absoluter(auto, auto, 0, auto);
+      }
+    }
+
+    .sidebar-content {
+      top: 0;
+      left: 5em;
+
+      @include transform(translate3d(-100%, -100%, 0) translate3d(0, 5em, 0));
+
+      nav {
+        width: 20em;
+      }
+    }
+  }
+}
+/*
+@media (min-width: 60rem) {
+  .menu-entry-details {
+    display: block;
+  }
+}
+
+*/
+@media (min-width: 40rem) and (min-height: 40rem) {
+  #sidebar {
+    footer.details {
+      display: block;
+      font-size: 1rem;
+    }
+  }
+}
+
+@media (max-height: 30rem) {
+  #sidebar {
+    nav {
+      a, a:visited {
+        margin-bottom: 0.25 * $baseunit;
+        padding: 0 1.5 * $baseunit;
+
+        h1 {
+          font-size: 3em;
+          line-height: 1.2;
+        }
+
+        h2 {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+

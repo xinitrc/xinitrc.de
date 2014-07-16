@@ -1,17 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="TestApp">
 $partial("partials/mainhead.html")$
 <body ng-app="xinitrc">
-<div id="wrapper">
-    $partial("partials/navbar.html")$
-
-    <div class="contentwrapper">
-        <div class="content">
-            $body$
-        </div>
-    </div>
-
-    $partial("partials/sidebar.html")$
+$partial("partials/sidebar.html")$
+<div id="main-content" class="left">
+    $body$
 </div>
 $partial("partials/mainfooter.html")$
 </body>

@@ -1,0 +1,38 @@
+@import "css/base";
+@import "css/colors";
+
+#main-content, #main-content.show {
+  section#facts {
+    position: relative;
+    padding-bottom: 1.4em;
+    z-index: 0;
+    background-color: $bgcolor;
+    opacity: 1;
+
+    padding: 1em 1em 1.4em 1em;
+    @include transition(all .5s ease);
+
+    @include translate3d(0,0,0);
+
+    & > section {
+      @include translate3d(0, 0, 0);
+      opacity: 1;
+    }
+
+    p {
+      margin-bottom: 1.4em;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+@media (min-width: 60rem) {
+  #main-content, #main-content.show {
+    section#facts {
+      padding: 1em 2em 1.4em 2em;
+    }
+  }
+}

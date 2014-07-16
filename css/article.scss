@@ -1,0 +1,154 @@
+@import "css/utils";
+
+#main-content {
+  article.full-article {
+    @include translate3d(0, 0, 0);
+    @include transition(all .5s ease);
+  }
+
+  article.full-article > * {
+    @include transition(all .5s ease);
+  }
+
+  article > * > *:last-child {
+    padding-bottom: 0;
+  }
+
+  article.abstract {
+    border-bottom: 1px solid $textcolor;
+    background-color: #f2f2f2;
+  }
+
+  article {
+    header {
+      color: $textcolor;
+      background-color: $dark-bgcolor;
+
+      padding-top: 1em;
+
+      .date {
+        font-size: .75em;
+        font-weight: 300;
+      }
+    }
+
+    footer {
+      will-change: transform, opacity;
+
+      background-color: $bgcolor;
+
+      .meta-info {
+        padding: .5em 0;
+        border-bottom: 1px solid $textcolor;
+        border-top: 1px solid $textcolor;
+      }
+    }
+
+  }
+
+  #article-bg {
+    @include fixer($left: 5em);
+
+    display: none;
+    z-index: -1;
+
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+    &.tl {
+      background-position: top left;
+    }
+
+    &.tc {
+      background-position: top center;
+    }
+
+    &.tr {
+      background-position: top right;
+    }
+
+    &.cl {
+      background-position: center left;
+    }
+
+    &.cc {
+      background-position: center center;
+    }
+
+    &.cr {
+      background-position: center right;
+    }
+
+    &.bl {
+      background-position: bottom left;
+    }
+
+    &.bc {
+      background-position: bottom center;
+    }
+
+    &.br {
+      background-position: bottom right;
+    }
+  }
+
+  article > * {
+    padding: 1em;
+    background: $bgcolor;
+  }
+}
+
+
+@media (min-width: 40rem) {
+  #main-content {
+    footer .meta-info {
+      font-size: 1.125rem;
+      padding: .5rem 0;
+      border-bottom: 1px solid $textcolor;
+      border-top: 1px solid $textcolor;
+    }
+  }
+}
+
+@media (min-width: 60rem) {
+  #main-content {
+    article.full-article {
+      @include translate3d(0, 5em, 0);
+    }
+
+    article.full-article > * {
+      opacity: 0;
+    }
+
+    article > * {
+      padding: 0 2em 1em 2em;
+    }
+
+    article.full-article header{
+      opacity: 1;
+    }
+
+    #article-bg {
+      display: block;
+    }
+  }
+
+  .touch #main-content, #main-content.show {
+    article.full-article {
+      background-color: $bgcolor;
+      @include translate3d(0, 0, 0);
+    }
+
+    article.full-article > * {
+      opacity: 1;
+    }
+
+    article {
+      background-color: $bgcolor;
+    }
+  }
+
+}
