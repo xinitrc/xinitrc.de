@@ -1,6 +1,10 @@
 ---
 title: Running in circles
 tags: math, svg, graphs, graph theory, cycles, cycle freeness
+bgimage: /assets/images/pebblecircle.jpg
+position: tl
+credit: Cristian Roberti
+crediturl: https://www.flickr.com/photos/cristian_roberti/
 ---
 
 Even though the title would work for the reason this blog post is out so late, it should have been published monday evening, I still like to do a little math (it's better for my blood pressure anyways).

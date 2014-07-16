@@ -1,6 +1,10 @@
 ---
 title: Resetting shop
 tags: jekyll, hakyll, bootstrapping
+bgimage: /assets/images/easttowntheater.jpg
+position: tl
+credit: memories_by_mike
+crediturl: https://www.flickr.com/photos/memoriesbymike/
 ---
 
 After having set up this site as a [Jekyll](http://jekyllrb.com/)-Blog last year, I was quite happy with what I had worked out for blogging. If you want to know, you can look it up in [this article](/2012/12/15/Setting-up-Shop.html). But after not having an eye on the site for some month all hell broke loose and I had to start over.
@@ -13,13 +17,15 @@ Two weeks ago I finally had time again, after some stressful month privately and
 
 ## Twitter to the rescue
 One tweet:
+
 <div style="margin-left: auto; margin-right:auto">
-<blockquote class="twitter-tweet" data-partner="tweetdeck" align="center"><p>I royally fucked my <a href="https://twitter.com/search?q=%23ruby&amp;src=hash">#ruby</a> setup. Which wouldn’t be have as bad if I wasn’t using Jekyll for blogging <a href="https://twitter.com/search?q=%23headdesk&amp;src=hash">#headdesk</a></p>&mdash; xinitrc (@xinitrc) <a href="https://twitter.com/xinitrc/statuses/341619389919010817">June 3, 2013</a></blockquote>
+<blockquote class="twitter-tweet" data-partner="tweetdeck" align="center"><p>I royally fucked my <a href="https://twitter.com/search?q=%23ruby&amp;src=hash">#ruby</a> setup. Which wouldn’t be have as bad if I wasn’t using Jekyll for blogging <a href="https://twitter.com/search?q=%23headdesk&amp;src=hash">#headdesk</a></p>&mdash; xinitrc (\@xinitrc) <a href="https://twitter.com/xinitrc/statuses/341619389919010817">June 3, 2013</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 </div>
+
 and especially one answer
 
-<blockquote class="twitter-tweet" data-conversation="none" align="center" data-partner="tweetdeck"><p><a href="https://twitter.com/xinitrc">@xinitrc</a> Use Hakyll instead.</p>&mdash; Dave Fayram (@KirinDave) <a href="https://twitter.com/KirinDave/statuses/341620237030019072">June 3, 2013</a></blockquote>
+<blockquote class="twitter-tweet" data-conversation="none" align="center" data-partner="tweetdeck"><p><a href="https://twitter.com/xinitrc">\@xinitrc</a> Use Hakyll instead.</p>&mdash; Dave Fayram (\@KirinDave) <a href="https://twitter.com/KirinDave/statuses/341620237030019072">June 3, 2013</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 later, I knew about [Hakyll](http://jaspervdj.be/hakyll/). And since I know [Haskell](http://www.haskell.org) far better than Ruby it was a done deal to switch over. 

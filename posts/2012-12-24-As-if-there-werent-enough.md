@@ -2,11 +2,15 @@
 title: As if there weren't enough
 tags: podcast, math, theoretical computer science, science
 type: article
+bgimage: /assets/images/Microphone.jpg
+position: tl
+credit: www.gratisography.com
+crediturl: http://www.gratisography.com/
 ---
 
 ... podcasts already. Anyway we started a new one and by we I mean
-[@madmalik](http://twitter.com/madmalik),
-[@felis_blue](http://twitter.com/felis_blue) and myself. It's going to
+[\@madmalik](http://twitter.com/madmalik),
+[\@felis_blue](http://twitter.com/felis_blue) and myself. It's going to
 be about "interesting" science stuff and since felis and I have a
 rather mathematical background much of it will be centered around
 math.
