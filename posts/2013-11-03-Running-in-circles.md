@@ -13,7 +13,7 @@ But on to the blog post. Last week I had a short chat with a colleague who is wo
 
 
 <div class="problemstatement">
-	Any Graph with at least as many Edges as Vertices contains a cycle.
+Any Graph with at least as many Edges as Vertices contains a cycle.
 </div>  
 
 
@@ -23,12 +23,9 @@ If I understood her correctly it was for an exercise for her students, so if you
 
 Ok now so let's first clear up for everybody what we are talking about. 
 
-<div class="definition">
 ### (Undirected) Graph
 
 A **graph** \(G\) is a tuple \(G=(V,E)\) with \(V\) being a set the **vertices** or nodes, and \(E\subseteq P(V)\) with \(\forall e\in E \bullet |e|=2\) a set of **edges**. 
-
-</div>
 
 If you are a mathematician or at least have a good ability to read mathematical definitions, this might be enough for you and you can skip the next paragraph.
 
@@ -54,12 +51,10 @@ Here we have the vertices \(V=\{a,b,c,d\}\) and the edges \(E=\{ \{a,b\}, \{b,c\
 
 But let's to go on with our property from above. For a mathematical formulation we need one more thing:
 
-<div class="definition">
 ### Path
 
 For a Graph \(G=(V, E)\) a **path** is sequence of vertices \(<v_0, v_1, v_2, \ldots , v_n>\) such that for every two vertices \(\{v_{i}, v_{i+1}\}\in E\) holds. A path with \(v_0=v_n\) is called a **cycle**.
 
-</div>
 
 Once again a more intuitive way to state that. A path is probably exactly what you would think it is, if you can go from the first vertex in the sequence to the second via an edge then to a third an so on you have a path. In our example from above \(<a, b, c, d>\) is a path since we can go from \(a\) to \(b\) with the edge \(\{a,b\}\) from \(b\) to \(c\) via \(\{b,c\}\) and from \(c\) to \(d\) with \(\{c,d\}\).
 
@@ -67,9 +62,9 @@ A cycle is then, probably not to you surprise, a path that starts and ends at th
 
 So now once again to our problem. A mathematical formulation of the above is:
 
-<div class="problemstatement">
-	For any graph \(G=(V,E)\), if \(|E|\geq |V|\) then \(G\) contains a cycle.  
-</div>
+
+<div class="problemstatement">For any graph \(G=(V,E)\), if \(|E|\geq |V|\) then \(G\) contains a cycle.</div>
+
 
 In the above example it is easy to see what our property states, the graph has four vertices and three edges, so one less edge than vertices and has no cycle. However you can't add any edge between two of the vertices without introducing one. 
 
@@ -85,7 +80,7 @@ In this case however the property holds and now let's proof that.
 First let's give an equivalent formulation: 
 
 <div class="problemstatement">
-	For any graph \(G=(V,E)\) that is cycle-free \(|E| < |V|\) holds.  
+For any graph \(G=(V,E)\) that is cycle-free \(|E| < |V|\) holds.
 </div>
 
 I trust in you seeing that this is equivalent formulation to the one above. 
@@ -100,7 +95,7 @@ For the first part.
 ### Lemma
 
 <div class="problemstatement">
-	Every cycle-free Graph \(G\) has (at least) one vertex \(v\) with \(deg(v)<2\).
+Every cycle-free Graph \(G\) has (at least) one vertex \(v\) with \(deg(v)<2\).
 </div>
 
 #### Proof (by reductio ad absurdum)
@@ -115,7 +110,7 @@ If we have such a graph, then we construct a path \(<v_0, v_1, \ldots , v_n>\) a
 Now to our main theorem:
 
 <div class="problemstatement">
-	For any graph \(G=(V,E)\) that is cycle-free \(|E| < |V|\) holds.  
+For any graph \(G=(V,E)\) that is cycle-free \(|E| < |V|\) holds.
 </div>
 
 We will proof this by induction, which goes as follows, we first proof our theorem directly for the base instance, the smallest graph we want our property to hold for. Since we didn't state otherwise this is the graph with one vertex. Following that we construct a proof for a graph with \(n+1\) vertices given that we have a proof for a graph with \(n\) vertices.

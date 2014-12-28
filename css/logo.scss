@@ -1,133 +1,33 @@
+#more-arrow {
+  position: fixed;
+  bottom: 0;
+  left: 20em;
+
+  width: 5em;
+
+  svg {
+    width: 5em;
+    height: 5em;
+  }
+}
+
+.main-content.show {
+  #more-arrow {
+    display: none;
+  }
+}
+
+.arrow-down {
+  stroke: rgba(242, 242, 242, .9);
+  fill: none;
+}
+
 #lambda {
   stroke: #F2F2F2;
   fill: #F2F2F2;
-  /*
-  stroke-dasharray: 192 ;
-  stroke-dashoffset: 192 ;
-
-  -webkit-animation: dash 3s linear forwards, fill 1s 3s linear forwards;
-  -o-animation: dash 3s linear forwards, fill 1s 3s linear forwards;
-  -moz-animation: dash 3s linear forwards, fill 1s 3s linear forwards;
-  -ie-animation: dash 3s linear forwards, fill 1s 3s linear forwards;
-  -ms-animation: dash 3s linear forwards, fill 1s 3s linear forwards;
-  animation: dash 3s linear forwards, fill 1s 3s linear forwards;
-  */
 }
 
 #dot {
   fill: #F60A20;
   stroke: #F60A20;
-  /*
-  stroke-dasharray: 58 ;
-  stroke-dashoffset: 58 ;
-*/
-  /*
-  -webkit-animation: dash 3s linear forwards, filld 1s 3s linear forwards;
-  -o-animation: dash 3s linear forwards, filld 1s 3s linear forwards;
-  -moz-animation: dash 3s linear forwards, filld 1s 3s linear forwards;
-  -ie-animation: dash 3s linear forwards, filld 1s 3s linear forwards;
-  -ms-animation: dash 3s linear forwards, filld 1s 3s linear forwards;
-  animation: dash 3s linear forwards, filld 1s 3s linear forwards;
-*/
 }
-/*
-@-moz-keyframes dash {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-@-o-keyframes dash {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-@-ie-keyframes dash {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-@-ms-keyframes dash {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-
-@-webkit-keyframes dash {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-@-moz-keyframes fill {
-  to {
-    fill: #F2F2F2;
-  }
-}
-@-o-keyframes fill {
-  to {
-    fill: #F2F2F2;
-  }
-}
-@-ie-keyframes fill {
-  to {
-    fill: #F2F2F2;
-  }
-}
-@-ms-keyframes fill {
-  to {
-    fill: #F2F2F2;
-  }
-}
-@-webkit-keyframes fill {
-  to {
-    fill: #F2F2F2;
-  }
-}
-
-@keyframes fill {
-  to {
-    fill: #F2F2F2;
-  }
-}
-
-@-moz-keyframes filld {
-  to {
-    fill: #F60A20;
-  }
-}
-@-o-keyframes filld {
-  to {
-    fill: #F60A20;
-  }
-}
-@-ie-keyframes filld {
-  to {
-    fill: #F60A20;
-  }
-}
-@-ms-keyframes filld {
-  to {
-    fill: #F60A20;
-  }
-}
-@-webkit-keyframes filld {
-  to {
-    fill: #F60A20;
-  }
-}
-
-@keyframes filld {
-  to {
-    fill: #F60A20;
-  }
-}
-
-@keyframes dash {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-*/

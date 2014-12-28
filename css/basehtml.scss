@@ -1,0 +1,103 @@
+@import "css/base";
+@import "css/colors";
+
+ul, ol {
+  margin-bottom: 1.6em;
+}
+
+ul li {
+  list-style: disc;
+  margin-left: 2em;
+}
+
+ol li {
+  list-style: decimal;
+  margin-left: 2em;
+}
+
+ul.inline, ul.inline li {
+  display: inline;
+  list-style: none;
+}
+
+ul.unstyled {
+  list-style: none;
+
+  li {
+    list-style: none;
+    margin-left: 0;
+  }
+}
+
+blockquote {
+  margin-bottom: 1em;
+  border-top: 1px solid $cbblack;
+  border-bottom: 1px solid $cbblack;
+  border-left: 1em solid $cbblack;
+  border-right: 1px solid $cbblack;
+  padding: .5rem;
+  font-weight: 500;
+
+  small {
+    display: block;
+    font-size: .8em;
+    text-align: right;
+    font-weight: 300;
+  }
+}
+
+a, a:visited {
+  font-weight: 500;
+  color: $contentlinkcolor;
+}
+
+p {
+  padding-bottom: 1em;
+}
+
+@for $i from 1 through 6 {
+  h#{$i} {
+    line-height: 1.2;
+    font-size: (logarithm( (6 / $i), 6) * 2.5) + 1em;
+    font-weight: 900;
+
+    a, a:visited {
+      color: inherit;
+      text-decoration: none;
+      font-weight: 900;
+    }
+  }
+}
+
+@media (min-width: 48rem) {
+  @for $i from 1 through 6 {
+    h#{$i} {
+      font-size: (logarithm( (6 / $i), 6) * 2.5) + 1em;
+    }
+  }
+}
+
+strong {
+  font-weight: 700;
+}
+
+em {
+  font-style: italic;
+}
+
+.tt {
+  font-family: "Fira Mono";
+  font-weight: 700;
+}
+
+
+.problemstatement {
+  margin: 1 * $baseunit;
+  padding: .5 * $baseunit;
+  border: 1px solid $textcolor;
+}
+
+@media(min-width: 48rem) {
+  margin: 1rem;
+  padding: .5rem;
+}

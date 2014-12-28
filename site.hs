@@ -117,12 +117,13 @@ main = hakyllWith hakyllConf $ do
            route $ gsubRoute " " (const "-") -- idRoute
            compile $ do
                posts <- constField "posts" <$> postLst pattern "templates/tag-item.html" (taggedPostCtx tags) recentFirst
-    
                makeItem ""
                    >>= loadAndApplyTemplate "templates/tagpage.html" (posts `mappend` constField "tag" tag `mappend` taggedPostCtx tags)
+                   >>= saveSnapshot "view"
+                   >>= loadAndApplyTemplate "templates/main.html" (posts `mappend` constField "tag" tag `mappend` taggedPostCtx tags)
+           version "view" viewGeneration
            version "rss" $ do
             route   $ gsubRoute " " (const "-") `composeRoutes` setExtension "xml"
---            compile $ loadAllSnapshots (pattern  .&&. hasNoVersion) "teaser"
             compile $ loadAllSnapshots pattern "teaser"
                 >>= fmap (take 10) . recentFirst
                 >>= renderAtom (feedConfiguration title) feedContext
@@ -136,6 +137,10 @@ main = hakyllWith hakyllConf $ do
         compile $ getResourceString 
             >>= withItemBody (unixFilter "./compressJS.sh" [])
 
+    match "scripts/**/*.js" $ do
+        route   idRoute
+        compile $ getResourceString
+            >>= withItemBody (unixFilter "./compressJS.sh" [])
 {-
     match "css/style.css" $ do
         route   idRoute

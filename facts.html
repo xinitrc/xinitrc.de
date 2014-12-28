@@ -2,92 +2,98 @@
 title: xinitrc facts
 facts: true
 ---
-<div id="article-bg" class="tr" background-image='/assets/images/mei.jpg' ng-style="bgimagestyle()"></div>
-<section id="facts">
-    <h1>xinitrc facts</h1>
-
-    <section id="body">
-        <h4>Body</h4>
-        <ul class="unstyled">
-            <li>170 cm (5&quot;7')</li>
-            <li>43 EUR (9.5 US/8.5 UK)</li>
-            <li>brown eyes</li>
-            <li>brown hair</li>
-            <li>asthmatic</li>
-            <li>heterosexual</li>
-        </ul>
-    </section>
-    <section id="mental">
-        <h4>Mental</h4>
-        <ul class="unstyled">
-            <li>dyslexic</li>
-            <li>39 points in <a href="http://www.wired.com/wired/archive/9.12/aqtest.html">Brahon-Cohen
-                AQ Test</a></li>
-        </ul>
-    </section>
-    <section id="job">
-        <h4>Job</h4>
-        <ul class="unstyled">
-            <li>Research assistent / Ph.D. Student</li>
-            <li>Income, about <a
-                    href="http://oeffentlicher-dienst.info/c/t/rechner/tv-l/west?id=tv-l&g=E_13&s=3&zv=VBL&z=100&zulage=&stj=2013&stkl=1&r=0&zkf=&kk=15.5%25">2200
-                Euro (net)</a></li>
-        </ul>
-    </section>
-
-    <section class="looks">
-        <h4>Looks</h4>
-        <img class="rounded" title="Does not account for black hair" src="/assets/images/me.jpg"/>
-    </section>
-    <section id="research">
-        <h2>Research Interests</h2>
-
-        <ul class="unstyled">
-            <li>Verification of hybrid systems</li>
-            <li>Semantics of hybrid systems</li>
-            <li>Logics for hybrid systems</li>
-            <li>Real-Time Systems</li>
-            <li>Cryptology</li>
-        </ul>
-    </section>
-    <section id="hacking">
-        <h2>Hacking Interests</h2>
-
-        <section id="hardware">
-            <h4>Hardware</h4>
-            <ul class="unstyled">
-                <li><a href="http://arduino.cc">Arduino</a></li>
-                <li><a href="http://raspberrypi.org">Raspberry Pi</a></li>
-            </ul>
-        </section>
-        <section id="code">
-            <h4>Code</h4>
-            <ul class="unstyled">
-                <li><a href="http://sbcl.org">Common Lisp</a></li>
-                <li><a href="http://haskell.org">Haskell</a></li>
-                <li><a href="http://nodejs.org">Node.JS</a></li>
-                <li><a href="http://couchdb.apache.org">CouchDB</a></li>
-                <li><a href="http://angularjs.org">AngularJS</a></li>
-                <li><a href="https://meteor.com">Meteor</a></li>
-            </ul>
-        </section>
-        <section id="application">
-            <h4>Application</h4>
-            <ul class="unstyled">
-                <li><a href="http://drupal.org">Drupal</a></li>
-                <li><a href="http://jaspervdj.be/hakyll/">Hakyll</a></li>
-                <li><a href="http://xmonad.org">xmonad</a></li>
-            </ul>
-        </section>
-    </section>
-    <section id="whereabouts">
-        <h2>Whereabouts</h2>
-
-        <div>
-            <div ng-controller="WhereaboutCTRL">
-                <leaflet center="center" markers="markers" defaults="defaults"></leaflet>
-                <div ng-bind="message"></div>
-            </div>
+<div class="main-content">
+    <div id="aboutbg" class="background">
+        <h1 class="section-head">about</h1>
+        <div id="credit">
+            <a href="https://flickr.com/photos/thegajman/">Background image by Gajman</a>
         </div>
+    </div>
+    <section id="facts">
+        <h1>xinitrc facts</h1>
+
+        <section id="body">
+            <h4>Body</h4>
+            <ul class="unstyled">
+                <li>170 cm (5&quot;7')</li>
+                <li>43 EUR (9.5 US/8.5 UK)</li>
+                <li>brown eyes</li>
+                <li>brown hair</li>
+                <li>asthmatic</li>
+                <li>heterosexual</li>
+            </ul>
+        </section>
+        <section id="mental">
+            <h4>Mental</h4>
+            <ul class="unstyled">
+                <li>dyslexic</li>
+                <li>Asperger autist</li>
+            </ul>
+        </section>
+        <section id="job">
+            <h4>Job</h4>
+            <ul class="unstyled">
+                <li>Research assistent / Ph.D. Student</li>
+                <li>Income, about <a
+                        href="http://oeffentlicher-dienst.info/c/t/rechner/tv-l/west?id=tv-l&g=E_13&s=3&zv=VBL&z=100&zulage=&stj=2013&stkl=1&r=0&zkf=&kk=15.5%25">2200
+                    Euro (net)</a></li>
+            </ul>
+        </section>
+
+        <section class="looks">
+            <h4>Looks</h4>
+            <img class="rounded" title="Does not account for black hair" src="/assets/images/me.jpg"/>
+        </section>
+        <section id="research">
+            <h2>Research Interests</h2>
+
+            <ul class="unstyled">
+                <li>Verification of hybrid systems</li>
+                <li>Semantics of hybrid systems</li>
+                <li>Logics for hybrid systems</li>
+                <li>Real-Time Systems</li>
+                <li>Cryptology</li>
+            </ul>
+        </section>
+        <section id="hacking">
+            <h2>Hacking Interests</h2>
+
+            <section id="hardware">
+                <h4>Hardware</h4>
+                <ul class="unstyled">
+                    <li><a href="http://arduino.cc">Arduino</a></li>
+                    <li><a href="http://raspberrypi.org">Raspberry Pi</a></li>
+                </ul>
+            </section>
+            <section id="code">
+                <h4>Code</h4>
+                <ul class="unstyled">
+                    <li><a href="http://sbcl.org">Common Lisp</a></li>
+                    <li><a href="http://haskell.org">Haskell</a></li>
+                    <li><a href="http://nodejs.org">Node.JS</a></li>
+                    <li><a href="http://couchdb.apache.org">CouchDB</a></li>
+                    <li><a href="http://angularjs.org">AngularJS</a></li>
+                    <li><a href="https://meteor.com">Meteor</a></li>
+                </ul>
+            </section>
+            <section id="application">
+                <h4>Application</h4>
+                <ul class="unstyled">
+                    <li><a href="http://drupal.org">Drupal</a></li>
+                    <li><a href="http://jaspervdj.be/hakyll/">Hakyll</a></li>
+                    <li><a href="http://xmonad.org">xmonad</a></li>
+                </ul>
+            </section>
+        </section>
+        <section id="whereabouts">
+            <h2>Whereabouts</h2>
+
+            <div>
+                <div ng-controller="WhereaboutCTRL">
+                    <leaflet center="center" markers="markers" layers="layers" defaults="defaults"></leaflet>
+                    <div ng-bind="message"></div>
+                </div>
+            </div>
+        </section>
     </section>
-</section>
+</div>

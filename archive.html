@@ -1,5 +1,8 @@
-<div id="article-bg" class="bl" background-image='/assets/images/archive.jpg' ng-style="bgimagestyle()"></div>
-<div id="credit"><a href="https://www.flickr.com/photos/clemsonunivlibrary/">Background image by clemsonunivlibrary</a></div>
+<div class="main-content">
+    <div id="article-bg" class="bl" background-image='/assets/images/archive.jpg' ng-style="bgimagestyle()">
+        <h1 class="section-head">archive</h1>
+        <div id="credit"><a href="https://www.flickr.com/photos/clemsonunivlibrary/">Background image by clemsonunivlibrary</a></div>
+    </div>
 <section id="post-archive">
     <h1>All Posts</h1>
 
@@ -7,29 +10,4 @@
         $posts$
     </div>
 </section>
-
-<script src="/bower_components/ScrollToFixed/jquery-scrolltofixed-min.js"></script>
-<script type="text/javascript">
-    if (!Modernizr.touch) {
-        $$(document).ready(function () {
-            var yearHeaders = $$('h2.year');
-            yearHeaders.each(function (i) {
-                var yearHeader = $$(yearHeaders[i]);
-                var next = yearHeaders[i + 1];
-
-                yearHeader.scrollToFixed({
-                    marginTop: 8,
-                    limit: function () {
-                        var limit = 0;
-                        if (next) {
-                            limit = $$(next).offset().top - $$(this).outerHeight(true) - 8;
-                        }
-                        return limit;
-                    },
-                    zIndex: 1
-                })
-            })
-        });
-    }
-</script>
-
+</div>

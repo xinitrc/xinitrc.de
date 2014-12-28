@@ -2,14 +2,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, minimal-ui" />
 
-    <title>TestSite</title>
+    <title>xinitrc.de TNG $if(title)$ | $title$ $endif$</title>
 
     <link rel="stylesheet" href="/assets/fonts/Fira/css/fira.css"/>
     <link rel="stylesheet" href="/css/style.css"/>
+    <link rel="stylesheet" href="/bower_components/mediaelement/build/mediaelementplayer.min.css"/>
+    <link rel="stylesheet" href="/bower_components/leaflet-dist/leaflet.css"/>
 
     <script src="/scripts/classie.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/angular/angular.min.js"></script>
+    <script src="/bower_components/angular-route/angular-route.min.js"></script>
+    <script src="/bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="/bower_components/leaflet-dist/leaflet.js"></script>
+    <script src="/bower_components/angular-leaflet/dist/angular-leaflet-directive.min.js"></script>
     <script src="/bower_components/modernizr/modernizr.js"></script>
+    <script src="/bower_components/mediaelement/build/mediaelement-and-player.min.js"></script>
     <script src="/scripts/app.js"></script>
+    <script src="/scripts/commonDirectives/prefetch.js"></script>
+    <script src="/scripts/menu/menu.js"></script>
+    <script src="/scripts/maincontent/mainContent.js"></script>
+    <script src="/scripts/whereabouts/whereabouts.js"></script>
+    <script>
+        $$('video').mediaelementplayer();
+        $$('audio').mediaelementplayer();
+    </script>
 </head>

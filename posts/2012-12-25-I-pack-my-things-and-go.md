@@ -3,7 +3,7 @@ title: I pack my things and go
 tags: packinglist, ccc, vandalism
 type: article
 bgimage: /assets/images/bag.jpg
-position: bc
+position: bl
 credit: splitshire
 crediturl: http://splitshire.com/
 ---

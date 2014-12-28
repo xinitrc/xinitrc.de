@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="TestApp">
+<html lang="en" ng-app="xinitrcde">
 $partial("partials/mainhead.html")$
-<body ng-app="xinitrc">
+<body>
+$partial("partials/indieauth.html")$
 $partial("partials/sidebar.html")$
-<div id="main-content" class="left">
+<div ng-view class="view animate">
     $body$
 </div>
 $partial("partials/mainfooter.html")$

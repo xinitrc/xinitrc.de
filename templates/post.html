@@ -1,237 +1,70 @@
-$if(bgimage)$
-<div id="article-bg" class="$position$" background-image='$bgimage$' ng-style="bgimagestyle()"></div>
-$endif$
-$if(credit)$
-<div id="credit">
-  <a href="$crediturl$">Background image by $credit$</a>
-</div>
-$endif$
-    <article class="full-article">
-        <header>
-            <span class="date"><time pubdate>$date$</time></span>
-            <h1>$title$</h1>
-            $abstract$
-        </header>
-        $content$
-        <footer>
-          <div class="meta-info">
-            <table class="meta">
-                <tr>
-                    <td class="heading">
-                        Tags:
-                    </td>
-                    <td>
-                    <span>
-                        $tags$
-                    </span>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="heading">
-                        Licence:</td>
-                    <td><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons
-                        Attribution-ShareAlike 4.0 Unported License</a></td>
-                </tr>
-            </table>
-                <div class="flattr">
-                <a class="FlattrButton" href="https://xinitrc.de$url$" title="$title$" lang="en"
-                   data-flattr-uid="xinitrc"
-                   data-flattr-tags="blog"
-                   data-flattr-category="text"></a>
+    <div ng-controller="maincontentCTRL" class="main-content show" ng-class="showCss">
+        $if(type)$
+        <div id="talkbg" class="background">
+            <h1 class="section-head">talk</h1>
+            <div id="credit">
+                <a href="https://www.flickr.com/photos/derekbruff">Background image by Derek Bruff</a>
+            </div>
+        </div>
+        $else$
+        <div id="blogbg" class="background">
+            <h1 class="section-head">blog</h1>
+            <div id="credit">
+                <a href="https://www.flickr.com/photos/thomasleuthard">Background image by Thomas Leuthard</a>
+            </div>
+        </div>
+        $endif$
+        <article class="full-article">
+            <header>
+                <span class="date"><time pubdate>$date$</time></span>
+                <h1>$title$</h1>
+                $abstract$
+            </header>
+            $content$
+            <footer>
+                <div class="meta-info">
+                    <table class="meta">
+                        <tr>
+                            <td class="heading">
+                                Tags:
+                            </td>
+                            <td>
+                        <span>
+                            $tags$
+                        </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="heading">
+                                Licence:</td>
+                            <td><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons
+                                Attribution-ShareAlike 4.0 Unported License</a></td>
+                        </tr>
+                    </table>
+                    <div class="flattr">
+                        <a class="FlattrButton" href="https://xinitrc.de$url$" title="$title$" lang="en"
+                           data-flattr-uid="xinitrc"
+                           data-flattr-tags="blog"
+                           data-flattr-category="text"></a>
+                    </div>
                 </div>
-          </div>
-            $if(commentsdisabled)$
-            $else$
-            <div id="disqus_thread"></div>
-            <script type="text/javascript">
-                var disqus_shortname = 'xinitrcde'; // required: replace example with your forum shortname
-                (function () {
-                    var dsq = document.createElement('script');
-                    dsq.type = 'text/javascript';
-                    dsq.async = true;
-                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                })();
-            </script>
-            <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by
-                Disqus.</a></noscript>
-            <a href="//disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-            $endif$
-        </footer>
-    </article>
-</div>
-<script>
-    (function() {
-
-        // detect if IE : from http://stackoverflow.com/a/16657946
-        var ie = (function(){
-            var undef,rv = -1; // Return value assumes failure.
-            var ua = window.navigator.userAgent;
-            var msie = ua.indexOf('MSIE ');
-            var trident = ua.indexOf('Trident/');
-
-            if (msie > 0) {
-                // IE 10 or older => return version number
-                rv = parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
-            } else if (trident > 0) {
-                // IE 11 (or newer) => return version number
-                var rvNum = ua.indexOf('rv:');
-                rv = parseInt(ua.substring(rvNum + 3, ua.indexOf('.', rvNum)), 10);
-            }
-
-            return ((rv > -1) ? rv : undef);
-        }());
-
-
-        // disable/enable scroll (mousewheel and keys) from http://stackoverflow.com/a/4770179
-        // left: 37, up: 38, right: 39, down: 40,
-        // spacebar: 32, pageup: 33, pagedown: 34, end: 35, home: 36
-        var keys = [32, 37, 38, 39, 40], wheelIter = 0;
-
-        function preventDefault(e) {
-            e = e || window.event;
-            if (e.preventDefault)
-                e.preventDefault();
-            e.returnValue = false;
-        }
-
-        function keydown(e) {
-            for (var i = keys.length; i--;) {
-                if (e.keyCode === keys[i]) {
-                    preventDefault(e);
-                    return;
-                }
-            }
-        }
-        
-        function keyscroll(e) {
-          for (var i = keys.length; i--;) {
-              if (e.keyCode === keys[i] && !isRevealed ) {
-                    toggle(1);
-              }
-          }
-        }
-
-        function touchmove(e) {
-            preventDefault(e);
-        }
-
-        function wheel(e) {
-            // for IE
-            //if( ie ) {
-            //preventDefault(e);
-            //}
-        }
-
-        function disable_scroll() {
-            window.onmousewheel = document.onmousewheel = wheel;
-            //document.onkeydown = keydown;
-            //document.body.ontouchmove = touchmove;
-        }
-
-        function enable_scroll() {
-            window.onmousewheel = document.onmousewheel = document.onkeydown = document.body.ontouchmove = null;
-        }
-
-        var docElem = window.document.documentElement,
-                scrollVal,
-                isRevealed,
-                noscroll,
-                isAnimating,
-                touch = false,
-                container = document.getElementById( 'main-content' );
-        //trigger = container.querySelector( 'button.trigger' );
-
-        function scrollY() {
-            return window.pageYOffset || docElem.scrollTop;
-        }
-
-        function scrollPage() {
-            scrollVal = scrollY();
-
-            if( noscroll && !ie ) {
-                if( scrollVal < 0 ) return false;
-                // keep it that way
-                window.scrollTo( 0, 0 );
-            }
-
-            if( classie.has( container, 'notrans' ) ) {
-                classie.remove( container, 'notrans' );
-                return false;
-            }
-
-            if( isAnimating ) {
-                return false;
-            }
-
-            if( scrollVal <= 0 && isRevealed ) {
-                toggle(0);
-            }
-            else if( scrollVal > 0 && !isRevealed ){
-                toggle(1);
-            }
-        }
-
-        function touchScroll() {
-            scrollVal = scrollY();
-
-            if( noscroll && !ie ) {
-                if( scrollVal < 0 ) return false;
-                // keep it that way
-                window.scrollTo( 0, 0 );
-            }
-
-            if( classie.has( container, 'notrans' ) ) {
-                classie.remove( container, 'notrans' );
-                return false;
-            }
-
-            if( isAnimating ) {
-                return false;
-            }
-
-            if( scrollVal > 0 && !isRevealed ){
-                toggle(1);
-            }
-        }
-
-        function toggle( reveal ) {
-            isAnimating = true;
-
-            if( reveal ) {
-                classie.add( container, 'show' );
-            }
-            else {
-                noscroll = true;
-                disable_scroll();
-                classie.remove( container, 'show' );
-            }
-
-            // simulating the end of the transition:
-            setTimeout( function() {
-                isRevealed = !isRevealed;
-                isAnimating = false;
-                if( reveal ) {
-                    noscroll = false;
-                    enable_scroll();
-                }
-            }, 800);
-        }
-
-        // refreshing the page...
-        var pageScroll = scrollY();
-        noscroll = pageScroll === 0;
-
-        disable_scroll();
-
-        if( pageScroll || Modernizr.touch) {
-            isRevealed = true;
-            classie.add( container, 'notrans' );
-            classie.add( container, 'show' );
-        }
-        if (!Modernizr.touch) {
-            window.addEventListener('scroll', scrollPage);
-            window.addEventListener('keydown', keyscroll);
-        }
-    })();
-</script>
+                $if(commentsdisabled)$
+                $else$
+                <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                    var disqus_shortname = 'xinitrcde'; // required: replace example with your forum shortname
+                    (function () {
+                        var dsq = document.createElement('script');
+                        dsq.type = 'text/javascript';
+                        dsq.async = true;
+                        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                    })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by
+                    Disqus.</a></noscript>
+                <a href="//disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                $endif$
+            </footer>
+        </article>
+    </div>

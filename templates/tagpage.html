@@ -1,21 +1,12 @@
-<!DOCTYPE html>
-<html lang="en" ng-app="TestApp">
-$partial("partials/mainhead.html")$
-<body ng-app="xinitrc">
-$partial("partials/sidebar.html")$
-<div id="main-content" class="left">
-  <section id="tags">
-    <div id="article-bg" class="br" background-image='/assets/images/tags.jpg' ng-style="bgimagestyle()"></div>
-    <div id="credit">
-      <a href="https://www.flickr.com/photos/nomadic_lass/">Background image by Nomadic Lass</a>
+    <div class="main-content">
+        <div id="blogbg">
+            <h1 class="section-head">tag</h1>
+            <div id="credit">
+                <a href="https://www.flickr.com/photos/nomadic_lass/">Background image by Nomadic Lass</a>
+            </div>
+        </div>
+        <section id="tags">
+            <h1>Tag: $title$</h1>
+            $posts$
+        </section>
     </div>
-    <h1>Tag: $title$</h1>
-    <!--<span class="rss"><a href="/tags/$tag$.xml"><i class="icon-large icon-rss-sign"></i></a></span> -->
-<!--	  <table> -->
-      $posts$
-<!--    </table> -->
-  </section>
-</div>
-$partial("partials/mainfooter.html")$
-</body>
-</html>
