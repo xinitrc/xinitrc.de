@@ -17,6 +17,7 @@
   article {
     header {
       padding-top: 1em;
+      padding-bottom: 2em;
 
       .date {
         font-size: .75em;
@@ -60,9 +61,31 @@
       url("/assets/images/beanbag.jpg") no-repeat center center/cover;
     }
 
+    #archivebg {
+      background: linear-gradient(to bottom, rgba(39, 38, 38, 0) 0%, rgba(39, 38, 38, 0) 50%, rgba(39, 38, 38, .25) 100%),
+      url("/assets/images/archive.jpg") no-repeat 50% 50%/cover;
+      background-position: 45% 50%;
+    }
+
     #contactbg {
       background: linear-gradient(to bottom, rgba(39, 38, 38, 0) 0%, rgba(39, 38, 38, 0) 50%, rgba(39, 38, 38, .25) 100%),
       url("/assets/images/mailboxi.jpg") no-repeat bottom center/cover;
+    }
+
+    #tagbg {
+      background: linear-gradient(to bottom, rgba(39, 38, 38, 0) 0%, rgba(39, 38, 38, 0) 50%, rgba(39, 38, 38, .25) 100%),
+      url("/assets/images/indexcardbox.jpg") no-repeat center center/cover;
+    }
+
+    #aboutbg {
+      background: linear-gradient(to bottom, rgba(39, 38, 38, 0) 0%, rgba(39, 38, 38, 0) 50%, rgba(39, 38, 38, .25) 100%),
+      url("/assets/images/SIGINT_Martin_bw.jpg") no-repeat 50% 20%/cover;
+
+      #credit {
+        a, a:hover, a:visited {
+          color: $textcolor;
+        }
+      }
     }
 
     #talkbg {
@@ -74,11 +97,6 @@
           color: $textcolor;
         }
       }
-    }
-
-    #aboutbg {
-      background: linear-gradient(to bottom, rgba(39, 38, 38, 0) 0%, rgba(39, 38, 38, 0) 50%, rgba(39, 38, 38, .25) 100%),
-      url("/assets/images/mailboxi.jpg") no-repeat bottom center/cover;
     }
 
     #credit {
