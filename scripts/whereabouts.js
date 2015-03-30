@@ -13,12 +13,13 @@ var whereaboutCTRL = function ($scope, $http) {
     var calctime = function (t) {
         var now = new Date().getTime();
 
-        var intervals = ['second', 'minute', 'hour'];
+        var intervals = ['second', 'minute', 'hour', 'day'];
+ 	var divider = [60, 60, 60,24];
         var i = 0;
         var dist =  (now/ 1000) - t ;
 
-        while (dist >= 60 && i < 3) {
-            dist /= 60;
+        while (dist >= divider[i] && i < 3) {
+            dist /= divider[i];
             i = i + 1;
         }
 
@@ -58,7 +59,16 @@ var whereaboutCTRL = function ($scope, $http) {
         },
         defaults: {
             maxZoom: 16
-        }
+        },
+        layers: {
+                    baselayers: {
+                        stamen: {
+                            name: 'Stamen',
+                            type: 'xyz',
+                            url: 'http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png'
+                        }
+                    }
+                }
     });
 }
 
