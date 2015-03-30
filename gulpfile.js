@@ -22,7 +22,7 @@ gulp.task('test', function() {
 });
 
 gulp.task('styleMerge', function() {
-    return gulp.src(['assets/fonts/Fira/css/fira.css', 'css/style.css', 'bower_components/mediaelement/build/mediaelementplayer.min.css', 'bower_components/leaflet-dist/leaflet.css'])
+    return gulp.src(['assets/fonts/Fira/css/fira.css', 'css/style.scss', 'bower_components/mediaelement/build/mediaelementplayer.min.css', 'bower_components/leaflet-dist/leaflet.css'])
         .pipe(concat('complete.scss'))
         .pipe(gulp.dest('css/'))
         .pipe(notify({message: "Finished merging styles"}));
