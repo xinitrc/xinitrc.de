@@ -28,7 +28,7 @@ gulp.task('styleMerge', function() {
         .pipe(notify({message: "Finished merging styles"}));
 });
 
-gulp.task('style', function() {
+gulp.task('style', ['styleMerge'], function() {
     return sass('css/complete.scss', {compass: true})
         .pipe(gulp.dest('css/complete.css'))
         .pipe(rename({suffix: '.min'}))
