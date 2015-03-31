@@ -5,3 +5,4 @@ site
 data
 _cache
 _site
+bower_components
