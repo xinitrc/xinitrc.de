@@ -1,7 +1,7 @@
-<div ng-controller="menuCTRL" id="sidebar" ng-class="{open: open()}">
+<div id="sidebar">
     <div class="leaver">
         <div class="trigger">
-            <a href="" ng-click="toggle()" title="Close Menu">
+            <a href="" id="menu-closer" title="Close Menu">
                 <div class="menu-close">
                     <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KCgo8IS0tIFRoZSBpY29uIGN
 hbiBiZSB1c2VkIGZyZWVseSBpbiBib3RoIHBlcnNvbmFsIGFuZCBjb21tZXJjaWFsIHByb2plY3
@@ -21,7 +21,7 @@ RjJGMiIgcG9pbnRzPSI0MzguMzkzLDM3NC41OTUgMzE5Ljc1NywyNTUuOTc3IDQzOC4zNzgsMTM
 zkzIDI1Ni4wMDIsMzE5LjczNCAzNzQuNjUyLDQzOC4zNzggIi8+Cgo8L3N2Zz4=" alt="Menu Close"/>
                 </div>
             </a>
-            <a href="" ng-click="toggle()" title="Menu">
+            <a href="" id="menu-opener" title="Menu">
                 <div class="menu">
                     <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KCjwhLS0gTGljZW5zZSBBZ3J
 lZW1lbnQgYXQgaHR0cDovL2ljb25tb25zdHIuY29tL2xpY2Vuc2UvIC0tPgoKPCFET0NUWVBFIH
@@ -48,19 +48,19 @@ bWVudS1pY29uIiBkPSJNNDYyLDE2My41SDUwdi02NWg0MTJWMTYzLjV6IE00NjIsMjIzLjVINTB
     <div class="sidebar-content">
         <section class="menu">
             <nav>
-                <a href="/" ng-click="closeMenu()">
+                <a href="/">
                     <h1>Blog</h1>
                     <h2>Ramblings about "stuff"</h2>
                 </a>
-                <a href="/talks.html" ng-click="closeMenu()">
+                <a href="/talks.html">
                     <h1>Talks</h1>
                     <h2>Recordings of past talks</h2>
                 </a>
-                <a href="/facts.html" ng-click="closeMenu()">
+                <a href="/facts.html">
                     <h1>About me</h1>
                     <h2>Details about me</h2>
                 </a>
-                <a href="/contact.html" ng-click="closeMenu()">
+                <a href="/contact.html">
                     <h1>Contact</h1>
                     <h2>Contact and legal information</h2>
                 </a>

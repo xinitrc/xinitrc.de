@@ -1,13 +1,14 @@
-@import "css/base"; 
-@import "css/colors";
-@import "css/utils";
-@import "css/about";
-@import "css/zenburn";
-@import "css/contact";
-@import "css/article";
-@import "css/logo";
-@import "css/sidebar";
-@import "css/basehtml";
+@import "compass/reset";
+@import "base"; 
+@import "colors";
+@import "utils";
+@import "about";
+@import "zenburn";
+@import "contact";
+@import "article";
+@import "logo";
+@import "sidebar";
+@import "basehtml";
 
 html, body {
   height: 100%;

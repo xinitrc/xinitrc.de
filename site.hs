@@ -151,11 +151,17 @@ main = hakyllWith hakyllConf $ do
         route   idRoute
         compile copyFileCompiler
 
+    match "css/complete.min.css" $ do 
+        route $ constRoute "css/style.css"
+        compile copyFileCompiler
+
+{-        
     match "css/style.scss" $ do 
         route   $ setExtension "css"
         compile $ liftM (fmap compressCss) getResourceString 
             >>= withItemBody (unixFilter "sass" ["-I", ".", "--no-cache", "--scss", "--compass", "--style", "compressed"])
-    
+-}
+
     match "index.html" $ do
         route idRoute
         compile $ genCompiler tags (field "posts" $ \_ -> postList $ fmap (take 5) . recentFirst)

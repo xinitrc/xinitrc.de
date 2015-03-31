@@ -1,4 +1,4 @@
-    <div ng-controller="maincontentCTRL" class="main-content show" ng-class="showCss">
+    <div class="main-content show">
         $if(type)$
         <div id="talkbg" class="background">
             <h1 class="section-head">talk</h1>
@@ -50,6 +50,7 @@
                 </div>
                 $if(commentsdisabled)$
                 $else$
+                    <div disqus="url"></div>
                 <div id="disqus_thread"></div>
                 <script type="text/javascript">
                     var disqus_shortname = 'xinitrcde'; // required: replace example with your forum shortname

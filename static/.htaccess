@@ -1,39 +1,103 @@
-AddOutputFilterByType DEFLATE text/plain
-AddOutputFilterByType DEFLATE text/html
-AddOutputFilterByType DEFLATE text/xml
-AddOutputFilterByType DEFLATE text/css
-AddOutputFilterByType DEFLATE text/javascript
-AddOutputFilterByType DEFLATE text/x-javascript
-AddOutputFilterByType DEFLATE application/xml
-AddOutputFilterByType DEFLATE application/xhtml+xml
-AddOutputFilterByType DEFLATE application/rss+xml
-AddOutputFilterByType DEFLATE application/json
-AddOutputFilterByType DEFLATE application/javascript
-AddOutputFilterByType DEFLATE application/x-javascript
+AddType application/font-woff                       woff
+AddType application/font-woff2                      woff2
+AddType application/vnd.ms-fontobject               eot
 
-Options +FollowSymlinks
+# Browsers usually ignore the font media types and simply sniff
+# the bytes to figure out the font type.
+# https://mimesniff.spec.whatwg.org/#matching-a-font-type-pattern
+#
+# However, Blink and WebKit based browsers will show a warning
+# in the console if the following font types are served with any
+# other media types.
 
-RewriteEngine on
-RewriteCond %{HTTP_HOST}        ^blog.xinitrc.de [NC]
-RewriteRule ^$          http://xinitrc.de/ [L,R]
+AddType application/x-font-ttf                      ttc ttf
+AddType font/opentype                               otf
+AddType text/cache-manifest                 appcache manifest
 
-RewriteCond %{HTTP_HOST}        ^blog.xinitrc.de [NC]
-RewriteRule ^(.*)$      http://xinitrc.de/$1 [R]
+# Enable gzip compression
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/plain
+  AddOutputFilterByType DEFLATE text/html
+  AddOutputFilterByType DEFLATE text/xml
+  AddOutputFilterByType DEFLATE text/css
+  AddOutputFilterByType DEFLATE text/javascript
+  AddOutputFilterByType DEFLATE text/x-javascript
+  AddOutputFilterByType DEFLATE application/xml
+  AddOutputFilterByType DEFLATE application/xhtml+xml
+  AddOutputFilterByType DEFLATE application/rss+xml
+  AddOutputFilterByType DEFLATE application/json
+  AddOutputFilterByType DEFLATE application/javascript
+  AddOutputFilterByType DEFLATE application/x-javascript
 
-RewriteCond %{HTTP_HOST}        ^www.xinitrc.de [NC]
-RewriteRule ^(.*)$      http://xinitrc.de/$1 [R]
+  AddOutputFilterByType DEFLATE application/font-woff
+  AddOutputFilterByType DEFLATE application/font-woff2
+  AddOutputFilterByType DEFLATE application/vnd.ms-fontobject 
+  AddOutputFilterByType DEFLATE application/x-font-ttf  
+  AddOutputFilterByType DEFLATE font/opentype
 
-RewriteCond %{HTTP_HOST}        ^pad.xinitrc.de [NC]
-RewriteRule ^$ http://localhost:12004/ [P]
+  BrowserMatch ^Mozilla/4 gzip-only-text/html
+  BrowserMatch ^Mozilla/4\.0[678] no-gzip
+  BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+</IfModule>
 
-RewriteCond %{HTTP_HOST}        ^pad.xinitrc.de [NC]
-RewriteRule ^(.*)$ http://localhost:12004/$1 [P]
 
-RewriteCond %{ENV:HTTPS} on
-RewriteCond %{HTTP_HOST} ^couch.xinitrc.de
-RewriteRule ^(.*)$      http://localhost:21864/$1 [P]
+# BEGIN EXPIRES
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 10 days"
+    ExpiresByType text/css "access plus 1 week"
+    ExpiresByType text/plain "access plus 1 month"
+    ExpiresByType image/gif "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType application/x-javascript "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 week"
+    ExpiresByType application/x-icon "access plus 1 year"
+    # Web fonts
 
-# ADAPTIVE IMAGES 
-RewriteCond %{REQUEST_URI} !ai-cache
-    
-RewriteRule \.(?:jpe?g|gif|png)$ adaptive-images.php
+    # Embedded OpenType (EOT)
+    ExpiresByType application/vnd.ms-fontobject         "access plus 1 month"
+    ExpiresByType font/eot                              "access plus 1 month"
+
+    # OpenType
+    ExpiresByType font/opentype                         "access plus 1 month"
+
+    # TrueType
+    ExpiresByType application/x-font-ttf                "access plus 1 month"
+
+    # Web Open Font Format (WOFF) 1.0
+    ExpiresByType application/font-woff                 "access plus 1 month"
+    ExpiresByType application/x-font-woff               "access plus 1 month"
+    ExpiresByType font/woff                             "access plus 1 month"
+
+    # Web Open Font Format (WOFF) 2.0
+    ExpiresByType application/font-woff2                "access plus 1 month"
+</IfModule>
+# END EXPIRES
+
+#Options +FollowSymlinks
+#
+#RewriteEngine on
+#RewriteCond %{HTTP_HOST}        ^blog.xinitrc.de [NC]
+#RewriteRule ^$          http://xinitrc.de/ [L,R]
+
+#RewriteCond %{HTTP_HOST}        ^blog.xinitrc.de [NC]
+#RewriteRule ^(.*)$      http://xinitrc.de/$1 [R]
+#
+#RewriteCond %{HTTP_HOST}        ^www.xinitrc.de [NC]
+#RewriteRule ^(.*)$      http://xinitrc.de/$1 [R]
+#
+#RewriteCond %{HTTP_HOST}        ^pad.xinitrc.de [NC]
+#RewriteRule ^$ http://localhost:12004/ [P]
+#
+#RewriteCond %{HTTP_HOST}        ^pad.xinitrc.de [NC]
+#RewriteRule ^(.*)$ http://localhost:12004/$1 [P]
+#
+#RewriteCond %{ENV:HTTPS} on
+#RewriteCond %{HTTP_HOST} ^couch.xinitrc.de
+#RewriteRule ^(.*)$      http://localhost:21864/$1 [P]
+#
+## ADAPTIVE IMAGES 
+#RewriteCond %{REQUEST_URI} !ai-cache
+#    
+#RewriteRule \.(?:jpe?g|gif|png)$ adaptive-images.php

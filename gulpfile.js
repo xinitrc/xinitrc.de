@@ -22,25 +22,24 @@ gulp.task('test', function() {
 });
 
 gulp.task('styleMerge', function() {
-    return gulp.src(['assets/fonts/Fira/css/fira.css', 'css/style.scss', 'bower_components/mediaelement/build/mediaelementplayer.min.css', 'bower_components/leaflet-dist/leaflet.css'])
+    return gulp.src(['static/fonts/FiraMono-3.11/stylesheet.css', 'static/fonts/FiraSans-4.0/stylesheet.css', 'css/style.scss'])
         .pipe(concat('complete.scss'))
         .pipe(gulp.dest('css/'))
         .pipe(notify({message: "Finished merging styles"}));
 });
 
 gulp.task('style', ['styleMerge'], function() {
-    return gulp.src('css/complete.scss')
-        .pipe(sass({compass: true}))
-        .pipe(gulp.dest('css/'))
+    return sass('css/complete.scss', {compass: true})
+        .pipe(gulp.dest('css'))
         .pipe(rename({suffix: '.min'}))
         .pipe(minifycss())
-        .pipe(gulp.dest('css/'))
+        .pipe(gulp.dest('css'))
         .pipe(notify({message: "Finished generating styles"}));
     });
 
 gulp.task('script', function() {
-    return gulp.src(['bower_components/jquery/dist/jquery.min.js','bower_components/angular/angular.min.js','bower_components/angular-route/angular-route.min.js','bower_components/angular-animate/angular-animate.min.js','bower_components/leaflet-dist/leaflet.js','bower_components/angular-leaflet/dist/angular-leaflet-directive.min.js','bower_components/modernizr/modernizr.js','bower_components/mediaelement/build/mediaelement-and-player.min.js','scripts/app.js','scripts/commonDirectives/prefetch.js','scripts/menu/menu.js','scripts/maincontent/mainContent.js','scripts/whereabouts/whereabouts.js'])
-        .pipe(concat('complete.app.js'))
+    return gulp.src(['bower_components/jquery/dist/jquery.min.js', 'scripts/app.js'])
+        .pipe(concat('app.js'))
         .pipe(rename({suffix: '.min'}))
         .pipe(uglify())
         .pipe(gulp.dest('scripts'))
