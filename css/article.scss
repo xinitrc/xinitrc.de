@@ -142,7 +142,7 @@
       display: block;
       bottom: .5rem;
       left: -1.25rem;
-      margin-bottom: -2px;
+      margin-bottom: 2px;
 
       content: "";
 
@@ -159,7 +159,7 @@
     }
 
     h1.section-head::before {
-      bottom: .6rem;
+      bottom: 1rem;
       margin-bottom: -2px;
     }
   }
