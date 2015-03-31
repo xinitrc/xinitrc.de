@@ -1,3 +1,17 @@
+AddType application/font-woff                       woff
+AddType application/font-woff2                      woff2
+AddType application/vnd.ms-fontobject               eot
+
+# Browsers usually ignore the font media types and simply sniff
+# the bytes to figure out the font type.
+# https://mimesniff.spec.whatwg.org/#matching-a-font-type-pattern
+#
+# However, Blink and WebKit based browsers will show a warning
+# in the console if the following font types are served with any
+# other media types.
+
+AddType application/x-font-ttf                      ttc ttf
+AddType font/opentype                               otf
 AddType text/cache-manifest                 appcache manifest
 
 # Enable gzip compression
@@ -14,6 +28,12 @@ AddType text/cache-manifest                 appcache manifest
   AddOutputFilterByType DEFLATE application/json
   AddOutputFilterByType DEFLATE application/javascript
   AddOutputFilterByType DEFLATE application/x-javascript
+
+  AddOutputFilterByType DEFLATE application/font-woff
+  AddOutputFilterByType DEFLATE application/font-woff2
+  AddOutputFilterByType DEFLATE application/vnd.ms-fontobject 
+  AddOutputFilterByType DEFLATE application/x-font-ttf  
+  AddOutputFilterByType DEFLATE font/opentype
 
   BrowserMatch ^Mozilla/4 gzip-only-text/html
   BrowserMatch ^Mozilla/4\.0[678] no-gzip
@@ -33,6 +53,25 @@ AddType text/cache-manifest                 appcache manifest
     ExpiresByType application/x-javascript "access plus 1 month"
     ExpiresByType application/javascript "access plus 1 week"
     ExpiresByType application/x-icon "access plus 1 year"
+    # Web fonts
+
+    # Embedded OpenType (EOT)
+    ExpiresByType application/vnd.ms-fontobject         "access plus 1 month"
+    ExpiresByType font/eot                              "access plus 1 month"
+
+    # OpenType
+    ExpiresByType font/opentype                         "access plus 1 month"
+
+    # TrueType
+    ExpiresByType application/x-font-ttf                "access plus 1 month"
+
+    # Web Open Font Format (WOFF) 1.0
+    ExpiresByType application/font-woff                 "access plus 1 month"
+    ExpiresByType application/x-font-woff               "access plus 1 month"
+    ExpiresByType font/woff                             "access plus 1 month"
+
+    # Web Open Font Format (WOFF) 2.0
+    ExpiresByType application/font-woff2                "access plus 1 month"
 </IfModule>
 # END EXPIRES
 

@@ -22,7 +22,7 @@ gulp.task('test', function() {
 });
 
 gulp.task('styleMerge', function() {
-    return gulp.src(['static/assets/fonts/Fira/css/fira.css', 'css/style.scss'])
+    return gulp.src(['static/fonts/FiraMono-3.11/stylesheet.css', 'static/fonts/FiraSans-4.0/stylesheet.css', 'css/style.scss'])
         .pipe(concat('complete.scss'))
         .pipe(gulp.dest('css/'))
         .pipe(notify({message: "Finished merging styles"}));
@@ -30,7 +30,7 @@ gulp.task('styleMerge', function() {
 
 gulp.task('style', ['styleMerge'], function() {
     return sass('css/complete.scss', {compass: true})
-        .pipe(gulp.dest('css/complete.css'))
+        .pipe(gulp.dest('css'))
         .pipe(rename({suffix: '.min'}))
         .pipe(minifycss())
         .pipe(gulp.dest('css'))
