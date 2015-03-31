@@ -38,7 +38,7 @@ gulp.task('style', function() {
     });
 
 gulp.task('script', function() {
-    return gulp.src(['bower_components/jquery/dist/jquery.min.js','bower_components/angular/angular.min.js', 'bower_components/angular-route/angular-route.min.js','bower_components/angular-animate/angular-animate.min.js','bower_components/leaflet-dist/leaflet.js','bower_components/angular-leaflet/dist/angular-leaflet-directive.min.js','bower_components/modernizr/modernizr.js','bower_components/mediaelement/build/mediaelement-and-player.min.js','scripts/app.js','scripts/commonDirectives/prefetch.js','scripts/menu/menu.js','scripts/maincontent/mainContent.js','scripts/whereabouts/whereabouts.js'])
+    return gulp.src(['bower_components/jquery/dist/jquery.min.js', 'scripts/app.js'])
         .pipe(concat('app.js'))
         .pipe(rename({suffix: '.min'}))
         .pipe(uglify())
