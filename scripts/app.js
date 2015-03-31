@@ -28,6 +28,7 @@ app.run(['$rootScope', '$timeout', '$window', function ($rootScope, $timeout, $w
     $rootScope.$on('$routeChangeSuccess', function () {
         $timeout(function () {
             $window.scrollTo(0,0);
+            MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
         }, 500);
     });
 }]);

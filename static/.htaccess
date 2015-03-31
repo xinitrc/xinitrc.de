@@ -1,39 +1,64 @@
-AddOutputFilterByType DEFLATE text/plain
-AddOutputFilterByType DEFLATE text/html
-AddOutputFilterByType DEFLATE text/xml
-AddOutputFilterByType DEFLATE text/css
-AddOutputFilterByType DEFLATE text/javascript
-AddOutputFilterByType DEFLATE text/x-javascript
-AddOutputFilterByType DEFLATE application/xml
-AddOutputFilterByType DEFLATE application/xhtml+xml
-AddOutputFilterByType DEFLATE application/rss+xml
-AddOutputFilterByType DEFLATE application/json
-AddOutputFilterByType DEFLATE application/javascript
-AddOutputFilterByType DEFLATE application/x-javascript
+AddType text/cache-manifest                 appcache manifest
 
-Options +FollowSymlinks
+# Enable gzip compression
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/plain
+  AddOutputFilterByType DEFLATE text/html
+  AddOutputFilterByType DEFLATE text/xml
+  AddOutputFilterByType DEFLATE text/css
+  AddOutputFilterByType DEFLATE text/javascript
+  AddOutputFilterByType DEFLATE text/x-javascript
+  AddOutputFilterByType DEFLATE application/xml
+  AddOutputFilterByType DEFLATE application/xhtml+xml
+  AddOutputFilterByType DEFLATE application/rss+xml
+  AddOutputFilterByType DEFLATE application/json
+  AddOutputFilterByType DEFLATE application/javascript
+  AddOutputFilterByType DEFLATE application/x-javascript
 
-RewriteEngine on
-RewriteCond %{HTTP_HOST}        ^blog.xinitrc.de [NC]
-RewriteRule ^$          http://xinitrc.de/ [L,R]
+  BrowserMatch ^Mozilla/4 gzip-only-text/html
+  BrowserMatch ^Mozilla/4\.0[678] no-gzip
+  BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+</IfModule>
 
-RewriteCond %{HTTP_HOST}        ^blog.xinitrc.de [NC]
-RewriteRule ^(.*)$      http://xinitrc.de/$1 [R]
 
-RewriteCond %{HTTP_HOST}        ^www.xinitrc.de [NC]
-RewriteRule ^(.*)$      http://xinitrc.de/$1 [R]
+# BEGIN EXPIRES
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 10 days"
+    ExpiresByType text/css "access plus 1 week"
+    ExpiresByType text/plain "access plus 1 month"
+    ExpiresByType image/gif "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType application/x-javascript "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 week"
+    ExpiresByType application/x-icon "access plus 1 year"
+</IfModule>
+# END EXPIRES
 
-RewriteCond %{HTTP_HOST}        ^pad.xinitrc.de [NC]
-RewriteRule ^$ http://localhost:12004/ [P]
+#Options +FollowSymlinks
+#
+#RewriteEngine on
+#RewriteCond %{HTTP_HOST}        ^blog.xinitrc.de [NC]
+#RewriteRule ^$          http://xinitrc.de/ [L,R]
 
-RewriteCond %{HTTP_HOST}        ^pad.xinitrc.de [NC]
-RewriteRule ^(.*)$ http://localhost:12004/$1 [P]
-
-RewriteCond %{ENV:HTTPS} on
-RewriteCond %{HTTP_HOST} ^couch.xinitrc.de
-RewriteRule ^(.*)$      http://localhost:21864/$1 [P]
-
-# ADAPTIVE IMAGES 
-RewriteCond %{REQUEST_URI} !ai-cache
-    
-RewriteRule \.(?:jpe?g|gif|png)$ adaptive-images.php
+#RewriteCond %{HTTP_HOST}        ^blog.xinitrc.de [NC]
+#RewriteRule ^(.*)$      http://xinitrc.de/$1 [R]
+#
+#RewriteCond %{HTTP_HOST}        ^www.xinitrc.de [NC]
+#RewriteRule ^(.*)$      http://xinitrc.de/$1 [R]
+#
+#RewriteCond %{HTTP_HOST}        ^pad.xinitrc.de [NC]
+#RewriteRule ^$ http://localhost:12004/ [P]
+#
+#RewriteCond %{HTTP_HOST}        ^pad.xinitrc.de [NC]
+#RewriteRule ^(.*)$ http://localhost:12004/$1 [P]
+#
+#RewriteCond %{ENV:HTTPS} on
+#RewriteCond %{HTTP_HOST} ^couch.xinitrc.de
+#RewriteRule ^(.*)$      http://localhost:21864/$1 [P]
+#
+## ADAPTIVE IMAGES 
+#RewriteCond %{REQUEST_URI} !ai-cache
+#    
+#RewriteRule \.(?:jpe?g|gif|png)$ adaptive-images.php
