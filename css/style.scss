@@ -1,379 +1,246 @@
-@import "css/_base.scss";
-@import "css/basehtml.scss";
+@import "compass/reset";
+@import "base"; 
+@import "colors";
+@import "utils";
+@import "about";
+@import "zenburn";
+@import "contact";
+@import "article";
+@import "logo";
+@import "sidebar";
+@import "basehtml";
 
-#wrapper {
-  overflow: hidden;
+html, body {
+  height: 100%;
 }
 
-[ng\:cloak], [ng-cloak], .ng-cloak {
-  display: none;
+html {
+  font-family: "Fira Sans", "Lato", sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  font-size: 16px;
 }
 
-.tikz img {
-  display: block;
-  margin: 20px auto;
-
-  max-width: 100%;
-  height: auto;
+body {
+  color: $textcolor;
+  background-color: $cbwhite;
 }
 
-time {
-  font-weight: bold;
+#indieauth {
+  display: none
 }
 
-td time {
-  margin-right: 20px;
-}
-
-header {
-  display: table;
+.leaflet-container {
   width: 100%;
+  height: 30em;
+}
 
-  margin-bottom: 10px;
+.animate {
+  @include transition(all 1s ease);
+}
 
-  h1 {
-    display: table-cell;
+.animate.ng-enter, .animate.ng-leave.ng-leave-active {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.animate.ng-enter, .animate.ng-leave.ng-leave-active {
+  opacity: 0;
+}
+
+.animate.ng-enter.ng-enter-active {
+  opacity: 1;
+}
+
+.main-content {
+  font-size: .875rem;
+  font-weight: 400;
+  height: 100%;
+  max-width: 40rem;
+
+  margin: 5 * $baseunit auto 0 auto;
+
+  z-index: 50;
+
+  img {
+    display: block;
+    margin: 0 auto 1.6em auto;
   }
 
-  .date {
-    display: table-cell;
+  @for $i from 1 through 6 {
+    h#{$i} {
+      margin-bottom: 1 * $baseunit;
+      border-bottom: 1px solid $textcolor;
 
-    vertical-align: middle;
-
-    width: 130px;
-    line-height: 3;
-
-    color: $bgcolor;
-    background: $textcolor;
-
-    text-align: center;
+      a, a:visited {
+        color: inherit;
+      }
+    }
+  }
+  
+  & > section {
+    padding: 2em;
   }
 
-  .rss {
-    display: table-cell;
-    vertical-align: middle;
+  section > *:last-child {
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
 
-    width: 64px;
-    color: $bgcolor;
-    background: $textcolor;
+  section {
+    will-change: transform, opacity;
 
-    text-align: center;
+    padding-bottom: 2em;
 
-    a {
-      color: $bgcolor;
-      text-decoration: none;
+    p {
+      padding-bottom: 1.6em;
+    }
+
+    p:last-child {
+      padding-bottom: 0;
+    }
+  }
+
+  img {
+    max-width: 90%;
+    height: auto;
+
+    margin: 0 auto 1.6em auto;
+  }
+
+  a, a:visited {
+    color: $contentlinkcolor;
+  }
+
+  table.meta {
+    margin-bottom: 1.6em;
+
+    td.heading {
+      font-weight: 500;
+      padding-right: .5em;
+    }
+
+    td {
+      vertical-align: top;
     }
   }
 }
 
-.flattr {
-  margin: 10px 0 10px 0;
-}
+@media (min-width: 48rem) {
+  .main-content {
+    margin: 5em auto 0 auto;
 
-article {
-  margin-bottom: 20px;
+    @for $i from 1 through 6 {
+      h#{$i} {
+        margin-bottom: 1rem;
+        border-bottom: 1px solid $textcolor;
+      }
+    }
 
-  img {
-    display:block;
-    margin-left: auto;
-    margin-right: auto;
+    font-size: 1rem;
+    width: 40em;
   }
 }
 
-.basicStats {
-  width: 48.93617021276595%;
-  *width: 48.88297872340425%;
-  float: left;
+@media (min-width: 64rem) {
+  .main-content {
+
+    margin: 0 0 0 5em;
+
+    & > section {
+      padding: 1em 2em;
+    }
+  }
 }
 
-.looks {
-  width: 48.93617021276595%;
-  *width: 48.88297872340425%;
-  float: left;
-  margin-left: 2.127659574468085%;
-  *margin-left: 2.074468085106383%;
+#post-archive, #talk-archive, #tags {
+  section.year {
+    border-top: thin solid $textcolor;
+    padding-top: .5em;
+
+    &:first-child {
+      border-top: none;
+      padding-top: 0;
+    }
+
+    h2.year {
+      float: left;
+      width: 8 * $baseunit;
+      border-bottom: none;
+      overflow: hidden;
+    }
+
+    @media (min-width: 48rem) {
+      h2.year {
+        width: 8rem;
+      }
+    }
+
+    section.month {
+      margin-left: 8em;
+    }
+  }
+
+  span.day {
+    display: block;
+    width: 4em;
+    float: left;
+    font-weight: 900;
+  }
+
+  span.title {
+    display: block;
+    margin-left: 4em;
+  }
+
+  span.date {
+    float: left;
+    display: block;
+    width: 7em;
+    font-weight: 900;
+  }
 }
 
-.leaflet-container {
-  height: 500px;
+.archive {
+  padding: 1em 2em;
+
+  font-size: 2em;
+  text-align: center;
+}
+
+.elastic-container {
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 30px;
+  height: 0;
+  overflow: hidden;
+  margin: auto 2em;
+}
+
+.elastic-container iframe, .elastic-container object, .elastic-container embed {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
+  height: 100%;
 }
 
+
+@media(min-width: 64rem) {
+  
 .half {
   float: left;
   width: 50%;
 }
 
-.third {
-  float: left;
-  width: 33%;
-}
-
-.looks {
-  float: right;
-  width: 200px;
-}
-
-.year, .month {
+.vcard::after {
+  content: "\0020";
   display: block;
-  float: left;
-  width: 14.893617021276595%;
-}
-
-.year {
-  font-weight: 700;
-}
-
-.day {
-  padding-right: 20px;
-}
-
-.archive {
-  font-size: 40px;
-  margin-top: 40px;
-  margin-bottom: 20px;
-  text-align: center;
-  a {
-    font-weight: 700;
-  }
-}
-
-.social {
-  margin-bottom: 10px;
-  padding: 0px 10px 0 10px;
-
-  a, a:hover {
-    display: inline;
-    color: $bgcolor;
-    /*background: $textcolor;*/
-    text-decoration: none;
-
-    .socialtext {
-      display: none;
-    }
-  }
-
-  ul li {
-    display: inline;
-
-    font-size: 40px;
-
-    margin-left: 5px;
-    margin-right: 5px;
-  }
-}
-
-.topd {
-  vertical-align: top;
-}
-
-.heading {
-  font-weight: 700;
-  vertical-align: top;
-  padding-right: 20px;
-}
-
-.uberspace img {
-  display: block;
-
-  margin-bottom: 20px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.cc-icon img {
-  display: block;
-
-  margin-top: 20px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.more {
-  text-align: right;
-}
-
-.contentwrapper {
-  float: right;
-}
-
-.content {
-  padding-top: 20px;
-  margin-bottom: 20px;
-  background: $bgcolor;
-  padding: 10px 10px 10px 10px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.dateli {
-  font-weight: 400;
-}
-
-.sidebar1 {
-  color: $bgcolor;
-  background: $textcolor;
-
-  h1, h1 a, h1 a:hover {
-    color: $bgcolor;
-  }
-
-  hr {
-    border-top: 1px solid $bgcolor;
-  }
-
-  img.logo {
-    display: block;
-    width: 40px;
-    height: auto;
-
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  nav {
-    ul {
-      margin: 0;
-    }
-
-    ul li {
-      list-style: none;
-      margin-left: 0;
-      font-size: 1.5em;
-      text-align: left;
-
-      a {
-        display: block;
-
-        color: $bgcolor;
-
-        font-weight: bold;
-
-        text-decoration: none;
-
-        line-height: 1.5em;
-        padding: 10px 5px 10px 15px;
-        &.active,
-        &:hover {
-          color: $textcolor;
-          background: $bgcolor;
-
-          text-decoration: none;
-        }
-      }
-
-      i {
-        padding-top: 10px;
-        float: right;
-      }
-    }
-  }
-}
-
-.sidebar2 {
-  color: $bgcolor;
-  background: $textcolor;
-
-  margin-bottom: -20000px;
-  padding-bottom: 20000px;
-
-  h1, h1 a, h1 a:hover {
-    color: $bgcolor;
-  }
-
-  hr {
-    border-top: 1px solid $bgcolor;
-  }
-
-  .tagcloud {
-    font-weight: 400;
-    padding: 0 10px 10px 10px;
-  }
-
-  .next {
-    display: none;
-    padding: 0 10px 0 10px;
-  }
-
-  ul li {
-    list-style: none;
-    margin-left: 0;
-    margin-bottom: 10px;
-  }
-}
-
-.clearfix {
-  *zoom: 1;
-}
-
-.clearfix:before,
-.clearfix:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-
-.clearfix:after {
+  height: 0;
   clear: both;
+  overflow: hidden;
+  visibility: hidden;
 }
-
-#references p {
-  text-indent: -1em;
-  margin-left: 1em;
 }
-
-input {
-  @include appearance(none);
-  border-radius: 0px;
-}
-
-/* Form wrapper styling */
-.search {
-  @include experimental-value(width, calc(100% - 20px));
-  padding: 0 10px;
-  margin: 0px auto 0px auto;
-}
-
-/* Form text input */
-
-.search input, .search input:active, .search input:focus {
-  @include experimental-value(width, calc(100% - 70px));
-  height: 20px;
-  padding: 10px 5px;
-  float: left;
-  font-size: 20px;;
-  border: 0;
-  outline: 0;
-  border-radius: 5px 0 0 5px;
-
-}
-
-/* Form submit button */
-.search button {
-  overflow: visible;
-  outline: 0;
-  border: 0;
-  padding: 0;
-  cursor: pointer;
-  height: 40px;
-  width: 60px;
-  font-size: 20px;
-  color: #fff;
-  text-transform: uppercase;
-  background: $linkcolor;
-  border-radius: 0 5px 5px 0;
-}
-
-div.definition {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  font-style: italic;		
-}
-
-div.problemstatement {
-  margin: 20px;
-  padding: 10px;
-  border: thin solid $textcolor;
-}
-
-@import "css/responsive";

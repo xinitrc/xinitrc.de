@@ -1,48 +1,11 @@
-<script type="text/javascript" src="/scripts/date.format.min.js"></script>
-<script type="text/javascript" src="/scripts/angular/angular.min.js"></script>
-<script type="text/javascript" src="/scripts/calendar.js"></script>
-<script type="text/javascript" src="/scripts/date.js"></script>
-<script type="text/javascript" src="/scripts/leaflet-0.6.4/leaflet.js"></script>
-<script type="text/javascript" src="/scripts/angular-leaflet-directive.js"></script>
-<script type="text/javascript" src="/scripts/whereabouts.js"></script>
-
-<script type="text/javascript" src="/scripts/head.load.min.js"></script>
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
-        tex2jax: {inlineMath: [['$$','$$'], ['\\(','\\)']]}
+        tex2jax: {
+          inlineMath: [['$$','$$'], ['\\(','\\)']]
+        }
     });
 </script>
-
-<script type="text/javascript">
-    head.js('/scripts/jquery-1.8.3.min.js', function () {
-        $$(function () {
-            if ($$('math').length) {
-                head.js('https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML', null)
-            }
-
-            if ($$('div.flattr').length) {
-                (function () {
-                    var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
-                    s.type = 'text/javascript';
-                    s.async = true;
-                    s.src = '//api.flattr.com/js/0.6/load.js?mode=auto&button=compact&uid=xinitrc&category=text';
-                    t.parentNode.insertBefore(s, t);
-                })();
-            }
-            if ($$('#nikeplus').length) {
-                head.js('/scripts/Highcharts-2.3.5/js/highcharts.js',
-                        '/scripts/sprintf-0.7-beta1.js',
-                        '/scripts/date.format.min.js',
-                        '/scripts/nikeplus.js', function () {
-                            nikeplusCallback()
-                        });
-            }
-            if ($$('audio').length || $$('video').length) {
-                head.js('/scripts/mediaelementsjs/mediaelement-and-player.min.js', function () {
-                    $$('audio').mediaelementplayer();
-                    $$('video').mediaelementplayer();
-                });
-            }
-        });
-    });
+<script>
+    function downloadJSAtOnload(){var n=document.createElement("script");n.src="/scripts/app.min.js",document.body.appendChild(n);var m=document.createElement("script");m.src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML",document.body.appendChild(m)}window.addEventListener?window.addEventListener("load",downloadJSAtOnload,!1):window.attachEvent?window.attachEvent("onload",downloadJSAtOnload):window.onload=downloadJSAtOnload;
+/*    function downloadJSAtOnload(){var d=document.createElement("link");d.href="/css/style.css",d.rel="stylesheet",d.type="text/css",document.body.appendChild(d);var n=document.createElement("script");n.src="/scripts/app.min.js",document.body.appendChild(n);var m=document.createElement("script");m.src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML",document.body.appendChild(m)}window.addEventListener?window.addEventListener("load",downloadJSAtOnload,!1):window.attachEvent?window.attachEvent("onload",downloadJSAtOnload):window.onload=downloadJSAtOnload;*/
 </script>

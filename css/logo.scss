@@ -1,0 +1,33 @@
+#more-arrow {
+  position: fixed;
+  bottom: 0;
+  left: 20em;
+
+  width: 5em;
+
+  svg {
+    width: 5em;
+    height: 5em;
+  }
+}
+
+.main-content.show {
+  #more-arrow {
+    display: none;
+  }
+}
+
+.arrow-down {
+  stroke: rgba(242, 242, 242, .9);
+  fill: none;
+}
+
+#lambda {
+  stroke: #F2F2F2;
+  fill: #F2F2F2;
+}
+
+#dot {
+  fill: #F60A20;
+  stroke: #F60A20;
+}

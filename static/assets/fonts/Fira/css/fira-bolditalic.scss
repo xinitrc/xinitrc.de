@@ -1,0 +1,15 @@
+//
+// Fira Bold Italic
+// ------------------------------------------------------
+
+@font-face {
+  font-family: 'Fira Sans';
+  src: url('/font/FiraSans-BoldItalic.eot');
+  src: local('Fira Sans Bold Italic'),
+  local('Fira Sans-BoldItalic'),
+  url('/font/FiraSans-BoldItalic.eot?#iefix') format('embedded-opentype'),
+  url('/font/FiraSans-BoldItalic.woff') format('woff'),
+  url('/font/FiraSans-BoldItalic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+}

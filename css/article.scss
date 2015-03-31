@@ -1,0 +1,199 @@
+@import "utils";
+
+.main-content {
+  article > * > *:last-child {
+    padding-bottom: 0;
+  }
+
+  article.abstract {
+    border-bottom: 1px solid $textcolor;
+  }
+
+  div.more {
+    text-align: right;
+  }
+
+
+  article {
+    header {
+      padding-top: 1em;
+      padding-bottom: 2em;
+
+      .date {
+        font-size: .75em;
+        font-weight: 300;
+      }
+    }
+
+    footer {
+      .meta-info {
+        padding: .5em 0;
+        border-bottom: 1px solid $textcolor;
+        border-top: 1px solid $textcolor;
+      }
+    }
+  }
+
+  .background {
+    display: none;
+  }
+
+  h1.section-head {
+    display: none;
+  }
+
+  h1.section-head::before {
+    display: none;
+  }
+
+  #credit {
+    display: none;
+  }
+
+  @media(min-width: 64rem) {
+    .background {
+      @include fixer($left: 45rem);
+      display: block;
+    }
+
+    #blogbg {
+      background: linear-gradient(to bottom, rgba(39, 38, 38, 0) 0%, rgba(39, 38, 38, 0) 50%, rgba(39, 38, 38, .25) 100%),
+      url("/assets/images/beanbag.jpg") no-repeat center center/cover;
+    }
+
+    #archivebg {
+      background: linear-gradient(to bottom, rgba(39, 38, 38, 0) 0%, rgba(39, 38, 38, 0) 50%, rgba(39, 38, 38, .25) 100%),
+      url("/assets/images/archive.jpg") no-repeat 50% 50%/cover;
+      background-position: 45% 50%;
+    }
+
+    #contactbg {
+      background: linear-gradient(to bottom, rgba(39, 38, 38, 0) 0%, rgba(39, 38, 38, 0) 50%, rgba(39, 38, 38, .25) 100%),
+      url("/assets/images/mailboxi.jpg") no-repeat bottom center/cover;
+    }
+
+    #tagbg {
+      background: linear-gradient(to bottom, rgba(39, 38, 38, 0) 0%, rgba(39, 38, 38, 0) 50%, rgba(39, 38, 38, .25) 100%),
+      url("/assets/images/indexcardbox.jpg") no-repeat center center/cover;
+    }
+
+    #aboutbg {
+      background: linear-gradient(to bottom, rgba(39, 38, 38, 0) 0%, rgba(39, 38, 38, 0) 50%, rgba(39, 38, 38, .25) 100%),
+      url("/assets/images/SIGINT_Martin_bw_small.jpg") no-repeat 50% 20%/cover;
+
+      #credit {
+        a, a:hover, a:visited {
+          color: $textcolor;
+        }
+      }
+    }
+
+    #talkbg {
+      background: linear-gradient(to bottom, rgba(39, 38, 38, 0) 0%, rgba(39, 38, 38, 0) 50%, rgba(39, 38, 38, .25) 100%),
+      url("/assets/images/lecture_hall_bw.jpg") no-repeat center center/cover;
+
+      #credit {
+        a, a:hover, a:visited {
+          color: $textcolor;
+        }
+      }
+    }
+
+    #credit {
+      @include absoluter(-.5em, .5em, auto, auto);
+
+      display: block;
+
+      width: 20rem;
+
+      font-size: .8em;
+      font-weight: 300;
+      text-align: right;
+
+      @include rotate(-90deg);
+      @include transform-origin(bottom, right);
+      color: $bgcolor;
+
+      a, a:hover, a:visited {
+        color: $bgcolor;
+        text-decoration: none;
+      }
+    }
+
+
+    h1.section-head {
+      position: fixed;
+      display: block;
+      text-transform: lowercase;
+      font-weight: 700;
+      bottom: 1.25rem;
+      right: 1.5rem;
+      font-size: 4rem;
+      color: $cbwhite;
+      margin: 0;
+      padding: 0;
+      line-height: 1;
+      text-decoration: none;
+      border-bottom: none;
+    }
+
+    h1.section-head::before {
+      position: absolute;
+      display: block;
+      bottom: .5rem;
+      left: -1.25rem;
+      margin-bottom: -2px;
+
+      content: "";
+
+      width: 1rem;
+      height: 1rem;
+
+      color: $contentlinkcolor;
+      background: $contentlinkcolor;
+    }
+  }
+  @media(min-width: 80rem) {
+    h1.section-head {
+      font-size: 6rem;
+    }
+
+    h1.section-head::before {
+      bottom: .6rem;
+      margin-bottom: -2px;
+    }
+  }
+
+  article > * {
+    padding: 1em;
+  }
+}
+
+
+
+@media (min-width: 48rem) {
+  .main-content {
+    footer.meta-info {
+      font-size: 1.125rem;
+      padding: .5rem 0;
+      border-bottom: 1px solid $textcolor;
+      border-top: 1px solid $textcolor;
+    }
+  }
+}
+
+@media (min-width: 64rem) {
+  .main-content {
+    article > * {
+      padding: 0 2em 1em 2em;
+    }
+
+    #article-bg {
+      display: block;
+    }
+  }
+}
+
+.trigger, #menu-opener, #menu-closer {
+  curser: pointer;
+}

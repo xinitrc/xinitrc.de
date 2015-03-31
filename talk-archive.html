@@ -1,7 +1,42 @@
-<div class="contentblock">
+<div class="main-content">
+    <div id="archivebg" class="background">
+        <h1 class="section-head">archive</h1>
+        <div id="credit"><a href="https://www.flickr.com/photos/davepattern/">Background image by Dave Pattern</a></div>
+    </div>
+<section id="talk-archive">
     <h1>All Talks</h1>
 
     <div class="archives">
         $posts$
     </div>
+</section>
 </div>
+        <!--
+<script src="/bower_components/ScrollToFixed/jquery-scrolltofixed-min.js"></script>
+<script type="text/javascript">
+    if (!Modernizr.touch) {
+        $$(document).ready(function () {
+            var yearHeaders = $$('h2.year');
+            yearHeaders.each(function (i) {
+                var yearHeader = $$(yearHeaders[i]);
+                var next = yearHeaders[i + 1];
+
+                yearHeader.scrollToFixed({
+                    marginTop: 8,
+                    offsets: true,
+                    removeOffsets: true,
+                    limit: function () {
+                        var limit = 0;
+                        if (next) {
+                            limit = $$(next).offset().top - $$(this).outerHeight(true) - 8;
+                        }
+                        return limit;
+                    },
+                    zIndex: 1
+                })
+            })
+        });
+    }
+</script>
+
+-->

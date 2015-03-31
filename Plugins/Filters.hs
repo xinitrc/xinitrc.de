@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module Plugins.Filters(applyKeywords) where 
+module Plugins.Filters(applyKeywords, aplKeywords) where 
 import            Control.Monad                (void, liftM)
 
 import            Hakyll.Core.Item

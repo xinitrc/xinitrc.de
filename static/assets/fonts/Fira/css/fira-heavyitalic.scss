@@ -1,0 +1,15 @@
+//
+// Fira Heavy Italic
+// ------------------------------------------------------
+
+@font-face {
+  font-family: 'Fira Sans';
+  src: url('../font/FiraSans-HeavyItalic.eot');
+  src: local('Fira Sans Heavy Italic'),
+  local('Fira Sans-HeavyItalic'),
+  url('../font/FiraSans-HeavyItalic.eot?#iefix') format('embedded-opentype'),
+  url('../font/FiraSans-HeavyItalic.woff') format('woff'),
+  url('../font/FiraSans-HeavyItalic.ttf') format('truetype');
+  font-weight: 900;
+  font-style: italic;
+}

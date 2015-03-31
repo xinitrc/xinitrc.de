@@ -16,7 +16,7 @@ import           Data.Time.Format                 (formatTime)
 
 import           System.Locale                    (defaultTimeLocale)
 
-import           Plugins.Filters (applyKeywords)
+import           Plugins.Filters (applyKeywords, aplKeywords)
 import           Plugins.LogarithmicTagCloud (renderLogTagCloud)
 
 import           Text.Pandoc.Options
@@ -117,9 +117,11 @@ main = hakyllWith hakyllConf $ do
            route $ gsubRoute " " (const "-") -- idRoute
            compile $ do
                posts <- constField "posts" <$> postLst pattern "templates/tag-item.html" (taggedPostCtx tags) recentFirst
-    
                makeItem ""
                    >>= loadAndApplyTemplate "templates/tagpage.html" (posts `mappend` constField "tag" tag `mappend` taggedPostCtx tags)
+                   >>= saveSnapshot "view"
+                   >>= loadAndApplyTemplate "templates/main.html" (posts `mappend` constField "tag" tag `mappend` taggedPostCtx tags)
+           version "view" viewGeneration
            version "rss" $ do
             route   $ gsubRoute " " (const "-") `composeRoutes` setExtension "xml"
             compile $ loadAllSnapshots pattern "teaser"
@@ -135,17 +137,58 @@ main = hakyllWith hakyllConf $ do
         compile $ getResourceString 
             >>= withItemBody (unixFilter "./compressJS.sh" [])
 
+    match "scripts/**/*.js" $ do
+        route   idRoute
+        compile $ getResourceString
+            >>= withItemBody (unixFilter "./compressJS.sh" [])
+{-
+    match "css/style.css" $ do
+        route   idRoute
+        compile copyFileCompiler
+-}
+          
+    match "bower_components/**" $ do
+        route   idRoute
+        compile copyFileCompiler
+
+    match "css/complete.min.css" $ do 
+        route $ constRoute "css/style.css"
+        compile copyFileCompiler
+
+{-        
     match "css/style.scss" $ do 
         route   $ setExtension "css"
         compile $ liftM (fmap compressCss) getResourceString 
-            >>= withItemBody (unixFilter "sass" ["-s", "--no-cache", "--scss", "--compass", "--style", "compressed"])
-    
+            >>= withItemBody (unixFilter "sass" ["-I", ".", "--no-cache", "--scss", "--compass", "--style", "compressed"])
+-}
+
+    match "index.html" $ do
+        route idRoute
+        compile $ genCompiler tags (field "posts" $ \_ -> postList $ fmap (take 5) . recentFirst)
+        version "view" viewGeneration
+                
+    match "archive.html" $ do
+        route idRoute
+        compile $ genCompiler tags $ field "posts" ( \_ -> postListByMonth tags "posts/*" (recentFirst))
+        version "view" viewGeneration
+          
+    match "talks.html" $ do 
+        route idRoute
+        compile $ genCompiler tags (field "posts" $ \_ -> postList $ fmap (take 5) . (recentFirst >=> filterTalks))
+        version "view" viewGeneration
+                                                                
+    match "talk-archive.html" $ do
+        route idRoute
+        compile $ genCompiler tags $ field "posts" ( \_ -> postListByMonth tags "posts/*" (recentFirst >=> filterTalks)) 
+        version "view" viewGeneration
 
     match ("facts.html" .||. "contact.html" )$ do
         route idRoute
         compile $ applyKeywords
+                  >>= saveSnapshot "view"
                   >>= loadAndApplyTemplate "templates/main.html" (taggedPostCtx tags)
-                
+        version "view" viewGeneration
+
     match "posts/*" $ do
         route dateRoute
         compile $ do
@@ -155,30 +198,18 @@ main = hakyllWith hakyllConf $ do
             p' <- p
             saveSnapshot "teaser" $ writePandocWith pandocWriterOptions p'
             >>= loadAndApplyTemplate "templates/post.html" (taggedPostCtx tags)
+            >>= saveSnapshot "view" 
             >>= loadAndApplyTemplate "templates/main.html" (taggedPostCtx tags)
+        version "view" $ do
+          route $ gsubRoute "posts" (const "views") `composeRoutes` dateRoute
+          compile viewCopyCompiler
 
-    match "talks.html" $ do 
-        route idRoute
-        compile $ genCompiler tags (field "posts" $ \_ -> postList $ fmap (take 5) . (recentFirst >=> filterTalks))
-                                                                
-    match "talk-archive.html" $ do
-        route idRoute
-        compile $ genCompiler tags $ field "posts" ( \_ -> postListByMonth tags "posts/*" (recentFirst >=> filterTalks)) 
-
-    match "archive.html" $ do
-        route idRoute
-        compile $ genCompiler tags $ field "posts" ( \_ -> postListByMonth tags "posts/*" recentFirst)
-          
-    match "index.html" $ do
-        route idRoute
-        compile $ genCompiler tags (field "posts" $ \_ -> postList $ fmap (take 5) . recentFirst)
-                
     create ["atom.xml"] $ do
         route idRoute
         compile $ do
             let feedCtx = postCtx `mappend` bodyField "description"
             posts <- fmap (take 10) . recentFirst =<<
-                loadAllSnapshots "posts/*" "teaser"
+                loadAllSnapshots ("posts/*" .&&. hasNoVersion) "teaser"
             renderAtom myFeedConfiguration feedCtx posts
 
     match ("templates/*" .||. "partials/*") $ compile templateCompiler
@@ -192,8 +223,19 @@ genCompiler :: Tags -> Context String -> Compiler (Item String)
 genCompiler tags posts = 
               applyKeywords
                 >>= applyAsTemplate posts
+                >>= saveSnapshot "view"
                 >>= loadAndApplyTemplate "templates/main.html" (taggedPostCtx tags)
-  
+
+viewGeneration :: Rules ()
+viewGeneration = do 
+          route $ customRoute $ \fp -> "views/" ++ (toFilePath fp)
+          compile $ viewCopyCompiler
+
+viewCopyCompiler :: Compiler (Item String)
+viewCopyCompiler = do
+            ident <- getUnderlying
+            loadSnapshot (setVersion Nothing ident) "view"
+            >>= makeItem . itemBody
 --------------------------------------------------------------------------------
 
 dateRoute :: Routes
@@ -256,7 +298,8 @@ contentField key = field key $ \item ->
 
 postLst :: Pattern -> Identifier -> Context String -> ([Item String] -> Compiler [Item String]) -> Compiler String
 postLst pattern template context sortFilter = do
-    posts   <- return =<< sortFilter =<< loadAll pattern
+    posts   <- return =<< sortFilter =<< loadAll (pattern .&&. hasNoVersion)
+--    posts   <- return =<< sortFilter =<< loadAll pattern
     itemTpl <- loadBody template
     applyTemplateList itemTpl (teaserField "teaser" "teaser" `mappend` context) posts
 
@@ -268,15 +311,25 @@ postListByMonth :: Tags
                  -> ([Item String] -> Compiler [Item String])
                  -> Compiler String
 postListByMonth tags pattern filterFun = do
-    posts   <- bucketMonth =<< filterFun =<< loadAll pattern
+    posts   <- bucketYear =<< filterFun =<< loadAll (pattern .&&. hasNoVersion)
     itemTpl <- loadBody "templates/month-item.html"
     monthTpl <- loadBody "templates/month.html"
-    let makeSection ((yr, mth), ps) =
+    yearTpl <- loadBody "templates/year.html"
+    let makeMonthSection :: ((String, String), [Item String]) -> Compiler (Item String); 
+        makeMonthSection ((yr, mth), ps) =
             applyTemplateList itemTpl (taggedPostCtx tags `mappend` dateField "day" "%d") ps 
             >>= makeItem
             >>= applyTemplate monthTpl (monthContext yr mth)
-    concatMap itemBody <$> mapM makeSection posts
+    let makeYearSection :: ((String), [Item String]) -> Compiler (Item String) ; 
+        makeYearSection ((yr), ps)  = 
+             (concatMap itemBody <$> (mapM makeMonthSection =<< (bucketMonth ps)))
+             >>= makeItem
+             >>= applyTemplate yearTpl (yearContext yr)
+    concatMap itemBody <$> mapM  makeYearSection posts
   where
+    bucketYear posts =
+        reverse . map (second (map snd)) . buckets (fst . fst) <$>
+        mapM tagWithMonth posts
     bucketMonth posts =
         reverse . map (second (map snd)) . buckets fst <$>
         mapM tagWithMonth posts
@@ -288,10 +341,30 @@ postListByMonth tags pattern filterFun = do
 monthContext :: String -> String -> Context String
 monthContext year month = mconcat
     [ constField "year"  year
-    , constField "month" month
+    , constField "month" $ convertMonth month
     , bodyField  "postsByMonth"
     ]
- 
+
+yearContext :: String -> Context String
+yearContext year  = mconcat
+    [ constField "year"  year
+    , bodyField  "postsByMonth"
+    ]
+    
+convertMonth :: String -> String
+convertMonth "01" = "January"
+convertMonth "02" = "February"
+convertMonth "03" = "March"
+convertMonth "04" = "April"
+convertMonth "05" = "May"
+convertMonth "06" = "June"
+convertMonth "07" = "July"
+convertMonth "08" = "August"
+convertMonth "09" = "September"
+convertMonth "10" = "October"
+convertMonth "11" = "November"
+convertMonth "12" = "December"
+
 buckets :: Ord b => (a -> b) -> [a] -> [ (b,[a]) ]
 buckets f = map (first head . unzip)
           . groupBy ((==) `on` fst)

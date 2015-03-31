@@ -5,3 +5,8 @@ site
 data
 _cache
 _site
+.sass-cache
+bower_components
+complete.css
+complete.min.css
+complete.scss

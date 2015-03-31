@@ -1,154 +1,103 @@
-html {
-  height: 100%;
-}
-img {
-  max-width: 100%;
-  height: auto;
-}
-body {
-  color: $textcolor;
-  background: $bgcolor;
+@import "base";
+@import "colors";
 
-  font: {
-    family: "FiraSans", "Lato", sans-serif;
-    weight: 300;
-    size: 20px;
-  }
-
-  height: 100%;
-
-  line-height: 1.5em;
-}
-td {
-  font-weight: 300;
+ul, ol {
+  margin-bottom: 1.6em;
 }
 
-td.day {
-  vertical-align: top;
+ul li {
+  list-style: disc;
+  margin-left: 2em;
 }
 
-h1,h2,h3,h4,h5,h6 {
-  font-weight: 700;
+ol li {
+  list-style: decimal;
+  margin-left: 2em;
+}
 
-  margin: 10px 0 10px 0;
+ul.inline, ul.inline li {
+  display: inline;
+  list-style: none;
+}
 
-  line-height: 1.5em;
+ul.unstyled {
+  list-style: none;
 
-  a {
-    font-weight: 700;
+  li {
+    list-style: none;
+    margin-left: 0;
   }
 }
 
-h1, h2 {
-  color: $bgcolor;
-  background: $textcolor;
-  padding: 5px 0;
-}
+blockquote {
+  margin-bottom: 1em;
+  border-top: 1px solid $cbblack;
+  border-bottom: 1px solid $cbblack;
+  border-left: 1em solid $cbblack;
+  border-right: 1px solid $cbblack;
+  padding: .5rem;
+  font-weight: 500;
 
-h2 {
-  font: {
-    size: 32px;
+  small {
+    display: block;
+    font-size: .8em;
+    text-align: right;
+    font-weight: 300;
   }
 }
 
-h1, h1 a, h1 a:hover {
-  color: $bgcolor;
-  background: $textcolor;
-  font-weight: 700;
-
-  font: {
-    size: 40px;
-  }
-
-  text-decoration: none;
-
-  line-height: 1.5em;
+a, a:visited {
+  font-weight: 500;
+  color: $contentlinkcolor;
 }
 
 p {
-  margin-bottom: 10px;
+  padding-bottom: 1em;
+}
+
+@for $i from 1 through 6 {
+  h#{$i} {
+    line-height: 1.2;
+    font-size: (logarithm( (6 / $i), 6) * 2.5) + 1em;
+    font-weight: 900;
+
+    a, a:visited {
+      color: inherit;
+      text-decoration: none;
+      font-weight: 900;
+    }
+  }
+}
+
+@media (min-width: 48rem) {
+  @for $i from 1 through 6 {
+    h#{$i} {
+      font-size: (logarithm( (6 / $i), 6) * 2.5) + 1em;
+    }
+  }
 }
 
 strong {
-  font-weight: bold;
+  font-weight: 700;
 }
 
 em {
   font-style: italic;
 }
 
-hr {
-  border-top: 1px solid $textcolor;
-}
-
-a, a:hover {
-  color: $linkcolor;
-
-  text-decoration: underline;
-  font-weight: 400;
-}
-
-article {
-  line-height: 1.5em;
-}
-
-ul, ol {
-  margin-bottom: 10px;
-}
-
-ul {
-  li {
-    list-style: disc;
-    margin-left: 30px;
-  }
-}
-
-ol li {
-  list-style: decimal;
-  margin-left: 30px;
-}
-
-ul.unstyled li {
-  list-style: none;
-  margin-left: 0;
-}
-
-sup {
-  vertical-align: super;
-  font-size: 60%;
-}
-
 .tt {
-  font-family: "FiraMono", "Droid Sans Mono","Monaco","Menlo","Consolas","Courier New",monospace
-}
-
-blockquote {
-  padding: 10px 20px 10px 20px;
-  background: $blockquotebgcolor;
-  border: thin solid $textcolor;
-  border-left: 15px solid $textcolor;
-  font-weight: 400;
-
-  small {
-    font-size: 14px;
-    display: block;
-    text-align: right;
-  }
+  font-family: "Fira Mono";
+  font-weight: 700;
 }
 
 
-dt {
-   font-weight: bold;
-   float: left;
-   clear: left;
-   width: 60px;
-   text-align: right;
+.problemstatement {
+  margin: 1 * $baseunit;
+  padding: .5 * $baseunit;
+  border: 1px solid $textcolor;
 }
 
-dt:after {
-   content: ":";
-}
-
-dd {
-  margin-left: 70px;
+@media(min-width: 48rem) {
+  margin: 1rem;
+  padding: .5rem;
 }

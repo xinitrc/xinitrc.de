@@ -1,0 +1,28 @@
+@import "base";
+@import "colors";
+
+.main-content {
+  section#facts {
+    padding-bottom: 1.4em;
+    z-index: 0;
+
+    padding: 1em 1em 1.4em 1em;
+    @include transition(all .5s ease);
+
+    p {
+      margin-bottom: 1.4em;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+@media (min-width: 64rem) {
+  .main-content {
+    section#facts {
+      padding: 1em 2em 1.4em 2em;
+    }
+  }
+}
