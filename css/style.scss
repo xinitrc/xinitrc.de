@@ -235,7 +235,7 @@ body {
   width: 50%;
 }
 
-.vcard::after {
+.vcard::after, .activities::after  {
   content: "\0020";
   display: block;
   height: 0;
