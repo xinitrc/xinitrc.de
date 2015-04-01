@@ -155,6 +155,10 @@ main = hakyllWith hakyllConf $ do
         route $ constRoute "css/style.css"
         compile copyFileCompiler
 
+    match "manifest.mf" $ do 
+        route idRoute
+        compile copyFileCompiler
+
 {-        
     match "css/style.scss" $ do 
         route   $ setExtension "css"
