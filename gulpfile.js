@@ -22,7 +22,7 @@ gulp.task('test', function() {
 });
 
 gulp.task('styleMerge', function() {
-    return gulp.src(['static/fonts/FiraMono-3.11/stylesheet.css', 'static/fonts/FiraSans-4.0/stylesheet.css', 'css/style.scss'])
+    return gulp.src(['static/fonts/FiraMono-3.2/stylesheet.css', 'static/fonts/FiraSans-4.1/stylesheet.css', 'css/style.scss'])
         .pipe(concat('complete.scss'))
         .pipe(gulp.dest('css/'))
         .pipe(notify({message: "Finished merging styles"}));
