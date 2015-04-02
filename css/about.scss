@@ -8,14 +8,6 @@
 
     padding: 1em 1em 1.4em 1em;
     @include transition(all .5s ease);
-
-    p {
-      margin-bottom: 1.4em;
-    }
-
-    p:last-child {
-      margin-bottom: 0;
-    }
   }
 }
 
