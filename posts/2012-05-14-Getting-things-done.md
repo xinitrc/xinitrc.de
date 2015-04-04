@@ -14,4 +14,4 @@ A somewhat regular talk I give during orientation for the students in the comput
 
 [Slides](/assets/documents/GTD-2012-05-14.pdf)
 
-<audio src="/assets/audio/GTD-2012-05-14.mp3"></audio>
+<audio controls="controls" src="/assets/audio/GTD-2012-05-14.mp3"></audio>
