@@ -212,8 +212,8 @@ body {
 
 .elastic-container {
   position: relative;
-  padding-bottom: 56.25%;
-  padding-top: 30px;
+  padding-bottom: 56.25% !important;
+  padding-top: 30px !important;;
   height: 0;
   overflow: hidden;
   margin: auto 2em;
