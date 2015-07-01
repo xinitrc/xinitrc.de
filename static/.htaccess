@@ -40,6 +40,10 @@ AddType text/cache-manifest                 appcache manifest
   BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
 </IfModule>
 
+<IfModule mod_headers.c>
+    Header set Connection keep-alive
+</IfModule>
+
 
 # BEGIN EXPIRES
 <IfModule mod_expires.c>
@@ -74,6 +78,13 @@ AddType text/cache-manifest                 appcache manifest
     ExpiresByType application/font-woff2                "access plus 6 month"
 </IfModule>
 # END EXPIRES
+
+<IfModule mod_rewrite.c>
+        RewriteEngine On
+        RewriteCond %{HTTPS} !=on
+        RewriteCond %{ENV:HTTPS} !=on
+        RewriteRule .* https://%{SERVER_NAME}%{REQUEST_URI} [R=301,L]
+</IFModule>
 
 #<IfModule mod_rewrite.c>
 #  Options +FollowSymlinks
