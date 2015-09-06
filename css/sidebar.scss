@@ -149,7 +149,7 @@
 
       @for $i from 1 through 6 {
         a:nth-child(#{$i}) {
-          @include transition-delay(.3s + $i * .05, .3s + $i * .05, 0);
+          @include transition-delay(300ms + $i * 50, 300ms + $i * 50, 0s);
         }
       }
 
