@@ -146,7 +146,7 @@ main = hakyllWith hakyllConf $ do
     match "bower_components/**" $ do
         route   idRoute
         compile copyFileCompiler
--}
+-}  
     match "css/complete.min.css" $ do 
         route $ constRoute "css/style.css"
         compile copyFileCompiler
@@ -166,12 +166,12 @@ main = hakyllWith hakyllConf $ do
     match "talk-archive.html" $ do
         route idRoute
         compile $ genCompiler tags $ field "posts" ( \_ -> postListByMonth tags "talks/*" (recentFirst >=> filterTalks)) 
-
+{-
     match ("facts.html" .||. "contact.html" )$ do
         route idRoute
         compile $ applyKeywords
                   >>= loadAndApplyTemplate "templates/main.html" (taggedPostCtx tags)
-
+-}
     match "posts/*" $ do
         route blogRoute
         compile $ do
@@ -193,6 +193,11 @@ main = hakyllWith hakyllConf $ do
             saveSnapshot "teaser" $ writePandocWith pandocWriterOptions p'
             >>= loadAndApplyTemplate "templates/post.html" (taggedPostCtx tags)
             >>= loadAndApplyTemplate "templates/main.html" (taggedPostCtx tags)
+
+    match "basic/*" $ do
+        route baiscRoute
+        compile $ applyKeywords
+                    >>= loadAndApplyTemplate "templates/main.html" (taggedPostCtx tags)
 
     match "pages/*" $ do
         route blogRoute
