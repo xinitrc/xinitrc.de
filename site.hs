@@ -12,9 +12,7 @@ import           Data.Map                         (lookup)
 import           Data.Monoid                      (mappend, mconcat)
 import           Data.Function                    (on)
 
-import           Data.Time.Format                 (formatTime)
-
-import           System.Locale                    (defaultTimeLocale)
+import           Data.Time.Format                 (formatTime, defaultTimeLocale)
 
 import           Plugins.Filters (applyKeywords, aplKeywords)
 import           Plugins.LogarithmicTagCloud (renderLogTagCloud)
@@ -114,14 +112,12 @@ main = hakyllWith hakyllConf $ do
 
     tagsRules tags $ \tag pattern -> do
            let title = "Posts tagged " ++ tag
-           route $ gsubRoute " " (const "-") -- idRoute
+           route $ gsubRoute " " (const "-")
            compile $ do
                posts <- constField "posts" <$> postLst pattern "templates/tag-item.html" (taggedPostCtx tags) recentFirst
                makeItem ""
                    >>= loadAndApplyTemplate "templates/tagpage.html" (posts `mappend` constField "tag" tag `mappend` taggedPostCtx tags)
-                   >>= saveSnapshot "view"
                    >>= loadAndApplyTemplate "templates/main.html" (posts `mappend` constField "tag" tag `mappend` taggedPostCtx tags)
-           version "view" viewGeneration
            version "rss" $ do
             route   $ gsubRoute " " (const "-") `composeRoutes` setExtension "xml"
             compile $ loadAllSnapshots pattern "teaser"
@@ -146,55 +142,38 @@ main = hakyllWith hakyllConf $ do
         route   idRoute
         compile copyFileCompiler
 -}
-          
+{-          
     match "bower_components/**" $ do
         route   idRoute
         compile copyFileCompiler
-
+-}
     match "css/complete.min.css" $ do 
         route $ constRoute "css/style.css"
         compile copyFileCompiler
 
-    match "manifest.mf" $ do 
-        route idRoute
-        compile copyFileCompiler
-
-{-        
-    match "css/style.scss" $ do 
-        route   $ setExtension "css"
-        compile $ liftM (fmap compressCss) getResourceString 
-            >>= withItemBody (unixFilter "sass" ["-I", ".", "--no-cache", "--scss", "--compass", "--style", "compressed"])
--}
-
     match "index.html" $ do
         route idRoute
-        compile $ genCompiler tags (field "posts" $ \_ -> postList $ fmap (take 5) . recentFirst)
-        version "view" viewGeneration
+        compile $ genCompiler tags (field "posts" $ \_ -> (postList "posts/*") $ fmap (take 5) . recentFirst)
                 
     match "archive.html" $ do
         route idRoute
         compile $ genCompiler tags $ field "posts" ( \_ -> postListByMonth tags "posts/*" (recentFirst))
-        version "view" viewGeneration
           
     match "talks.html" $ do 
         route idRoute
-        compile $ genCompiler tags (field "posts" $ \_ -> postList $ fmap (take 5) . (recentFirst >=> filterTalks))
-        version "view" viewGeneration
+        compile $ genCompiler tags (field "posts" $ \_ -> (postList "talks/*.md") $ fmap (take 5) . (recentFirst >=> filterTalks))
                                                                 
     match "talk-archive.html" $ do
         route idRoute
-        compile $ genCompiler tags $ field "posts" ( \_ -> postListByMonth tags "posts/*" (recentFirst >=> filterTalks)) 
-        version "view" viewGeneration
+        compile $ genCompiler tags $ field "posts" ( \_ -> postListByMonth tags "talks/*" (recentFirst >=> filterTalks)) 
 
     match ("facts.html" .||. "contact.html" )$ do
         route idRoute
         compile $ applyKeywords
-                  >>= saveSnapshot "view"
                   >>= loadAndApplyTemplate "templates/main.html" (taggedPostCtx tags)
-        version "view" viewGeneration
 
     match "posts/*" $ do
-        route dateRoute
+        route blogRoute
         compile $ do
             csl <- load "springer-lncs.csl"
             bib <- load "ref.bib"
@@ -202,11 +181,29 @@ main = hakyllWith hakyllConf $ do
             p' <- p
             saveSnapshot "teaser" $ writePandocWith pandocWriterOptions p'
             >>= loadAndApplyTemplate "templates/post.html" (taggedPostCtx tags)
-            >>= saveSnapshot "view" 
             >>= loadAndApplyTemplate "templates/main.html" (taggedPostCtx tags)
-        version "view" $ do
-          route $ gsubRoute "posts" (const "views") `composeRoutes` dateRoute
-          compile viewCopyCompiler
+
+    match "talks/*" $ do
+        route blogRoute
+        compile $ do
+            csl <- load "springer-lncs.csl"
+            bib <- load "ref.bib"
+            p  <- readPandocBiblio pandocReaderOptions csl bib <$> applyKeywords
+            p' <- p
+            saveSnapshot "teaser" $ writePandocWith pandocWriterOptions p'
+            >>= loadAndApplyTemplate "templates/post.html" (taggedPostCtx tags)
+            >>= loadAndApplyTemplate "templates/main.html" (taggedPostCtx tags)
+
+    match "pages/*" $ do
+        route blogRoute
+        compile $ do
+            csl <- load "springer-lncs.csl"
+            bib <- load "ref.bib"
+            p  <- readPandocBiblio pandocReaderOptions csl bib <$> applyKeywords
+            p' <- p
+            saveSnapshot "teaser" $ writePandocWith pandocWriterOptions p'
+            >>= loadAndApplyTemplate "templates/post.html" (taggedPostCtx tags)
+            >>= loadAndApplyTemplate "templates/main.html" (taggedPostCtx tags)
 
     create ["atom.xml"] $ do
         route idRoute
@@ -227,20 +224,22 @@ genCompiler :: Tags -> Context String -> Compiler (Item String)
 genCompiler tags posts = 
               applyKeywords
                 >>= applyAsTemplate posts
-                >>= saveSnapshot "view"
                 >>= loadAndApplyTemplate "templates/main.html" (taggedPostCtx tags)
 
-viewGeneration :: Rules ()
-viewGeneration = do 
-          route $ customRoute $ \fp -> "views/" ++ (toFilePath fp)
-          compile $ viewCopyCompiler
-
-viewCopyCompiler :: Compiler (Item String)
-viewCopyCompiler = do
-            ident <- getUnderlying
-            loadSnapshot (setVersion Nothing ident) "view"
-            >>= makeItem . itemBody
 --------------------------------------------------------------------------------
+
+baiscRoute :: Routes
+baiscRoute = gsubRoute "basic/" (const "") `composeRoutes` setExtension "html"
+         
+blogRoute :: Routes
+blogRoute = gsubRoute "posts/" (const "blog/") `composeRoutes` 
+              gsubRoute "pages/" (const "") `composeRoutes`
+                gsubRoute "[0-9]{4}-[0-9]{2}-[0-9]{2}-" (map replaceChars) `composeRoutes` 
+                 setExtension "html" 
+            where
+              replaceChars c | c == '-' || c == '_' = '/'
+                             | otherwise = c
+
 
 dateRoute :: Routes
 dateRoute = gsubRoute "posts/" (const "") `composeRoutes` 
@@ -307,8 +306,8 @@ postLst pattern template context sortFilter = do
     itemTpl <- loadBody template
     applyTemplateList itemTpl (teaserField "teaser" "teaser" `mappend` context) posts
 
-postList :: ([Item String] -> Compiler [Item String]) -> Compiler String
-postList = postLst "posts/*" "templates/post-item.html" postCtx
+postList :: Pattern -> ([Item String] -> Compiler [Item String]) -> Compiler String
+postList searchPattern = postLst searchPattern "templates/post-item.html" postCtx
 
 postListByMonth :: Tags
                  -> Pattern

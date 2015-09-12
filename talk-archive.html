@@ -11,32 +11,3 @@
     </div>
 </section>
 </div>
-        <!--
-<script src="/bower_components/ScrollToFixed/jquery-scrolltofixed-min.js"></script>
-<script type="text/javascript">
-    if (!Modernizr.touch) {
-        $$(document).ready(function () {
-            var yearHeaders = $$('h2.year');
-            yearHeaders.each(function (i) {
-                var yearHeader = $$(yearHeaders[i]);
-                var next = yearHeaders[i + 1];
-
-                yearHeader.scrollToFixed({
-                    marginTop: 8,
-                    offsets: true,
-                    removeOffsets: true,
-                    limit: function () {
-                        var limit = 0;
-                        if (next) {
-                            limit = $$(next).offset().top - $$(this).outerHeight(true) - 8;
-                        }
-                        return limit;
-                    },
-                    zIndex: 1
-                })
-            })
-        });
-    }
-</script>
-
--->
