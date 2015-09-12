@@ -7,11 +7,11 @@ credit: PhotoAtelier
 crediturl: https://www.flickr.com/photos/glenbledsoe/
 ---
 
-After in the last [blog post](/2014/02/09/Sucker-for-generality.html) I described some algebraic strutures and already said I would like to show case how to solve some very different problems with those. I think it's now time to go into that. I start with something which is more or less a reiteration of a fantastic [blog post](http://r6.ca/blog/20110808T035622Z.html) by Russell O'Conner on mostly graph problems. I will layout the problems a little differently and hope to convey the ideas behind the post to a wider audience. I will also omit some stuff and maybe come back to that in a later post. But now without further ado let's get started.
+After in the last [blog post](/blog/2014/02/09/Sucker-for-generality.html) I described some algebraic strutures and already said I would like to show case how to solve some very different problems with those. I think it's now time to go into that. I start with something which is more or less a reiteration of a fantastic [blog post](http://r6.ca/blog/20110808T035622Z.html) by Russell O'Conner on mostly graph problems. I will layout the problems a little differently and hope to convey the ideas behind the post to a wider audience. I will also omit some stuff and maybe come back to that in a later post. But now without further ado let's get started.
 
 <!--more-->
 
-First up, I had another blog post in mind at first, which in retrospect seemed a little to complicated for a first post. Since I changed the topic of this post slightly, I had to go back to the [last post](/2014/02/09/Sucker-for-generality.html) and add another algebraic structure the \(*\)-semiring. 
+First up, I had another blog post in mind at first, which in retrospect seemed a little to complicated for a first post. Since I changed the topic of this post slightly, I had to go back to the [last post](/blog/2014/02/09/Sucker-for-generality.html) and add another algebraic structure the \(*\)-semiring. 
 
 ## Square Matrixes
 

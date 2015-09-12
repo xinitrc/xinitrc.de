@@ -26,7 +26,7 @@ As most of the formulae I use will be rather short, at least at first. I thought
 I'd start with something that can do short formulae easy and find a solution for
 the inevitable giant formula later. I still liked to keep my blog compiling 
 automatically after
-[I push it to my git repository](/private/2012/12/10/Setting%2Bup%2BShop.html) 
+[I push it to my git repository](/blog/2012/12/10/Setting%2Bup%2BShop.html) 
 and Latex is not installed on my hosting provider [uberspace](http://uberspace.de). 
 I could do that, but just for having some formulea on my blog seemed a bit excessive. 
 So I started out going for a pure ruby setup with ritex, just to find out that it can't

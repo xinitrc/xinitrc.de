@@ -7,7 +7,7 @@ credit: memories_by_mike
 crediturl: https://www.flickr.com/photos/memoriesbymike/
 ---
 
-After having set up this site as a [Jekyll](http://jekyllrb.com/)-Blog last year, I was quite happy with what I had worked out for blogging. If you want to know, you can look it up in [this article](/2012/12/15/Setting-up-Shop.html). But after not having an eye on the site for some month all hell broke loose and I had to start over.
+After having set up this site as a [Jekyll](http://jekyllrb.com/)-Blog last year, I was quite happy with what I had worked out for blogging. If you want to know, you can look it up in [this article](/blog/2012/12/15/Setting-up-Shop.html). But after not having an eye on the site for some month all hell broke loose and I had to start over.
 
 <!--more-->
 
@@ -33,7 +33,7 @@ later, I knew about [Hakyll](http://jaspervdj.be/hakyll/). And since I know [Has
 ## The challenge 
 Obviously I wanted to have (at least) the same functionality with Hakyll I had been able to piece together with Jekyll. This included the:
 
-* [MathML setup](/2012/12/17/Let-me-do-the-math.html), 
+* [MathML setup](/blog/2012/12/17/Let-me-do-the-math.html), 
 * the [responsive videos](http://localhost:8000/2012/12/19/Long-and-winding-road-to-a-responsive-video.html), 
 * the [talks page](/talks.html), which is a filtered index page, and
 * the bucketed [archive pages](/archive.html), I didn't brag about before,

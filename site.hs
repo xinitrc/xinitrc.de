@@ -191,7 +191,7 @@ main = hakyllWith hakyllConf $ do
             p  <- readPandocBiblio pandocReaderOptions csl bib <$> applyKeywords
             p' <- p
             saveSnapshot "teaser" $ writePandocWith pandocWriterOptions p'
-            >>= loadAndApplyTemplate "templates/post.html" (taggedPostCtx tags)
+            >>= loadAndApplyTemplate "templates/talk.html" (taggedPostCtx tags)
             >>= loadAndApplyTemplate "templates/main.html" (taggedPostCtx tags)
 
     match "pages/*" $ do

@@ -8,10 +8,10 @@ credit: jbdodane
 crediturl: https://www.flickr.com/photos/jbdodane/
 ---
 
-As already suspected in my [first blog post](/private/2012/12/15/Setting-up-Shop.html), the updates to this site
+As already suspected in my [first blog post](/blog/2012/12/15/Setting-up-Shop.html), the updates to this site
 may never end. Just as I was done with adding plugins and
 just some hours after I was done writing my
-[first plugin](/private/2012/12/17/Let-me-do-the-math.html)
+[first plugin](/blog/2012/12/17/Let-me-do-the-math.html)
 and writing up on it. I thought: "And what if I would like to add a video?" Read on for the ***amazing*** journey that began.
 
 <!--more-->
