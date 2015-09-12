@@ -22,6 +22,10 @@ import           Text.Pandoc.Options
 
 --------------------------------------------------------------------------------
 
+host :: String
+host = "https://xinitrc.de"
+
+
 pandocWriterOptions :: WriterOptions
 pandocWriterOptions = defaultHakyllWriterOptions 
                       { writerHTMLMathMethod = MathML Nothing -- MathJax ""
@@ -142,11 +146,7 @@ main = hakyllWith hakyllConf $ do
         route   idRoute
         compile copyFileCompiler
 -}
-{-          
-    match "bower_components/**" $ do
-        route   idRoute
-        compile copyFileCompiler
--}  
+
     match "css/complete.min.css" $ do 
         route $ constRoute "css/style.css"
         compile copyFileCompiler
@@ -166,12 +166,12 @@ main = hakyllWith hakyllConf $ do
     match "talk-archive.html" $ do
         route idRoute
         compile $ genCompiler tags $ field "posts" ( \_ -> postListByMonth tags "talks/*" (recentFirst >=> filterTalks)) 
-{-
-    match ("facts.html" .||. "contact.html" )$ do
-        route idRoute
+
+    match "basic/*" $ do
+        route baiscRoute
         compile $ applyKeywords
-                  >>= loadAndApplyTemplate "templates/main.html" (taggedPostCtx tags)
--}
+                    >>= loadAndApplyTemplate "templates/main.html" (taggedPostCtx tags)
+
     match "posts/*" $ do
         route blogRoute
         compile $ do
@@ -194,11 +194,6 @@ main = hakyllWith hakyllConf $ do
             >>= loadAndApplyTemplate "templates/post.html" (taggedPostCtx tags)
             >>= loadAndApplyTemplate "templates/main.html" (taggedPostCtx tags)
 
-    match "basic/*" $ do
-        route baiscRoute
-        compile $ applyKeywords
-                    >>= loadAndApplyTemplate "templates/main.html" (taggedPostCtx tags)
-
     match "pages/*" $ do
         route blogRoute
         compile $ do
@@ -217,6 +212,21 @@ main = hakyllWith hakyllConf $ do
             posts <- fmap (take 10) . recentFirst =<<
                 loadAllSnapshots ("posts/*" .&&. hasNoVersion) "teaser"
             renderAtom myFeedConfiguration feedCtx posts
+
+    create ["sitemap.xml"] $ do
+        route idRoute
+        compile $ do 
+            posts <- recentFirst =<< loadAll "posts/*"
+            talks <- recentFirst =<< loadAll "talks/*"
+            pages <- loadAll "pages/*"
+--            basic <- loadAll "basic/*"
+            let allPosts = (return (posts ++ talks ++ pages)) -- ++ basic))
+            let sitemapCtx = mconcat [
+                                listField "entries" minimalPageCtx allPosts
+                                , constField "host" host
+                                , defaultContext]
+            makeItem "" 
+                >>= loadAndApplyTemplate "templates/sitemap.xml" sitemapCtx
 
     match ("templates/*" .||. "partials/*") $ compile templateCompiler
 
@@ -283,6 +293,9 @@ tagCloudCtx tags = field "tagcloud" $ const rendered
 
 taggedPostCtx :: Tags -> Context String
 taggedPostCtx tags = mconcat [tagsField "tags" tags, tagCloudCtx tags, postCtx]
+
+minimalPageCtx :: Context String
+minimalPageCtx = mconcat [constField "host" host, defaultContext]
 
 postCtx :: Context String
 postCtx = mconcat [dateField "date" "%Y-%m-%d" , abstractField "abstract", contentField "content", defaultContext]
