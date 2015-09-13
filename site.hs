@@ -45,7 +45,7 @@ myFeedConfiguration = FeedConfiguration
                       , feedDescription = "xinitrc.de Article Feed"
                       , feedAuthorName  = "Martin Hilscher"
                       , feedAuthorEmail = "mail@xinitrc.de"
-                      , feedRoot        = "https://xinitrc.de"
+                      , feedRoot        = host
                       }
 
 feedConfiguration :: String -> FeedConfiguration
@@ -54,7 +54,7 @@ feedConfiguration title = FeedConfiguration
                           , feedDescription = "xinitrc.de Tag Configuration"
                           , feedAuthorName = "Martin Hilscher"
                           , feedAuthorEmail = "mail@xinitrc.de"
-                          , feedRoot = "https://xinitrc.de"
+                          , feedRoot = host
                           }
 
 dontIgnoreHtaccess :: String -> Bool
@@ -112,7 +112,7 @@ myPandocExtensions = S.fromList
 
 main :: IO ()
 main = hakyllWith hakyllConf $ do
-    tags <- buildTags "posts/*" (fromCapture "tags/*.html")
+    tags <- buildTags "blog/*" (fromCapture "tags/*.html")
 
     tagsRules tags $ \tag pattern -> do
            let title = "Posts tagged " ++ tag
@@ -153,11 +153,11 @@ main = hakyllWith hakyllConf $ do
 
     match "index.html" $ do
         route idRoute
-        compile $ genCompiler tags (field "posts" $ \_ -> (postList "posts/*") $ fmap (take 5) . recentFirst)
+        compile $ genCompiler tags (field "posts" $ \_ -> (postList "blog/*") $ fmap (take 5) . recentFirst)
                 
     match "archive.html" $ do
         route idRoute
-        compile $ genCompiler tags $ field "posts" ( \_ -> postListByMonth tags "posts/*" (recentFirst))
+        compile $ genCompiler tags $ field "posts" ( \_ -> postListByMonth tags "blog/*" (recentFirst))
           
     match "talks.html" $ do 
         route idRoute
@@ -172,7 +172,7 @@ main = hakyllWith hakyllConf $ do
         compile $ applyKeywords
                     >>= loadAndApplyTemplate "templates/main.html" (taggedPostCtx tags)
 
-    match "posts/*" $ do
+    match "blog/*" $ do
         route blogRoute
         compile $ do
             csl <- load "springer-lncs.csl"
@@ -210,17 +210,17 @@ main = hakyllWith hakyllConf $ do
         compile $ do
             let feedCtx = postCtx `mappend` bodyField "description"
             posts <- fmap (take 10) . recentFirst =<<
-                loadAllSnapshots ("posts/*" .&&. hasNoVersion) "teaser"
+                loadAllSnapshots ("blog/*" .&&. hasNoVersion) "teaser"
             renderAtom myFeedConfiguration feedCtx posts
 
     create ["sitemap.xml"] $ do
         route idRoute
         compile $ do 
-            posts <- recentFirst =<< loadAll "posts/*"
+            posts <- recentFirst =<< loadAll "blog/*"
             talks <- recentFirst =<< loadAll "talks/*"
             pages <- loadAll "pages/*"
---            basic <- loadAll "basic/*"
-            let allPosts = (return (posts ++ talks ++ pages)) -- ++ basic))
+            basic <- loadAll "basic/*"
+            let allPosts = (return (posts ++ talks ++ pages ++ basic))
             let sitemapCtx = mconcat [
                                 listField "entries" minimalPageCtx allPosts
                                 , constField "host" host
@@ -247,23 +247,13 @@ baiscRoute :: Routes
 baiscRoute = gsubRoute "basic/" (const "") `composeRoutes` setExtension "html"
          
 blogRoute :: Routes
-blogRoute = gsubRoute "posts/" (const "blog/") `composeRoutes` 
-              gsubRoute "pages/" (const "") `composeRoutes`
-                gsubRoute "[0-9]{4}-[0-9]{2}-[0-9]{2}-" (map replaceChars) `composeRoutes` 
-                 setExtension "html" 
-            where
-              replaceChars c | c == '-' || c == '_' = '/'
-                             | otherwise = c
+blogRoute = gsubRoute "pages/" (const "") `composeRoutes`
+              gsubRoute "[0-9]{4}-[0-9]{2}-[0-9]{2}-" (map replaceChars) `composeRoutes` 
+                setExtension "html" 
+              where
+                replaceChars c | c == '-' || c == '_' = '/'
+                               | otherwise = c
 
-
-dateRoute :: Routes
-dateRoute = gsubRoute "posts/" (const "") `composeRoutes` 
-              gsubRoute "pages/" (const "") `composeRoutes`
-                gsubRoute "[0-9]{4}-[0-9]{2}-[0-9]{2}-" (map replaceChars) `composeRoutes` 
-                 setExtension "html" 
-            where
-              replaceChars c | c == '-' || c == '_' = '/'
-                             | otherwise = c
 
 --------------------------------------------------------------------------------
 filterByType :: (MonadMetadata m, Functor m) => String -> [Item String] -> m[Item String]
