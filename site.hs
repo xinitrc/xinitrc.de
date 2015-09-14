@@ -25,7 +25,6 @@ import           Text.Pandoc.Options
 host :: String
 host = "https://xinitrc.de"
 
-
 pandocWriterOptions :: WriterOptions
 pandocWriterOptions = defaultHakyllWriterOptions 
                       { writerHTMLMathMethod = MathML Nothing -- MathJax ""
@@ -285,10 +284,10 @@ taggedPostCtx :: Tags -> Context String
 taggedPostCtx tags = mconcat [tagsField "tags" tags, tagCloudCtx tags, postCtx]
 
 minimalPageCtx :: Context String
-minimalPageCtx = mconcat [constField "host" host, defaultContext]
+minimalPageCtx = mconcat [constField "host" host, modificationTimeField "lastmod" "%Y-%m-%d", defaultContext]
 
 postCtx :: Context String
-postCtx = mconcat [dateField "date" "%Y-%m-%d" , abstractField "abstract", contentField "content", defaultContext]
+postCtx = mconcat [dateField "date" "%Y-%m-%d", modificationTimeField "lastmod" "%Y-%m-%d", abstractField "abstract", contentField "content", defaultContext]
 
 abstractField :: String -> Context String
 abstractField key = field key $ \item -> do 
@@ -304,13 +303,11 @@ contentField key = field key $ \item ->
       Nothing -> fail $ "No abstract defined for " ++ show (itemIdentifier item)
       Just t -> return $ drop (length t) body
 
-
 --------------------------------------------------------------------------------
 
 postLst :: Pattern -> Identifier -> Context String -> ([Item String] -> Compiler [Item String]) -> Compiler String
 postLst pattern template context sortFilter = do
     posts   <- return =<< sortFilter =<< loadAll (pattern .&&. hasNoVersion)
---    posts   <- return =<< sortFilter =<< loadAll pattern
     itemTpl <- loadBody template
     applyTemplateList itemTpl (teaserField "teaser" "teaser" `mappend` context) posts
 
