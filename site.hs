@@ -235,13 +235,14 @@ blogRoute = gsubRoute "pages/" (const "") `composeRoutes`
                                | otherwise = c
 
 
+--------------------------------------------------------------------------------
+
 feedContext :: Context String
 feedContext = mconcat
     [ bodyField "description"
     , defaultContext
     ]
 
---------------------------------------------------------------------------------
 taggedPostCtx :: Tags -> Context String
 taggedPostCtx tags = mconcat [tagsField "tags" tags, postCtx]
 
@@ -307,19 +308,9 @@ yearContext year  = mconcat
     , bodyField  "postsByMonth"
     ]
     
+
 convertMonth :: String -> String
-convertMonth "01" = "January"
-convertMonth "02" = "February"
-convertMonth "03" = "March"
-convertMonth "04" = "April"
-convertMonth "05" = "May"
-convertMonth "06" = "June"
-convertMonth "07" = "July"
-convertMonth "08" = "August"
-convertMonth "09" = "September"
-convertMonth "10" = "October"
-convertMonth "11" = "November"
-convertMonth "12" = "December"
+convertMonth month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"] !! ((read month) - 1)
 
 buckets :: Ord b => (a -> b) -> [a] -> [ (b,[a]) ]
 buckets f = map (first head . unzip)
