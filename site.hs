@@ -27,7 +27,7 @@ host = "https://xinitrc.de"
 
 pandocWriterOptions :: WriterOptions
 pandocWriterOptions = defaultHakyllWriterOptions 
-                      { writerHTMLMathMethod = MathML Nothing -- MathJax ""
+                      { writerHTMLMathMethod = MathML Nothing
                       , writerHtml5 = True
                       , writerSectionDivs = True
                       , writerReferenceLinks = True
@@ -268,21 +268,7 @@ minimalPageCtx :: Context String
 minimalPageCtx = mconcat [constField "host" host, modificationTimeField "lastmod" "%Y-%m-%d", defaultContext]
 
 postCtx :: Context String
-postCtx = mconcat [dateField "date" "%Y-%m-%d", modificationTimeField "lastmod" "%Y-%m-%d", abstractField "abstract", contentField "content", defaultContext]
-
-abstractField :: String -> Context String
-abstractField key = field key $ \item -> do 
-  let body = (itemBody item) in 
-    case needlePrefix "<!--more-->" body of 
-      Nothing -> fail $ "No abstract defined for " ++ show (itemIdentifier item)
-      Just t ->  return t
-
-contentField :: String -> Context String 
-contentField key = field key $ \item ->
-  let body = (itemBody item) in 
-    case needlePrefix "<!--more-->" body of 
-      Nothing -> fail $ "No abstract defined for " ++ show (itemIdentifier item)
-      Just t -> return $ drop (length t) body
+postCtx = mconcat [dateField "date" "%Y-%m-%d", modificationTimeField "lastmod" "%Y-%m-%d", defaultContext]
 
 --------------------------------------------------------------------------------
 
@@ -361,4 +347,3 @@ buckets f = map (first head . unzip)
           . map (\x -> (f x, x))
 
 --------------------------------------------------------------------------------
-          
