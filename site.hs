@@ -3,7 +3,7 @@
 import           Hakyll
 
 import           Control.Applicative              ((<$>))
-import           Control.Monad                    (filterM, liftM, (>=>), (<=<))
+import           Control.Monad                    (filterM, liftM, foldM, (>=>), (<=<))
 import           Control.Arrow                    (first, second)
 
 import qualified Data.Set as S
@@ -111,6 +111,8 @@ myPandocExtensions = S.fromList
 
 main :: IO ()
 main = hakyllWith hakyllConf $ do
+    match ("templates/*" .||. "partials/*") $ compile templateCompiler
+
     tags <- buildTags "blog/*" (fromCapture "tags/*.html")
 
     tagsRules tags $ \tag pattern -> do
@@ -166,38 +168,11 @@ main = hakyllWith hakyllConf $ do
         compile $ applyKeywords
                     >>= loadAndApplyTemplate "templates/main.html" (taggedPostCtx tags)
 
-    match "blog/*" $ do
-        route blogRoute
-        compile $ do
-            csl <- load "springer-lncs.csl"
-            bib <- load "ref.bib"
-            p  <- readPandocBiblio pandocReaderOptions csl bib <$> applyKeywords
-            p' <- p
-            saveSnapshot "teaser" $ writePandocWith pandocWriterOptions p'
-            >>= loadAndApplyTemplate "templates/post.html" (taggedPostCtx tags)
-            >>= loadAndApplyTemplate "templates/main.html" (taggedPostCtx tags)
+    match "blog/*" $ fullRules "templates/post.html" tags
 
-    match "talks/*" $ do
-        route blogRoute
-        compile $ do
-            csl <- load "springer-lncs.csl"
-            bib <- load "ref.bib"
-            p  <- readPandocBiblio pandocReaderOptions csl bib <$> applyKeywords
-            p' <- p
-            saveSnapshot "teaser" $ writePandocWith pandocWriterOptions p'
-            >>= loadAndApplyTemplate "templates/talk.html" (taggedPostCtx tags)
-            >>= loadAndApplyTemplate "templates/main.html" (taggedPostCtx tags)
+    match "talks/*" $ fullRules "templates/talk.html" tags
 
-    match "pages/*" $ do
-        route blogRoute
-        compile $ do
-            csl <- load "springer-lncs.csl"
-            bib <- load "ref.bib"
-            p  <- readPandocBiblio pandocReaderOptions csl bib <$> applyKeywords
-            p' <- p
-            saveSnapshot "teaser" $ writePandocWith pandocWriterOptions p'
-            >>= loadAndApplyTemplate "templates/post.html" (taggedPostCtx tags)
-            >>= loadAndApplyTemplate "templates/main.html" (taggedPostCtx tags)
+    match "pages/*" $ fullRules "templates/post.html" tags
 
     create ["atom.xml"] $ do
         route idRoute
@@ -222,10 +197,21 @@ main = hakyllWith hakyllConf $ do
             makeItem "" 
                 >>= loadAndApplyTemplate "templates/sitemap.xml" sitemapCtx
 
-    match ("templates/*" .||. "partials/*") $ compile templateCompiler
-
     match "ref.bib" $ compile biblioCompiler
     match "springer-lncs.csl" $ compile cslCompiler
+
+--------------------------------------------------------------------------------
+fullRules :: Identifier -> Tags -> Rules ()
+fullRules template tags = do
+  route blogRoute
+  compile $ do
+    csl <- load "springer-lncs.csl"
+    bib <- load "ref.bib"
+    keyworded <- applyKeywords
+    readPandocBiblio pandocReaderOptions csl bib keyworded
+    >>= return . (writePandocWith pandocWriterOptions)
+    >>= saveSnapshot "teaser" 
+    >>= flip (foldM (\b a -> loadAndApplyTemplate a (taggedPostCtx tags) b)) [template, "templates/main.html"]
 
 --------------------------------------------------------------------------------
 
