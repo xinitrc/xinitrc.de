@@ -140,11 +140,6 @@ main = hakyllWith hakyllConf $ do
         route   idRoute
         compile $ getResourceString
             >>= withItemBody (unixFilter "./compressJS.sh" [])
-{-
-    match "css/style.css" $ do
-        route   idRoute
-        compile copyFileCompiler
--}
 
     match "css/complete.min.css" $ do 
         route $ constRoute "css/style.css"
@@ -160,11 +155,11 @@ main = hakyllWith hakyllConf $ do
           
     match "talks.html" $ do 
         route idRoute
-        compile $ genCompiler tags (field "posts" $ \_ -> (postList "talks/*.md") $ fmap (take 5) . (recentFirst >=> filterTalks))
+        compile $ genCompiler tags (field "posts" $ \_ -> (postList "talks/*.md") $ fmap (take 5) . recentFirst)
                                                                 
     match "talk-archive.html" $ do
         route idRoute
-        compile $ genCompiler tags $ field "posts" ( \_ -> postListByMonth tags "talks/*" (recentFirst >=> filterTalks)) 
+        compile $ genCompiler tags $ field "posts" ( \_ -> postListByMonth tags "talks/*" recentFirst) 
 
     match "basic/*" $ do
         route baiscRoute
@@ -253,20 +248,6 @@ blogRoute = gsubRoute "pages/" (const "") `composeRoutes`
                 replaceChars c | c == '-' || c == '_' = '/'
                                | otherwise = c
 
-
---------------------------------------------------------------------------------
-filterByType :: (MonadMetadata m, Functor m) => String -> [Item String] -> m[Item String]
-filterByType tpe = filterM hasType
-              where
-                hasType item = do
-                    metadata <- getMetadata $ itemIdentifier item
-                    let typ = Data.Map.lookup "type" metadata
-                    return (typ == Just tpe)
-
-filterTalks :: (MonadMetadata m, Functor m) => [Item String] -> m[Item String]
-filterTalks = filterByType "talk"
-
---------------------------------------------------------------------------------
 
 feedContext :: Context String
 feedContext = mconcat
