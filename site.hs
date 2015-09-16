@@ -3,7 +3,7 @@
 import           Hakyll
 
 import           Control.Applicative              ((<$>))
-import           Control.Monad                    (filterM, liftM, (>=>), (<=<))
+import           Control.Monad                    (filterM, liftM, foldM, (>=>), (<=<))
 import           Control.Arrow                    (first, second)
 
 import qualified Data.Set as S
@@ -12,9 +12,7 @@ import           Data.Map                         (lookup)
 import           Data.Monoid                      (mappend, mconcat)
 import           Data.Function                    (on)
 
-import           Data.Time.Format                 (formatTime)
-
-import           System.Locale                    (defaultTimeLocale)
+import           Data.Time.Format                 (formatTime, defaultTimeLocale)
 
 import           Plugins.Filters (applyKeywords, aplKeywords)
 import           Plugins.LogarithmicTagCloud (renderLogTagCloud)
@@ -24,9 +22,12 @@ import           Text.Pandoc.Options
 
 --------------------------------------------------------------------------------
 
+host :: String
+host = "https://xinitrc.de"
+
 pandocWriterOptions :: WriterOptions
 pandocWriterOptions = defaultHakyllWriterOptions 
-                      { writerHTMLMathMethod = MathML Nothing -- MathJax ""
+                      { writerHTMLMathMethod = MathML Nothing
                       , writerHtml5 = True
                       , writerSectionDivs = True
                       , writerReferenceLinks = True
@@ -43,7 +44,7 @@ myFeedConfiguration = FeedConfiguration
                       , feedDescription = "xinitrc.de Article Feed"
                       , feedAuthorName  = "Martin Hilscher"
                       , feedAuthorEmail = "mail@xinitrc.de"
-                      , feedRoot        = "https://xinitrc.de"
+                      , feedRoot        = host
                       }
 
 feedConfiguration :: String -> FeedConfiguration
@@ -52,7 +53,7 @@ feedConfiguration title = FeedConfiguration
                           , feedDescription = "xinitrc.de Tag Configuration"
                           , feedAuthorName = "Martin Hilscher"
                           , feedAuthorEmail = "mail@xinitrc.de"
-                          , feedRoot = "https://xinitrc.de"
+                          , feedRoot = host
                           }
 
 dontIgnoreHtaccess :: String -> Bool
@@ -110,18 +111,18 @@ myPandocExtensions = S.fromList
 
 main :: IO ()
 main = hakyllWith hakyllConf $ do
-    tags <- buildTags "posts/*" (fromCapture "tags/*.html")
+    match ("templates/*" .||. "partials/*") $ compile templateCompiler
+
+    tags <- buildTags "blog/*" (fromCapture "tags/*.html")
 
     tagsRules tags $ \tag pattern -> do
            let title = "Posts tagged " ++ tag
-           route $ gsubRoute " " (const "-") -- idRoute
+           route $ gsubRoute " " (const "-")
            compile $ do
                posts <- constField "posts" <$> postLst pattern "templates/tag-item.html" (taggedPostCtx tags) recentFirst
                makeItem ""
                    >>= loadAndApplyTemplate "templates/tagpage.html" (posts `mappend` constField "tag" tag `mappend` taggedPostCtx tags)
-                   >>= saveSnapshot "view"
                    >>= loadAndApplyTemplate "templates/main.html" (posts `mappend` constField "tag" tag `mappend` taggedPostCtx tags)
-           version "view" viewGeneration
            version "rss" $ do
             route   $ gsubRoute " " (const "-") `composeRoutes` setExtension "xml"
             compile $ loadAllSnapshots pattern "teaser"
@@ -141,85 +142,76 @@ main = hakyllWith hakyllConf $ do
         route   idRoute
         compile $ getResourceString
             >>= withItemBody (unixFilter "./compressJS.sh" [])
-{-
-    match "css/style.css" $ do
-        route   idRoute
-        compile copyFileCompiler
--}
-          
-    match "bower_components/**" $ do
-        route   idRoute
-        compile copyFileCompiler
 
     match "css/complete.min.css" $ do 
         route $ constRoute "css/style.css"
         compile copyFileCompiler
 
-    match "manifest.mf" $ do 
-        route idRoute
-        compile copyFileCompiler
-
-{-        
-    match "css/style.scss" $ do 
-        route   $ setExtension "css"
-        compile $ liftM (fmap compressCss) getResourceString 
-            >>= withItemBody (unixFilter "sass" ["-I", ".", "--no-cache", "--scss", "--compass", "--style", "compressed"])
--}
-
     match "index.html" $ do
         route idRoute
-        compile $ genCompiler tags (field "posts" $ \_ -> postList $ fmap (take 5) . recentFirst)
-        version "view" viewGeneration
+        compile $ genCompiler tags (field "posts" $ \_ -> (postList "blog/*") $ fmap (take 5) . recentFirst)
                 
     match "archive.html" $ do
         route idRoute
-        compile $ genCompiler tags $ field "posts" ( \_ -> postListByMonth tags "posts/*" (recentFirst))
-        version "view" viewGeneration
+        compile $ genCompiler tags $ field "posts" ( \_ -> postListByMonth tags "blog/*" (recentFirst))
           
     match "talks.html" $ do 
         route idRoute
-        compile $ genCompiler tags (field "posts" $ \_ -> postList $ fmap (take 5) . (recentFirst >=> filterTalks))
-        version "view" viewGeneration
+        compile $ genCompiler tags (field "posts" $ \_ -> (postList "talks/*.md") $ fmap (take 5) . recentFirst)
                                                                 
     match "talk-archive.html" $ do
         route idRoute
-        compile $ genCompiler tags $ field "posts" ( \_ -> postListByMonth tags "posts/*" (recentFirst >=> filterTalks)) 
-        version "view" viewGeneration
+        compile $ genCompiler tags $ field "posts" ( \_ -> postListByMonth tags "talks/*" recentFirst) 
 
-    match ("facts.html" .||. "contact.html" )$ do
-        route idRoute
+    match "basic/*" $ do
+        route baiscRoute
         compile $ applyKeywords
-                  >>= saveSnapshot "view"
-                  >>= loadAndApplyTemplate "templates/main.html" (taggedPostCtx tags)
-        version "view" viewGeneration
+                    >>= loadAndApplyTemplate "templates/main.html" (taggedPostCtx tags)
 
-    match "posts/*" $ do
-        route dateRoute
-        compile $ do
-            csl <- load "springer-lncs.csl"
-            bib <- load "ref.bib"
-            p  <- readPandocBiblio pandocReaderOptions csl bib <$> applyKeywords
-            p' <- p
-            saveSnapshot "teaser" $ writePandocWith pandocWriterOptions p'
-            >>= loadAndApplyTemplate "templates/post.html" (taggedPostCtx tags)
-            >>= saveSnapshot "view" 
-            >>= loadAndApplyTemplate "templates/main.html" (taggedPostCtx tags)
-        version "view" $ do
-          route $ gsubRoute "posts" (const "views") `composeRoutes` dateRoute
-          compile viewCopyCompiler
+    match "blog/*" $ fullRules "templates/post.html" tags
+
+    match "talks/*" $ fullRules "templates/talk.html" tags
+
+    match "pages/*" $ fullRules "templates/post.html" tags
 
     create ["atom.xml"] $ do
         route idRoute
         compile $ do
             let feedCtx = postCtx `mappend` bodyField "description"
             posts <- fmap (take 10) . recentFirst =<<
-                loadAllSnapshots ("posts/*" .&&. hasNoVersion) "teaser"
+                loadAllSnapshots ("blog/*" .&&. hasNoVersion) "teaser"
             renderAtom myFeedConfiguration feedCtx posts
 
-    match ("templates/*" .||. "partials/*") $ compile templateCompiler
+    create ["sitemap.xml"] $ do
+        route idRoute
+        compile $ do 
+            posts <- recentFirst =<< loadAll "blog/*"
+            talks <- recentFirst =<< loadAll "talks/*"
+            pages <- loadAll "pages/*"
+            basic <- loadAll "basic/*"
+            let allPosts = (return (posts ++ talks ++ pages ++ basic))
+            let sitemapCtx = mconcat [
+                                listField "entries" minimalPageCtx allPosts
+                                , constField "host" host
+                                , defaultContext]
+            makeItem "" 
+                >>= loadAndApplyTemplate "templates/sitemap.xml" sitemapCtx
 
     match "ref.bib" $ compile biblioCompiler
     match "springer-lncs.csl" $ compile cslCompiler
+
+--------------------------------------------------------------------------------
+fullRules :: Identifier -> Tags -> Rules ()
+fullRules template tags = do
+  route blogRoute
+  compile $ do
+    csl <- load "springer-lncs.csl"
+    bib <- load "ref.bib"
+    keyworded <- applyKeywords
+    readPandocBiblio pandocReaderOptions csl bib keyworded
+    >>= return . (writePandocWith pandocWriterOptions)
+    >>= saveSnapshot "teaser" 
+    >>= flip (foldM (\b a -> loadAndApplyTemplate a (taggedPostCtx tags) b)) [template, "templates/main.html"]
 
 --------------------------------------------------------------------------------
 
@@ -227,41 +219,21 @@ genCompiler :: Tags -> Context String -> Compiler (Item String)
 genCompiler tags posts = 
               applyKeywords
                 >>= applyAsTemplate posts
-                >>= saveSnapshot "view"
                 >>= loadAndApplyTemplate "templates/main.html" (taggedPostCtx tags)
 
-viewGeneration :: Rules ()
-viewGeneration = do 
-          route $ customRoute $ \fp -> "views/" ++ (toFilePath fp)
-          compile $ viewCopyCompiler
-
-viewCopyCompiler :: Compiler (Item String)
-viewCopyCompiler = do
-            ident <- getUnderlying
-            loadSnapshot (setVersion Nothing ident) "view"
-            >>= makeItem . itemBody
 --------------------------------------------------------------------------------
 
-dateRoute :: Routes
-dateRoute = gsubRoute "posts/" (const "") `composeRoutes` 
-              gsubRoute "pages/" (const "") `composeRoutes`
-                gsubRoute "[0-9]{4}-[0-9]{2}-[0-9]{2}-" (map replaceChars) `composeRoutes` 
-                 setExtension "html" 
-            where
-              replaceChars c | c == '-' || c == '_' = '/'
-                             | otherwise = c
-
---------------------------------------------------------------------------------
-filterByType :: (MonadMetadata m, Functor m) => String -> [Item String] -> m[Item String]
-filterByType tpe = filterM hasType
+baiscRoute :: Routes
+baiscRoute = gsubRoute "basic/" (const "") `composeRoutes` setExtension "html"
+         
+blogRoute :: Routes
+blogRoute = gsubRoute "pages/" (const "") `composeRoutes`
+              gsubRoute "[0-9]{4}-[0-9]{2}-[0-9]{2}-" (map replaceChars) `composeRoutes` 
+                setExtension "html" 
               where
-                hasType item = do
-                    metadata <- getMetadata $ itemIdentifier item
-                    let typ = Data.Map.lookup "type" metadata
-                    return (typ == Just tpe)
+                replaceChars c | c == '-' || c == '_' = '/'
+                               | otherwise = c
 
-filterTalks :: (MonadMetadata m, Functor m) => [Item String] -> m[Item String]
-filterTalks = filterByType "talk"
 
 --------------------------------------------------------------------------------
 
@@ -271,44 +243,25 @@ feedContext = mconcat
     , defaultContext
     ]
 
---------------------------------------------------------------------------------
-
-tagCloudCtx :: Tags -> Context String
-tagCloudCtx tags = field "tagcloud" $ const rendered 
-  where rendered = renderLogTagCloud 0.8 1.8 "em" tags
-
 taggedPostCtx :: Tags -> Context String
-taggedPostCtx tags = mconcat [tagsField "tags" tags, tagCloudCtx tags, postCtx]
+taggedPostCtx tags = mconcat [tagsField "tags" tags, postCtx]
+
+minimalPageCtx :: Context String
+minimalPageCtx = mconcat [constField "host" host, modificationTimeField "lastmod" "%Y-%m-%d", defaultContext]
 
 postCtx :: Context String
-postCtx = mconcat [dateField "date" "%Y-%m-%d" , abstractField "abstract", contentField "content", defaultContext]
-
-abstractField :: String -> Context String
-abstractField key = field key $ \item -> do 
-  let body = (itemBody item) in 
-    case needlePrefix "<!--more-->" body of 
-      Nothing -> fail $ "No abstract defined for " ++ show (itemIdentifier item)
-      Just t ->  return t
-
-contentField :: String -> Context String 
-contentField key = field key $ \item ->
-  let body = (itemBody item) in 
-    case needlePrefix "<!--more-->" body of 
-      Nothing -> fail $ "No abstract defined for " ++ show (itemIdentifier item)
-      Just t -> return $ drop (length t) body
-
+postCtx = mconcat [dateField "date" "%Y-%m-%d", modificationTimeField "lastmod" "%Y-%m-%d", defaultContext]
 
 --------------------------------------------------------------------------------
 
 postLst :: Pattern -> Identifier -> Context String -> ([Item String] -> Compiler [Item String]) -> Compiler String
 postLst pattern template context sortFilter = do
     posts   <- return =<< sortFilter =<< loadAll (pattern .&&. hasNoVersion)
---    posts   <- return =<< sortFilter =<< loadAll pattern
     itemTpl <- loadBody template
     applyTemplateList itemTpl (teaserField "teaser" "teaser" `mappend` context) posts
 
-postList :: ([Item String] -> Compiler [Item String]) -> Compiler String
-postList = postLst "posts/*" "templates/post-item.html" postCtx
+postList :: Pattern -> ([Item String] -> Compiler [Item String]) -> Compiler String
+postList searchPattern = postLst searchPattern "templates/post-item.html" postCtx
 
 postListByMonth :: Tags
                  -> Pattern
@@ -355,19 +308,9 @@ yearContext year  = mconcat
     , bodyField  "postsByMonth"
     ]
     
+
 convertMonth :: String -> String
-convertMonth "01" = "January"
-convertMonth "02" = "February"
-convertMonth "03" = "March"
-convertMonth "04" = "April"
-convertMonth "05" = "May"
-convertMonth "06" = "June"
-convertMonth "07" = "July"
-convertMonth "08" = "August"
-convertMonth "09" = "September"
-convertMonth "10" = "October"
-convertMonth "11" = "November"
-convertMonth "12" = "December"
+convertMonth month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"] !! ((read month) - 1)
 
 buckets :: Ord b => (a -> b) -> [a] -> [ (b,[a]) ]
 buckets f = map (first head . unzip)
@@ -376,4 +319,3 @@ buckets f = map (first head . unzip)
           . map (\x -> (f x, x))
 
 --------------------------------------------------------------------------------
-          
