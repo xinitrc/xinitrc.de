@@ -30,7 +30,7 @@ Most people who can piece this together from this tl;dr wouldn't need the rest o
 ## Show us the money
 
 So let's go through the code following the steps above. First extraction of the tikz picture. 
-As I already explained [here](/2013/06/22/3.26-Lightyears-away.html) I added a keyword compiler stage to add youtube, vimeo and slideshare embedding (and actually already there promised to write this blog post). Part of that is also the tikz keyword, which works almost exactly like the ones for the other services. So let's have a look at the relevant part from  [KeywordReader.hs](https://github.com/xinitrc/xinitrc.de/blob/master/Plugins/KeywordReader.hs).
+As I already explained [here](/blog/2013/06/22/3.26-Lightyears-away.html) I added a keyword compiler stage to add youtube, vimeo and slideshare embedding (and actually already there promised to write this blog post). Part of that is also the tikz keyword, which works almost exactly like the ones for the other services. So let's have a look at the relevant part from  [KeywordReader.hs](https://github.com/xinitrc/xinitrc.de/blob/master/Plugins/KeywordReader.hs).
 
 ~~~~ {.haskell}
 tikz :: Parser KeywordElement

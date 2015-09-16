@@ -32,7 +32,7 @@ I think everybody knows some examples of Sets, let me give some anyways
 
 * \(\mathbb{N}=\{0,1,2,3, \ldots\}\) The set of natural numbers is a set. 
 * \(\mathbb{Z}=\{0, -1, 1, -2, 2, \ldots\}\) The set of intgers is a set.
-* [All vertices in a Graph form set, as do all edges](/2013/11/03/Running-in-circles.html)
+* [All vertices in a Graph form set, as do all edges](/blog/2013/11/03/Running-in-circles.html)
 * \(\ldots\)
 
 ### Haskell 
