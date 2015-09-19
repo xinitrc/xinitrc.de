@@ -264,15 +264,10 @@ postLst pattern template context sortFilter = do
 postList :: Pattern -> ([Item String] -> Compiler [Item String]) -> Compiler String
 postList searchPattern = postLst searchPattern "templates/post-item.html" postCtx
 
-yearExtractor :: Item String -> Compiler String
-yearExtractor p = do
+dateExtractor :: String -> Item String -> Compiler String
+dateExtractor format p = do
   utcTime <- getItemUTC defaultTimeLocale $ itemIdentifier p
-  return $ formatTime defaultTimeLocale "%Y" utcTime
-
-monthExtractor :: Item String -> Compiler String
-monthExtractor p = do
-  utcTime <- getItemUTC defaultTimeLocale $ itemIdentifier p
-  return $ formatTime defaultTimeLocale "%m" utcTime
+  return $ formatTime defaultTimeLocale format utcTime
 
 postListByMonth :: Tags -> Pattern -> ([Item String] -> Compiler [Item String]) -> Compiler String
 postListByMonth tags pattern filterFun = do
@@ -280,7 +275,7 @@ postListByMonth tags pattern filterFun = do
   itemTpl <- loadBody "templates/month-item.html"
   monthTpl <- loadBody "templates/month.html"
   yearTpl <- loadBody "templates/year.html"
-  bucketedTemplates posts [(yearTpl, yearExtractor, id), (monthTpl, monthExtractor, convertMonth)] itemTpl (taggedPostCtx tags `mappend` dateField "day" "%d")
+  bucketedTemplates posts [(yearTpl, dateExtractor "%Y", id), (monthTpl, dateExtractor "%m", convertMonth)] itemTpl (taggedPostCtx tags `mappend` dateField "day" "%d")
          
 bucketedTemplates :: [Item String] -> [(Template, Item String -> Compiler String, String -> String)] -> Template -> Context String -> Compiler String
 bucketedTemplates posts [] itemTemplate ctx            =  applyTemplateList itemTemplate ctx posts
