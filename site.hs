@@ -4,20 +4,18 @@
 import           Hakyll
 
 import           Control.Applicative              ((<$>))
-import           Control.Monad                    (filterM, liftM, liftM2, foldM, (>=>), (<=<))
-import           Control.Arrow                    (first, second)
+import           Control.Monad                    (liftM, foldM)
+import           Control.Arrow                    (first)
 
 import qualified Data.Set as S
-import           Data.Ord
+import           Data.Ord                         (comparing)
 import           Data.List                        (sortBy, groupBy)
-import           Data.Map                         (lookup)  
 import           Data.Monoid                      (mappend, mconcat)
 import           Data.Function                    (on)
 
 import           Data.Time.Format                 (formatTime, defaultTimeLocale)
 
-import           Plugins.Filters (applyKeywords, aplKeywords)
-import           Plugins.LogarithmicTagCloud (renderLogTagCloud)
+import           Plugins.Filters (applyKeywords)
 
 import           Text.Pandoc.Options
 
