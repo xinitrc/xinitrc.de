@@ -203,6 +203,7 @@ main = hakyllWith hakyllConf $ do
     match "springer-lncs.csl" $ compile cslCompiler
 
 --------------------------------------------------------------------------------
+
 fullRules :: Identifier -> Tags -> Rules ()
 fullRules template tags = do
   route blogRoute
@@ -239,10 +240,7 @@ blogRoute = gsubRoute "pages/" (const "") `composeRoutes`
 --------------------------------------------------------------------------------
 
 feedContext :: Context String
-feedContext = mconcat
-    [ bodyField "description"
-    , defaultContext
-    ]
+feedContext = mconcat [bodyField "description", defaultContext]
 
 taggedPostCtx :: Tags -> Context String
 taggedPostCtx tags = mconcat [tagsField "tags" tags, postCtx]
