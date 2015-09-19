@@ -1,11 +1,6 @@
 ---
 title: Bittwiddling talk
 tags: bittwiddling, bit twiddling, talk
-type: talk
-bgimage: /assets/images/twiddle.jpg
-position: tl
-credit: Paul Tichonczuk
-crediturl: https://www.flickr.com/photos/tracer/
 ---
 
 As part of the lecture series of our local hackspace I held a talk on bit twiddling. 

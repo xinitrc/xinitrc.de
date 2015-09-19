@@ -1,11 +1,6 @@
 ---
 title: As if there weren't enough
 tags: podcast, math, theoretical computer science, science
-type: article
-bgimage: /assets/images/Microphone.jpg
-position: tl
-credit: www.gratisography.com
-crediturl: http://www.gratisography.com/
 ---
 
 ... podcasts already. Anyway we started a new one and by we I mean

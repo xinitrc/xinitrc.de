@@ -1,10 +1,6 @@
 ---
 title: Deep Impact
 tags: meteor, meteor month,  webapps, progress monitoring
-bgimage: /assets/images/crater.jpg
-position: bl
-credit: Rick Mach
-crediturl: https://www.flickr.com/photos/rickmach/
 ---
 
 At thursdays local web developers meetup someone said something about [Meteor](https://meteor.com).

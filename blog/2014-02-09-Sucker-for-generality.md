@@ -1,10 +1,6 @@
 ---
 title: Sucker for generality
 tags: haskell, algebra, sets, magma, semigroup, monoid, semiring
-bgimage: /assets/images/einstein.jpg
-position: tl
-credit: Ctac
-crediturl: http://commons.wikimedia.org/wiki/File:Albert_Einstein_DC.JPG
 ---
 
 Lately, for reasons which slip my mind right now, I had to review some old library code I wrote. And as always when you review code you wrote a while ago, you think "How could I have ever thought this was good code?" Usually this is because the code contains more hacks than clean code or because you can't even understand what that piece of code does. In this case I was quite ok with that, but could have hit myself hard for not recognising a general pattern of all distinct cases I programmed back then. This prompted me to go to:
