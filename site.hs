@@ -113,7 +113,7 @@ main :: IO ()
 main = hakyllWith hakyllConf $ do
     match ("templates/*" .||. "partials/*") $ compile templateCompiler
 
-    tags <- buildTags "blog/*" (fromCapture "tags/*.html")
+    tags <- buildTags ("blog/*" .||. "talks/*" .||. "portfolio/*") (fromCapture "tags/*.html")
 
     tagsRules tags $ \tag pattern -> do
            let title = "Posts tagged " ++ tag
