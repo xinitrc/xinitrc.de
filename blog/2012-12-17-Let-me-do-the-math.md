@@ -1,11 +1,6 @@
 ---
 title: Let me do the math
 tags: jekyll, plugin, mathml, code
-type: article
-bgimage: /assets/images/math.jpg
-position: tl
-credit: Mike Hiatt
-crediturl: https://www.flickr.com/photos/mfhiatt/
 ---
 
 As this is my site and a big part of my life is math, I'd obiously like to have 

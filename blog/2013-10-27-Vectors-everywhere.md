@@ -1,10 +1,6 @@
 ---
 title: Vectors everywhere
 tags: svg, tikz, hakyll
-bgimage: /assets/images/arrow.jpg
-position: tl
-credit: Caleb Roenigk
-crediturl: https://www.flickr.com/photos/crdot/
 ---
 
 I promised some time ago to do a blog post on the tikz-2-svg converter I wrote for this blog. And after having snuck around keeping my promise for some time two things bring me to do it now. 

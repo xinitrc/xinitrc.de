@@ -1,10 +1,6 @@
 ---
 title: Of rabbits and hats
 tags: semiring, algebra, haskell, graphs
-bgimage: /assets/images/hats.jpg
-position: tl
-credit: arbyreed
-crediturl: https://www.flickr.com/photos/19779889@N00/
 ---
 
 In the last blog post I showed you what you can do with just implementing the interface for a \(*\)-semiring and than using the matrix over that semiring. Up until now, we can compute the transitive connection relation, the length of the shortest path, the maximum throughput between two nodes and the reliability on the the most reliable path. But what we can't do right now is producing the path(s) that instatiate these properties. So this is exactly what I will show you in this post.

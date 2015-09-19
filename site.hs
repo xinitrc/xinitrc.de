@@ -1,12 +1,14 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE TupleSections #-}
 import           Hakyll
 
 import           Control.Applicative              ((<$>))
-import           Control.Monad                    (filterM, liftM, foldM, (>=>), (<=<))
+import           Control.Monad                    (filterM, liftM, liftM2, foldM, (>=>), (<=<))
 import           Control.Arrow                    (first, second)
 
 import qualified Data.Set as S
+import           Data.Ord
 import           Data.List                        (sortBy, groupBy)
 import           Data.Map                         (lookup)  
 import           Data.Monoid                      (mappend, mconcat)
@@ -201,6 +203,7 @@ main = hakyllWith hakyllConf $ do
     match "springer-lncs.csl" $ compile cslCompiler
 
 --------------------------------------------------------------------------------
+
 fullRules :: Identifier -> Tags -> Rules ()
 fullRules template tags = do
   route blogRoute
@@ -234,14 +237,10 @@ blogRoute = gsubRoute "pages/" (const "") `composeRoutes`
                 replaceChars c | c == '-' || c == '_' = '/'
                                | otherwise = c
 
-
 --------------------------------------------------------------------------------
 
 feedContext :: Context String
-feedContext = mconcat
-    [ bodyField "description"
-    , defaultContext
-    ]
+feedContext = mconcat [bodyField "description", defaultContext]
 
 taggedPostCtx :: Tags -> Context String
 taggedPostCtx tags = mconcat [tagsField "tags" tags, postCtx]
@@ -263,59 +262,32 @@ postLst pattern template context sortFilter = do
 postList :: Pattern -> ([Item String] -> Compiler [Item String]) -> Compiler String
 postList searchPattern = postLst searchPattern "templates/post-item.html" postCtx
 
-postListByMonth :: Tags
-                 -> Pattern
-                 -> ([Item String] -> Compiler [Item String])
-                 -> Compiler String
-postListByMonth tags pattern filterFun = do
-    posts   <- bucketYear =<< filterFun =<< loadAll (pattern .&&. hasNoVersion)
-    itemTpl <- loadBody "templates/month-item.html"
-    monthTpl <- loadBody "templates/month.html"
-    yearTpl <- loadBody "templates/year.html"
-    let makeMonthSection :: ((String, String), [Item String]) -> Compiler (Item String); 
-        makeMonthSection ((yr, mth), ps) =
-            applyTemplateList itemTpl (taggedPostCtx tags `mappend` dateField "day" "%d") ps 
-            >>= makeItem
-            >>= applyTemplate monthTpl (monthContext yr mth)
-    let makeYearSection :: ((String), [Item String]) -> Compiler (Item String) ; 
-        makeYearSection ((yr), ps)  = 
-             (concatMap itemBody <$> (mapM makeMonthSection =<< (bucketMonth ps)))
-             >>= makeItem
-             >>= applyTemplate yearTpl (yearContext yr)
-    concatMap itemBody <$> mapM  makeYearSection posts
-  where
-    bucketYear posts =
-        reverse . map (second (map snd)) . buckets (fst . fst) <$>
-        mapM tagWithMonth posts
-    bucketMonth posts =
-        reverse . map (second (map snd)) . buckets fst <$>
-        mapM tagWithMonth posts
-    tagWithMonth p = do
-        utcTime <- getItemUTC timeLocale $ itemIdentifier p
-        return ((formatTime timeLocale "%Y" utcTime, formatTime timeLocale "%m" utcTime), p)
-    timeLocale = defaultTimeLocale
- 
-monthContext :: String -> String -> Context String
-monthContext year month = mconcat
-    [ constField "year"  year
-    , constField "month" $ convertMonth month
-    , bodyField  "postsByMonth"
-    ]
+dateExtractor :: String -> Item String -> Compiler String
+dateExtractor format p = do
+  utcTime <- getItemUTC defaultTimeLocale $ itemIdentifier p
+  return $ formatTime defaultTimeLocale format utcTime
 
-yearContext :: String -> Context String
-yearContext year  = mconcat
-    [ constField "year"  year
-    , bodyField  "postsByMonth"
-    ]
-    
+postListByMonth :: Tags -> Pattern -> ([Item String] -> Compiler [Item String]) -> Compiler String
+postListByMonth tags pattern filterFun = do
+  posts <- filterFun =<< loadAll (pattern .&&. hasNoVersion)
+  itemTpl <- loadBody "templates/month-item.html"
+  monthTpl <- loadBody "templates/month.html"
+  yearTpl <- loadBody "templates/year.html"
+  bucketedTemplates posts [(yearTpl, dateExtractor "%Y", id), (monthTpl, dateExtractor "%m", convertMonth)] itemTpl (taggedPostCtx tags `mappend` dateField "day" "%d")
+         
+bucketedTemplates :: [Item String] -> [(Template, Item String -> Compiler String, String -> String)] -> Template -> Context String -> Compiler String
+bucketedTemplates posts [] itemTemplate ctx            =  applyTemplateList itemTemplate ctx posts
+bucketedTemplates posts ((template, extractor, converter):xs) itemTemplate ctx = concatMap itemBody <$>
+                                                                      (mapM (\((orderProp, pst)) -> applyTemplate template ((constField "orderProp" (converter orderProp)) `mappend` (bodyField "postsByMonth")) pst) =<< 
+                                                                      mapM (\((orderProp, bucket)) -> liftM (orderProp,) (makeItem =<< bucketedTemplates bucket xs itemTemplate ctx)) =<<
+                                                                      (bucketsM extractor posts))
 
 convertMonth :: String -> String
 convertMonth month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"] !! ((read month) - 1)
 
-buckets :: Ord b => (a -> b) -> [a] -> [ (b,[a]) ]
-buckets f = map (first head . unzip)
-          . groupBy ((==) `on` fst)
-          . sortBy (compare `on` fst)
-          . map (\x -> (f x, x))
-
---------------------------------------------------------------------------------
+bucketsM :: (Monad m, Ord b) => (a -> m b) -> [a] -> m [(b, [a])]
+bucketsM f xs = return . reverse
+                       . map (first head . unzip)
+                       . groupBy ( (==) `on` fst)
+                       . sortBy (comparing fst) =<< mapM (\x -> liftM (, x) (f x)) xs
+                             

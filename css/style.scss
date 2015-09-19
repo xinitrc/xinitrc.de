@@ -157,14 +157,6 @@ body {
 
 #post-archive, #talk-archive, #tags {
   section.year {
-    border-top: thin solid $textcolor;
-    padding-top: .5em;
-
-    &:first-child {
-      border-top: none;
-      padding-top: 0;
-    }
-
     h2.year {
       float: left;
       width: 8 * $baseunit;

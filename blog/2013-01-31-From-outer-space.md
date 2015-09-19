@@ -1,11 +1,6 @@
 ---
 title: From outer space
 tags: podcast, raummaschine
-type: article
-bgimage: /assets/images/orionnebular.jpg
-position: tl
-credit: Luca Argalia
-crediturl: https://www.flickr.com/photos/skiwalker79/
 ---
 
 
