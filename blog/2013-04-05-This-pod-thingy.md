@@ -1,11 +1,6 @@
 ---
 title: This pod thingy
 tags: podcast, poddingens
-type: article
-bgimage: /assets/images/ipod.jpg
-position: tl
-credit: daisy.r
-crediturl: https://www.flickr.com/photos/jazzcatmeow/
 ---
 
 

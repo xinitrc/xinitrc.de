@@ -1,10 +1,6 @@
 ---
 title: Chinese Linking Rings
 tags: semiring, algebra, regular expression, haskell, graphs
-bgimage: /assets/images/rings.jpg
-position: tl
-credit: Ardonik
-crediturl: https://www.flickr.com/photos/ardonik/
 ---
 
 In the last two blog post we learned how to use \(*\)-semirings to implement several different algorithms, with just 7 lines of code and the right instantiation for a class. Among others, I showed you how to compute the length of the shortest paths between two nodes of a graph. In the last blog post I presented a way to represent every path between two nodes using regular expressions. In this blog post it is the time to combine both. We will construct a new \(*\)-semiring and use our, by now, well known algorithm to get every path that exibits a specific property.
