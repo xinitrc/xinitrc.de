@@ -172,7 +172,7 @@ main = hakyllWith hakyllConf $ do
 
     match "talks/*" $ fullRules "templates/talk.html" tags
 
-    match "pages/*" $ fullRules "templates/post.html" tags
+    match "pages/*" $ fullRules "templates/page.html" tags
 
     create ["atom.xml"] $ do
         route idRoute
