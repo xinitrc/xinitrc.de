@@ -122,7 +122,7 @@ main = hakyllWith hakyllConf $ do
                posts <- constField "posts" <$> postLst pattern "templates/tag-item.html" (taggedPostCtx tags) recentFirst
                makeItem ""
                    >>= loadAndApplyTemplate "templates/tagpage.html" (posts `mappend` constField "tag" tag `mappend` taggedPostCtx tags)
-                   >>= loadAndApplyTemplate "templates/main.html" (posts `mappend` constField "tag" tag `mappend` taggedPostCtx tags)
+                   >>= loadAndApplyTemplate "templates/main.html" (posts `mappend` constField "tag" tag `mappend` taggedPostCtx tags `mappend` (field "css" (\_ -> return . itemBody =<< withItemBody (unixFilter "sass" ["-I", ".", "--no-cache", "--scss", "--compass", "--style", "compressed"]) =<< load "css/style.scss")))
            version "rss" $ do
             route   $ gsubRoute " " (const "-") `composeRoutes` setExtension "xml"
             compile $ loadAllSnapshots pattern "teaser"
@@ -142,11 +142,11 @@ main = hakyllWith hakyllConf $ do
         route   idRoute
         compile $ getResourceString
             >>= withItemBody (unixFilter "./compressJS.sh" [])
-
+{-
     match "css/complete.min.css" $ do 
         route $ constRoute "css/style.css"
         compile copyFileCompiler
-
+-}
     match "index.html" $ do
         route idRoute
         compile $ genCompiler tags (field "posts" $ \_ -> (postList "blog/*") $ fmap (take 5) . recentFirst)
@@ -163,10 +163,15 @@ main = hakyllWith hakyllConf $ do
         route idRoute
         compile $ genCompiler tags $ field "posts" ( \_ -> postListByMonth tags "talks/*" recentFirst) 
 
+    match "css/style.scss" $ do 
+        route   $ mempty -- setExtension "css"
+        compile $ liftM (fmap compressCss) getResourceString 
+            >>= withItemBody (unixFilter "sass" ["-I", ".", "--no-cache", "--scss", "--compass", "--style", "compressed"])
+                
     match "basic/*" $ do
         route baiscRoute
         compile $ applyKeywords
-                    >>= loadAndApplyTemplate "templates/main.html" (taggedPostCtx tags)
+                    >>= loadAndApplyTemplate "templates/main.html" (taggedPostCtx tags `mappend` (field "css" (\_ -> return . itemBody =<< withItemBody (unixFilter "sass" ["-I", ".", "--no-cache", "--scss", "--compass", "--style", "compressed"]) =<< load "css/style.scss")))
 
     match "blog/*" $ fullRules "templates/post.html" tags
 
@@ -212,7 +217,7 @@ fullRules template tags = do
     readPandocBiblio pandocReaderOptions csl bib keyworded
     >>= return . (writePandocWith pandocWriterOptions)
     >>= saveSnapshot "teaser" 
-    >>= flip (foldM (\b a -> loadAndApplyTemplate a (taggedPostCtx tags) b)) [template, "templates/main.html"]
+    >>= flip (foldM (\b a -> loadAndApplyTemplate a (taggedPostCtx tags `mappend` (field "css" (\_ -> return . itemBody =<< withItemBody (unixFilter "sass" ["-I", ".", "--no-cache", "--scss", "--compass", "--style", "compressed"]) =<< load "css/style.scss"))) b)) [template, "templates/main.html"]
 
 --------------------------------------------------------------------------------
 
