@@ -122,7 +122,7 @@ main = hakyllWith hakyllConf $ do
                posts <- constField "posts" <$> postLst pattern "templates/tag-item.html" (taggedPostCtx tags) recentFirst
                makeItem ""
                    >>= loadAndApplyTemplate "templates/tagpage.html" (posts `mappend` constField "tag" tag `mappend` taggedPostCtx tags)
-                   >>= loadAndApplyTemplate "templates/main.html" (posts `mappend` constField "tag" tag `mappend` taggedPostCtx tags `mappend` (field "css" (\_ -> return . itemBody =<< withItemBody (unixFilter "sass" ["-I", ".", "--no-cache", "--scss", "--compass", "--style", "compressed"]) =<< load "css/style.scss")))
+                   >>= loadAndApplyTemplate "templates/main.html" (posts `mappend` constField "tag" tag `mappend` taggedPostCtx tags)
            version "rss" $ do
             route   $ gsubRoute " " (const "-") `composeRoutes` setExtension "xml"
             compile $ loadAllSnapshots pattern "teaser"
