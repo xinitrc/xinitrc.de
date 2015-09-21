@@ -171,7 +171,7 @@ main = hakyllWith hakyllConf $ do
     match "basic/*" $ do
         route baiscRoute
         compile $ applyKeywords
-                    >>= loadAndApplyTemplate "templates/main.html" (taggedPostCtx tags `mappend` (field "css" (\_ -> return . itemBody =<< withItemBody (unixFilter "sass" ["-I", ".", "--no-cache", "--scss", "--compass", "--style", "compressed"]) =<< load "css/style.scss")))
+                    >>= loadAndApplyTemplate "templates/main.html" (taggedPostCtx tags)
 
     match "blog/*" $ fullRules "templates/post.html" tags
 
@@ -217,7 +217,7 @@ fullRules template tags = do
     readPandocBiblio pandocReaderOptions csl bib keyworded
     >>= return . (writePandocWith pandocWriterOptions)
     >>= saveSnapshot "teaser" 
-    >>= flip (foldM (\b a -> loadAndApplyTemplate a (taggedPostCtx tags `mappend` (field "css" (\_ -> return . itemBody =<< withItemBody (unixFilter "sass" ["-I", ".", "--no-cache", "--scss", "--compass", "--style", "compressed"]) =<< load "css/style.scss"))) b)) [template, "templates/main.html"]
+    >>= flip (foldM (\b a -> loadAndApplyTemplate a (taggedPostCtx tags) b)) [template, "templates/main.html"]
 
 --------------------------------------------------------------------------------
 
@@ -252,7 +252,10 @@ minimalPageCtx :: Context String
 minimalPageCtx = mconcat [constField "host" host, modificationTimeField "lastmod" "%Y-%m-%d", defaultContext]
 
 postCtx :: Context String
-postCtx = mconcat [dateField "date" "%Y-%m-%d", modificationTimeField "lastmod" "%Y-%m-%d", defaultContext]
+postCtx = mconcat [dateField "date" "%Y-%m-%d",
+                   modificationTimeField "lastmod" "%Y-%m-%d",
+                   field "css" (\_ -> return . itemBody =<< withItemBody (unixFilter "sass" ["-I", ".", "--no-cache", "--scss", "--compass", "--style", "compressed"]) =<< load "css/style.scss"),
+                   defaultContext]
 
 --------------------------------------------------------------------------------
 
