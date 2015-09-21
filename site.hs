@@ -282,7 +282,7 @@ bucketedTemplates posts [] itemTemplate ctx            =  applyTemplateList item
 bucketedTemplates posts ((template, extractor, converter):xs) itemTemplate ctx = concatMap itemBody <$>
                                                                       (mapM (\((orderProp, pst)) -> applyTemplate template ((constField "orderProp" (converter orderProp)) `mappend` (bodyField "postsByMonth")) pst) =<< 
                                                                       mapM (\((orderProp, bucket)) -> liftM (orderProp,) (makeItem =<< bucketedTemplates bucket xs itemTemplate ctx)) =<<
-                                                                      (bucketsM extractor posts))
+                                                                      bucketsM extractor posts)
 
 convertMonth :: String -> String
 convertMonth month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"] !! ((read month) - 1)
