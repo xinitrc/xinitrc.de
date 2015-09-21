@@ -245,13 +245,14 @@ taggedPostCtx :: Tags -> Context String
 taggedPostCtx tags = mconcat [tagsField "tags" tags, postCtx]
 
 minimalPageCtx :: Context String
-minimalPageCtx = mconcat [constField "host" host, modificationTimeField "lastmod" "%Y-%m-%d", defaultContext]
+minimalPageCtx = mconcat [constField "host" host,
+                          modificationTimeField "lastmod" "%Y-%m-%d",
+                          field "css" (\_ -> return . itemBody =<< withItemBody (unixFilter "sass" ["-I", ".", "--no-cache", "--scss", "--compass", "--style", "compressed"]) =<< load "css/style.scss"),
+                          defaultContext]
 
 postCtx :: Context String
 postCtx = mconcat [dateField "date" "%Y-%m-%d",
-                   modificationTimeField "lastmod" "%Y-%m-%d",
-                   field "css" (\_ -> return . itemBody =<< withItemBody (unixFilter "sass" ["-I", ".", "--no-cache", "--scss", "--compass", "--style", "compressed"]) =<< load "css/style.scss"),
-                   defaultContext]
+                   minimalPageCtx]
 
 --------------------------------------------------------------------------------
 
