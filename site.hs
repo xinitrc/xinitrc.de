@@ -142,11 +142,7 @@ main = hakyllWith hakyllConf $ do
         route   idRoute
         compile $ getResourceString
             >>= withItemBody (unixFilter "./compressJS.sh" [])
-{-
-    match "css/complete.min.css" $ do 
-        route $ constRoute "css/style.css"
-        compile copyFileCompiler
--}
+
     match "index.html" $ do
         route idRoute
         compile $ genCompiler tags (field "posts" $ \_ -> (postList "blog/*") $ fmap (take 5) . recentFirst)
@@ -164,7 +160,7 @@ main = hakyllWith hakyllConf $ do
         compile $ genCompiler tags $ field "posts" ( \_ -> postListByMonth tags "talks/*" recentFirst) 
 
     match "css/style.scss" $ do 
-        route   $ mempty -- setExtension "css"
+        route   $ mempty 
         compile $ liftM (fmap compressCss) getResourceString 
             >>= withItemBody (unixFilter "sass" ["-I", ".", "--no-cache", "--scss", "--compass", "--style", "compressed"])
                 

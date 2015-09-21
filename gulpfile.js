@@ -13,29 +13,9 @@ var gulp = require('gulp'),
     notify = require('gulp-notify'),
     rename = require('gulp-rename');
 
-gulp.task('default', ['style', 'script'], function () {
+gulp.task('default', ['script'], function () {
 
 });
-
-gulp.task('test', function() {
-
-});
-
-gulp.task('styleMerge', function() {
-    return gulp.src(['static/fonts/FiraMono-3.2/stylesheet.css', 'static/fonts/FiraSans-4.1/stylesheet.css', 'css/style.scss'])
-        .pipe(concat('complete.scss'))
-        .pipe(gulp.dest('css/'))
-        .pipe(notify({message: "Finished merging styles"}));
-});
-
-gulp.task('style', ['styleMerge'], function() {
-    return sass('css/complete.scss', {compass: true})
-        .pipe(gulp.dest('css'))
-        .pipe(rename({suffix: '.min'}))
-        .pipe(minifycss())
-        .pipe(gulp.dest('css'))
-        .pipe(notify({message: "Finished generating styles"}));
-    });
 
 gulp.task('script', function() {
     return gulp.src(['bower_components/jquery/dist/jquery.min.js', 'scripts/app.js'])
