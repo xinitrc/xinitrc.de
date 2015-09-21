@@ -143,10 +143,6 @@ main = hakyllWith hakyllConf $ do
         compile $ getResourceString
             >>= withItemBody (unixFilter "./compressJS.sh" [])
 
-    match "css/complete.min.css" $ do 
-        route $ constRoute "css/style.css"
-        compile copyFileCompiler
-
     match "index.html" $ do
         route idRoute
         compile $ genCompiler tags (field "posts" $ \_ -> (postList "blog/*") $ fmap (take 5) . recentFirst)
@@ -163,6 +159,11 @@ main = hakyllWith hakyllConf $ do
         route idRoute
         compile $ genCompiler tags $ field "posts" ( \_ -> postListByMonth tags "talks/*" recentFirst) 
 
+    match "css/style.scss" $ do 
+        route   $ mempty 
+        compile $ liftM (fmap compressCss) getResourceString 
+            >>= withItemBody (unixFilter "sass" ["-I", ".", "--no-cache", "--scss", "--compass", "--style", "compressed"])
+                
     match "basic/*" $ do
         route baiscRoute
         compile $ applyKeywords
@@ -172,7 +173,7 @@ main = hakyllWith hakyllConf $ do
 
     match "talks/*" $ fullRules "templates/talk.html" tags
 
-    match "pages/*" $ fullRules "templates/post.html" tags
+    match "pages/*" $ fullRules "templates/page.html" tags
 
     create ["atom.xml"] $ do
         route idRoute
@@ -244,10 +245,14 @@ taggedPostCtx :: Tags -> Context String
 taggedPostCtx tags = mconcat [tagsField "tags" tags, postCtx]
 
 minimalPageCtx :: Context String
-minimalPageCtx = mconcat [constField "host" host, modificationTimeField "lastmod" "%Y-%m-%d", defaultContext]
+minimalPageCtx = mconcat [constField "host" host,
+                          modificationTimeField "lastmod" "%Y-%m-%d",
+                          field "css" (\_ -> return . itemBody =<< withItemBody (unixFilter "sass" ["-I", ".", "--no-cache", "--scss", "--compass", "--style", "compressed"]) =<< load "css/style.scss"),
+                          defaultContext]
 
 postCtx :: Context String
-postCtx = mconcat [dateField "date" "%Y-%m-%d", modificationTimeField "lastmod" "%Y-%m-%d", defaultContext]
+postCtx = mconcat [dateField "date" "%Y-%m-%d",
+                   minimalPageCtx]
 
 --------------------------------------------------------------------------------
 
@@ -278,7 +283,7 @@ bucketedTemplates posts [] itemTemplate ctx            =  applyTemplateList item
 bucketedTemplates posts ((template, extractor, converter):xs) itemTemplate ctx = concatMap itemBody <$>
                                                                       (mapM (\((orderProp, pst)) -> applyTemplate template ((constField "orderProp" (converter orderProp)) `mappend` (bodyField "postsByMonth")) pst) =<< 
                                                                       mapM (\((orderProp, bucket)) -> liftM (orderProp,) (makeItem =<< bucketedTemplates bucket xs itemTemplate ctx)) =<<
-                                                                      (bucketsM extractor posts))
+                                                                      bucketsM extractor posts)
 
 convertMonth :: String -> String
 convertMonth month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"] !! ((read month) - 1)
