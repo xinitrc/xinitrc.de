@@ -118,10 +118,10 @@ main = hakyllWith hakyllConf $ do
            let title = "Posts tagged " ++ tag
            route $ gsubRoute " " (const "-")
            compile $ do
-               posts <- constField "posts" <$> postLst pattern "templates/tag-item.html" (taggedPostCtx tags `mappend` field "css" (\_ -> return . itemBody =<< withItemBody (unixFilter "sass" ["-I", ".", "--scss", "--no-cache", "--compass", "--style", "compressed"]) =<< load "css/style.scss")) recentFirst
+               posts <- constField "posts" <$> postLst pattern "templates/tag-item.html" (taggedPostCtx tags `mappend` field "css" (\_ -> return . itemBody =<< withItemBody (unixFilter "sass" ["-I", ".", "--scss", "--compass", "--style", "compressed"]) =<< load "css/style.scss")) recentFirst
                makeItem ""
-                   >>= loadAndApplyTemplate "templates/tagpage.html" (posts `mappend` constField "tag" tag `mappend` taggedPostCtx tags `mappend` field "css" (\_ -> return . itemBody =<< withItemBody (unixFilter "sass" ["-I", ".", "--scss", "--no-cache", "--compass", "--style", "compressed"]) =<< load "css/style.scss"))
-                   >>= loadAndApplyTemplate "templates/main.html" (posts `mappend` constField "tag" tag `mappend` taggedPostCtx tags `mappend` field "css" (\_ -> return . itemBody =<< withItemBody (unixFilter "sass" ["-I", ".", "--scss", "--no-cache", "--compass", "--style", "compressed"]) =<< load "css/style.scss"))
+                   >>= loadAndApplyTemplate "templates/tagpage.html" (posts `mappend` constField "tag" tag `mappend` taggedPostCtx tags `mappend` field "css" (\_ -> return . itemBody =<< withItemBody (unixFilter "sass" ["-I", ".", "--scss", "--compass", "--style", "compressed"]) =<< load "css/style.scss"))
+                   >>= loadAndApplyTemplate "templates/main.html" (posts `mappend` constField "tag" tag `mappend` taggedPostCtx tags `mappend` field "css" (\_ -> return . itemBody =<< withItemBody (unixFilter "sass" ["-I", ".", "--scss", "--compass", "--style", "compressed"]) =<< load "css/style.scss"))
            version "rss" $ do
             route   $ gsubRoute " " (const "-") `composeRoutes` setExtension "xml"
             compile $ loadAllSnapshots pattern "teaser"
@@ -161,7 +161,7 @@ main = hakyllWith hakyllConf $ do
     match "css/style.scss" $ do 
         route   $ mempty 
         compile $ liftM (fmap compressCss) getResourceString 
-            >>= withItemBody (unixFilter "sass" ["-I", ".", "--scss", "--no-cache", "--compass", "--style", "compressed"])
+            >>= withItemBody (unixFilter "sass" ["-I", ".", "--scss", "--compass", "--style", "compressed"])
                 
     match "basic/*" $ do
         route baiscRoute
@@ -249,7 +249,7 @@ taggedPostCtx tags = mconcat [ tagsField "tags" tags
 minimalPageCtx :: Context String
 minimalPageCtx = mconcat [ constField "host" host
                          , modificationTimeField "lastmod" "%Y-%m-%d"
-                         , field "css" (\_ -> return . itemBody =<< withItemBody (unixFilter "sass" ["-I", ".", "--scss", "--no-cache", "--compass", "--style", "compressed"]) =<< load "css/style.scss")
+                         , field "css" (\_ -> return . itemBody =<< withItemBody (unixFilter "sass" ["-I", ".", "--scss", "--compass", "--style", "compressed"]) =<< load "css/style.scss")
                          , defaultContext]
 
 postCtx :: Context String
