@@ -104,8 +104,7 @@ myPandocExtensions = S.fromList
                      , Ext_auto_identifiers
                      , Ext_header_attributes
                      , Ext_implicit_header_references
-                     , Ext_line_blocks
-                     ]
+                     , Ext_line_blocks]
 
 --------------------------------------------------------------------------------
 
@@ -119,10 +118,10 @@ main = hakyllWith hakyllConf $ do
            let title = "Posts tagged " ++ tag
            route $ gsubRoute " " (const "-")
            compile $ do
-               posts <- constField "posts" <$> postLst pattern "templates/tag-item.html" (taggedPostCtx tags) recentFirst
+               posts <- constField "posts" <$> postLst pattern "templates/tag-item.html" (taggedPostCtx tags `mappend` field "css" (\_ -> return . itemBody =<< withItemBody (unixFilter "sass" ["-I", ".", "--scss", "--no-cache", "--compass", "--style", "compressed"]) =<< load "css/style.scss")) recentFirst
                makeItem ""
-                   >>= loadAndApplyTemplate "templates/tagpage.html" (posts `mappend` constField "tag" tag `mappend` taggedPostCtx tags)
-                   >>= loadAndApplyTemplate "templates/main.html" (posts `mappend` constField "tag" tag `mappend` taggedPostCtx tags)
+                   >>= loadAndApplyTemplate "templates/tagpage.html" (posts `mappend` constField "tag" tag `mappend` taggedPostCtx tags `mappend` field "css" (\_ -> return . itemBody =<< withItemBody (unixFilter "sass" ["-I", ".", "--scss", "--no-cache", "--compass", "--style", "compressed"]) =<< load "css/style.scss"))
+                   >>= loadAndApplyTemplate "templates/main.html" (posts `mappend` constField "tag" tag `mappend` taggedPostCtx tags `mappend` field "css" (\_ -> return . itemBody =<< withItemBody (unixFilter "sass" ["-I", ".", "--scss", "--no-cache", "--compass", "--style", "compressed"]) =<< load "css/style.scss"))
            version "rss" $ do
             route   $ gsubRoute " " (const "-") `composeRoutes` setExtension "xml"
             compile $ loadAllSnapshots pattern "teaser"
@@ -162,7 +161,7 @@ main = hakyllWith hakyllConf $ do
     match "css/style.scss" $ do 
         route   $ mempty 
         compile $ liftM (fmap compressCss) getResourceString 
-            >>= withItemBody (unixFilter "sass" ["-I", ".", "--no-cache", "--scss", "--compass", "--style", "compressed"])
+            >>= withItemBody (unixFilter "sass" ["-I", ".", "--scss", "--no-cache", "--compass", "--style", "compressed"])
                 
     match "basic/*" $ do
         route baiscRoute
@@ -174,6 +173,8 @@ main = hakyllWith hakyllConf $ do
     match "talks/*" $ fullRules "templates/talk.html" tags
 
     match "pages/*" $ fullRules "templates/page.html" tags
+
+    match "projects/*" $ fullRules "templates/projects.html" tags
 
     create ["atom.xml"] $ do
         route idRoute
@@ -191,10 +192,9 @@ main = hakyllWith hakyllConf $ do
             pages <- loadAll "pages/*"
             basic <- loadAll "basic/*"
             let allPosts = (return (posts ++ talks ++ pages ++ basic))
-            let sitemapCtx = mconcat [
-                                listField "entries" minimalPageCtx allPosts
-                                , constField "host" host
-                                , defaultContext]
+            let sitemapCtx = mconcat [ listField "entries" minimalPageCtx allPosts
+                                     , constField "host" host
+                                     , defaultContext]
             makeItem "" 
                 >>= loadAndApplyTemplate "templates/sitemap.xml" sitemapCtx
 
@@ -239,20 +239,22 @@ blogRoute = gsubRoute "pages/" (const "") `composeRoutes`
 --------------------------------------------------------------------------------
 
 feedContext :: Context String
-feedContext = mconcat [bodyField "description", defaultContext]
+feedContext = mconcat [ bodyField "description"
+                      , defaultContext]
 
 taggedPostCtx :: Tags -> Context String
-taggedPostCtx tags = mconcat [tagsField "tags" tags, postCtx]
+taggedPostCtx tags = mconcat [ tagsField "tags" tags
+                             , postCtx]
 
 minimalPageCtx :: Context String
-minimalPageCtx = mconcat [constField "host" host,
-                          modificationTimeField "lastmod" "%Y-%m-%d",
-                          field "css" (\_ -> return . itemBody =<< withItemBody (unixFilter "sass" ["-I", ".", "--no-cache", "--scss", "--compass", "--style", "compressed"]) =<< load "css/style.scss"),
-                          defaultContext]
+minimalPageCtx = mconcat [ constField "host" host
+                         , modificationTimeField "lastmod" "%Y-%m-%d"
+                         , field "css" (\_ -> return . itemBody =<< withItemBody (unixFilter "sass" ["-I", ".", "--scss", "--no-cache", "--compass", "--style", "compressed"]) =<< load "css/style.scss")
+                         , defaultContext]
 
 postCtx :: Context String
-postCtx = mconcat [dateField "date" "%Y-%m-%d",
-                   minimalPageCtx]
+postCtx = mconcat [ dateField "date" "%Y-%m-%d"
+                  , minimalPageCtx]
 
 --------------------------------------------------------------------------------
 
