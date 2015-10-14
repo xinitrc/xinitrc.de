@@ -9,7 +9,6 @@
     text-align: right;
   }
 
-
   article {
     padding: 1em 2em 0 2em;
 
@@ -46,6 +45,13 @@
   }
 
   @media(min-width: 64rem) {
+    .main-content {
+
+      #article-bg {
+        display: block;
+      }
+    }
+
     .background {
       @include fixer($left: 45rem);
       display: block;
@@ -152,6 +158,7 @@
       background: $contentlinkcolor;
     }
   }
+
   @media(min-width: 80rem) {
     h1.section-head {
       font-size: 6rem;
@@ -164,8 +171,6 @@
   }
 }
 
-
-
 @media (min-width: 48rem) {
   .main-content {
     footer.meta-info {
@@ -173,15 +178,6 @@
       padding: .5rem 0;
       border-bottom: 1px solid $textcolor;
       border-top: 1px solid $textcolor;
-    }
-  }
-}
-
-@media (min-width: 64rem) {
-  .main-content {
-
-    #article-bg {
-      display: block;
     }
   }
 }
