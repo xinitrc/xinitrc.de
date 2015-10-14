@@ -1,10 +1,6 @@
 @import "css/utils";
 
 .main-content {
-  article > * > *:last-child {
-    padding-bottom: 0;
-  }
-
   article.abstract {
     border-bottom: 1px solid $textcolor;
   }
@@ -13,12 +9,10 @@
     text-align: right;
   }
 
-
   article {
-    header {
-      padding-top: 1em;
-      padding-bottom: 0em;
+    padding: 1em 2em 0 2em;
 
+    header {
       .date {
         font-size: .75em;
         font-weight: 300;
@@ -51,6 +45,13 @@
   }
 
   @media(min-width: 64rem) {
+    .main-content {
+
+      #article-bg {
+        display: block;
+      }
+    }
+
     .background {
       @include fixer($left: 45rem);
       display: block;
@@ -125,7 +126,6 @@
       }
     }
 
-
     h1.section-head {
       position: fixed;
       display: block;
@@ -158,6 +158,7 @@
       background: $contentlinkcolor;
     }
   }
+
   @media(min-width: 80rem) {
     h1.section-head {
       font-size: 6rem;
@@ -168,13 +169,7 @@
       margin-bottom: 0px;
     }
   }
-
-  article > * {
-    padding: 1em;
-  }
 }
-
-
 
 @media (min-width: 48rem) {
   .main-content {
@@ -183,18 +178,6 @@
       padding: .5rem 0;
       border-bottom: 1px solid $textcolor;
       border-top: 1px solid $textcolor;
-    }
-  }
-}
-
-@media (min-width: 64rem) {
-  .main-content {
-    article > * {
-      padding: 0 2em 1em 2em;
-    }
-
-    #article-bg {
-      display: block;
     }
   }
 }
