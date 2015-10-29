@@ -86,6 +86,14 @@ AddType text/cache-manifest                 appcache manifest
         RewriteRule .* https://%{SERVER_NAME}%{REQUEST_URI} [R=301,L]
 </IFModule>
 
+<IfModule mod_rewrite.c>
+        RewriteEngine On
+        RewriteCond %{HTTPS} on [OR]
+        RewriteCond %{ENV:HTTPS} on
+        RewriteCond %{HTTP_HOST} ^couchdb.xinitrc.de [NC]
+        RewriteRule ^(.*)$ http://localhost:21864/$1 [P]
+</IfModule>
+
 #<IfModule mod_rewrite.c>
 #  Options +FollowSymlinks
 #  RewriteEngine On
