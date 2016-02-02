@@ -3,7 +3,7 @@ title: Deep Impact
 tags: meteor, meteor month,  webapps, progress monitoring
 ---
 
-At thursdays local web developers meetup someone said something about [Meteor](https://meteor.com).
+At Thursdays local web developers meetup someone said something about [Meteor](https://meteor.com).
 And since last picking up some new technology or computer skill ([Hakyll](http://jaspervdj.be/hakyll/)) three weeks passed already, I decided that it is time to learn something new again.
 
 <!--more-->
@@ -32,10 +32,10 @@ Not that I think this blog is read by many but this might change and maybe this 
 
 ## Meteor month -- The plan
 
-1. One week of inital reading of documentation and understanding example code and ecosystem.
-2. Deciding what the project will acutally be.
+1. One week of initial reading of documentation and understanding example code and ecosystem.
+2. Deciding what the project will actually be.
 Since I'm at the [Sigint](https://sigint.ccc.de) end of this week I might get lucky and have a project find me, since I got no idea what to do at the moment.
 3. Three weeks of coding, styling and screaming at my MacBook.
-4. Having an inital release by <time>2013-07-31</time>.
+4. Having an initial release by <time>2013-07-31</time>.
 
 As soon as I start the actual project and have some code you'll get a link to a github repository.

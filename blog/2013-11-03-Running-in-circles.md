@@ -3,7 +3,7 @@ title: Running in circles
 tags: math, svg, graphs, graph theory, cycles, cycle freeness
 ---
 
-Even though the title would work for the reason this blog post is out so late, it should have been published monday evening, I still like to do a little math (it's better for my blood pressure anyways).
+Even though the title would work for the reason this blog post is out so late, it should have been published Monday evening, I still like to do a little math (it's better for my blood pressure anyways).
 
 But on to the blog post. Last week I had a short chat with a colleague who is working on graph theory, not my field of research but I really like it. She was stuck on the proof of a property which seems to be rather obvious:
 

@@ -8,13 +8,13 @@ Lately, for reasons which slip my mind right now, I had to review some old libra
  1. Rewrite the code in the more general way, reducing the code size by 30% and increasing the speed on two cases and  
  2. Go into research mode for finding even better patterns of generalisation. 
  
-I can't really show you the difference in 1. because I wrote the code for a project I was hired for and it's not really open source but I decieded to make a series of blog post about 2. I hope you like it.
+I can't really show you the difference in 1. because I wrote the code for a project I was hired for and it's not really open source but I decided to make a series of blog post about 2. I hope you like it.
 
 <!--more-->
 
-## Preliminarys
+## Preliminaries
 
-Since I am a theoretical computer scientist and relly like Haskell, probably much of these will take the form of "Applied Abstract Algebra" or "Applied Category Theory" in Haskell. Therefore I decieded to do the following: Every part in this series will be divided into (at least) blog posts, the first explaining the theoretical foundations, like which algebraic/categorical structure or concept we will use, introducing some examples and some code in Haskell to use these. Subsequent blog posts will make use of the implementation and give general algorithms to solve different problems.
+Since I am a theoretical computer scientist and really like Haskell, probably much of these will take the form of "Applied Abstract Algebra" or "Applied Category Theory" in Haskell. Therefore I decided to do the following: Every part in this series will be divided into (at least) blog posts, the first explaining the theoretical foundations, like which algebraic/categorical structure or concept we will use, introducing some examples and some code in Haskell to use these. Subsequent blog posts will make use of the implementation and give general algorithms to solve different problems.
 
 As this is the first blog post in the series we will start with theory. In this case Sets, Magmas, Semigroups, Monoids and Semirings.
 
@@ -27,16 +27,16 @@ Actually a ***Set*** in the mathematical sense is not that easy to define, there
 I think everybody knows some examples of Sets, let me give some anyways
 
 * \(\mathbb{N}=\{0,1,2,3, \ldots\}\) The set of natural numbers is a set. 
-* \(\mathbb{Z}=\{0, -1, 1, -2, 2, \ldots\}\) The set of intgers is a set.
+* \(\mathbb{Z}=\{0, -1, 1, -2, 2, \ldots\}\) The set of integers is a set.
 * [All vertices in a Graph form set, as do all edges](/blog/2013/11/03/Running-in-circles.html)
 * \(\ldots\)
 
 ### Haskell 
-In the code we will present later, we can usually assume that collectin of every member of a type forms a Set, so I don't give code for Sets here. If we really need to use Sets we can use Data.Set from the Standard Haskell Library.
+In the code we will present later, we can usually assume that collection of every member of a type forms a Set, so I don't give code for Sets here. If we really need to use Sets we can use Data.Set from the Standard Haskell Library.
 
 ## Magma
 
-A ***Magma*** or a Grouppoid is probably one of the algebraic structures, almost nobody knows. A Magma is a Set \(X\) equipped with on binary operation \(\oplus:X\times X\rightarrow X\) which is closed in that Set, with no further restrictions. This is so simple that everybody who has ever written a programm must have seen a Magma without noticing it and probably has written something which is a Magma themself. Let's go over this with an example:
+A ***Magma*** or a Groupoid is probably one of the algebraic structures, almost nobody knows. A Magma is a Set \(X\) equipped with on binary operation \(\oplus:X\times X\rightarrow X\) which is closed in that Set, with no further restrictions. This is so simple that everybody who has ever written a program must have seen a Magma without noticing it and probably has written something which is a Magma themself. Let's go over this with an example:
 
 
 ### Examples 
@@ -65,9 +65,9 @@ We take the integers as our Set \(X=\mathbb{Z}\), as binary operation we take \(
 In Haskell we can make a type class for Magma by the following snippet and define the examples above as instances.
 
 ~~~~ {.haskell}
-class Magma a where 
+class Magma a where
   (<+>) :: a -> a -> a
-
+ 
 data AddMagma = AddMagma Integer
 data MinMagma = MinMagma Integer
 data SubMagma = SubMagma Integer
@@ -84,7 +84,7 @@ instance Magma MinMagma where
 
 ## Semigroup
 
-Now a little more than a *Magma* is a ***Semigroup*** it's again a Set \(X\) with a binary operation \(\oplus\) closed in the set. But we now require a little more of the binary operation, it needs to be **associative**, that means whenever we take three (not necessaryly distinct) elements \(a,b,c\) of the Set \(X\) the following must hold
+Now a little more than a *Magma* is a ***Semigroup*** it's again a Set \(X\) with a binary operation \(\oplus\) closed in the set. But we now require a little more of the binary operation, it needs to be **associative**, that means whenever we take three (not necessarily distinct) elements \(a,b,c\) of the Set \(X\) the following must hold
 \[(a\oplus b)\oplus c=a\oplus (b\oplus c)\].
 
 ### Examples
@@ -94,7 +94,7 @@ For the Magama \((\mathbb{N}, +)\) we have already checked that we have a Set an
 \[(a + b) + c = a + (b + c) \] holds for natural numbers. So \((\mathbb{N}, +)\) is also a Semigroup.
 
 For the Magama \((\mathbb{N}, min(x,y))\) we have also already checked that we have a Set and a binary operation closed in the set and have to check for associativity. Again no formal proof but a more detailed look at 
-\[min(min(a, b), c) = min (a, min (b + c)) \]. On the left side we first take the smaller number of \(a\) and \(b\) and than compare that with c to find the smaller number among those on the right side we first find the smaller of b and c and than compare that to a to find the smalles of those two. Let's assume the numbers are related in the following way \(a<b<c\) than \(min(a,b) = a\) and therefore \(min( min (a, b), c) = min (a, c) = a\) which is the same as \(min(a, min (b, c))=min(a, b)=a\). You can go through the result with other relations to finally come to the conclusion that \(min(x,y)\) is also associative. Which is to say \((\mathbb{N}, min(x,y))\) is also a Semigroup.
+\[min(min(a, b), c) = min (a, min (b + c)) \]. On the left side we first take the smaller number of \(a\) and \(b\) and than compare that with c to find the smaller number among those on the right side we first find the smaller of b and c and than compare that to a to find the smallest of those two. Let's assume the numbers are related in the following way \(a<b<c\) than \(min(a,b) = a\) and therefore \(min( min (a, b), c) = min (a, c) = a\) which is the same as \(min(a, min (b, c))=min(a, b)=a\). You can go through the result with other relations to finally come to the conclusion that \(min(x,y)\) is also associative. Which is to say \((\mathbb{N}, min(x,y))\) is also a Semigroup.
 
 Now for our third example from above, \((\mathbb{Z},-)\). This doesn't form a Semigroup which we can see by taking \(a=7,b=6,c=5\) and put it in \((7-6)-5=1-5=-4 \not= 7-(6-5)=7-1=-6\) so obviously this is not associative. As a result \(\mathbb{Z},-)\) is a Magma, but not a Semigroup.
 
@@ -146,13 +146,13 @@ So now for the last structure I need to introduce for the next blog post, the **
 \[a \otimes (b \oplus c) = (a\otimes b) \oplus (a\otimes c)\]
 \[(a \oplus b) \otimes c = (a\otimes c) \oplus (b \otimes c)\]
 
-Ok, I see that looks complicated at first let's try to see what it means. We already know what these Monoid thingys are, now we just have two of them that work on the same Set. That should not be to complicated. But what about these properties. You actually have encountered one example of a Semiring in school, withouth explicitly stated as such. The Semiring \((\mathbb{N}, +, \cdot, 0, 1\)\). 
+Ok, I see that looks complicated at first let's try to see what it means. We already know what these Monoid thingys are, now we just have two of them that work on the same Set. That should not be to complicated. But what about these properties. You actually have encountered one example of a Semiring in school, without explicitly stated as such. The Semiring \((\mathbb{N}, +, \cdot, 0, 1\)\). 
 
 Where \((\mathbb{N}, +, 0)\) is a Monoid, we already know that, I think you can check that \(\mathbb{N}, \cdot, 1\) is also a Monoid on your own. Now for the remaining properties: 
 
 1. \(a \oplus b=b\oplus a\) this simply states that I can switch the operands of the first operation which is called *commutativity*, you can check that this is the case with \(+\) \(a + b\) is always the same as \(b + a\) 
 2. \(a \otimes \mathbf{0}=\mathbf{0}\otimes a=\mathbf{0}\) in this case \(\otimes=\cdot\) and \(\mathbf{0}\) is simply \(0\), so this property holds too, just check \(a \cdot 0 = 0 \cdot a = 0\)
-3. \(a \otimes (b \oplus c) = (a\otimes b) \oplus (a\otimes c)\) and \((a \oplus b) \otimes c = (a\otimes c) \oplus (b \otimes c)\) you can check these with basic arithmatic, if you add two numbers and multiply them with a third number it is the same as if you first multiply the individual numbers both with third number and add the results of these multiplications.
+3. \(a \otimes (b \oplus c) = (a\otimes b) \oplus (a\otimes c)\) and \((a \oplus b) \otimes c = (a\otimes c) \oplus (b \otimes c)\) you can check these with basic arithmetic, if you add two numbers and multiply them with a third number it is the same as if you first multiply the individual numbers both with third number and add the results of these multiplications.
 
 But why are these two properties you might ask. This is simple, up to this point I never required that \(a \otimes b\) is the same as \(b \otimes a\), so I can't simply switch the operands around. This allows me to use more operations for the \(\otimes\) operation above. Just as an example of an operation where I can't switch around the operands think of subtraction \(7-5=2\) is obviously not the same as \(5-7=-2\).
 
@@ -160,11 +160,11 @@ So what we just did is give a generalisation of this \((\mathbb{N}, +, \cdot, 0,
 
 ### Example
 
-\((\mathbb{N}\cup \{\infty\}, min(x,y), +, \infty, 0)\) now this seems completly ridicoules, but will be very helpfull in the next installment of this series. Ok now let's have a closer look. As already established above \((\mathbb{N}\cup \{\infty\}, min(x,y), \infty)\) is a Monoid, as is \((\mathbb{N}\cup\{\infty\}, +, 0\)\) (you just have to say adding \(\infty\) to anything is \(\infty\), as you might have expected). Now we need to check the other properties 
+\((\mathbb{N}\cup \{\infty\}, min(x,y), +, \infty, 0)\) now this seems completely ridiculous, but will be very helpful in the next instalment of this series. Ok now let's have a closer look. As already established above \((\mathbb{N}\cup \{\infty\}, min(x,y), \infty)\) is a Monoid, as is \((\mathbb{N}\cup\{\infty\}, +, 0\)\) (you just have to say adding \(\infty\) to anything is \(\infty\), as you might have expected). Now we need to check the other properties 
 
 1. \(a \oplus b=b\oplus a\) check above again \(\oplus=min(x,y)\), so we need to check that \(min(x,y)=min(y,x)\) but that is easy to see, I hope. 
 2. \(a \otimes \mathbf{0}= \mathbf{0}\otimes a=\mathbf{0}\), again attention \(\otimes=+\) and \(\mathbf{0}=\infty\) so we have to check \(a+\infty=\infty+a=\infty\), I think this you will agree this is correct, especially since I stated this to be the case above.
-3. \(a \otimes (b \oplus c) = (a\otimes b) \oplus (a\otimes c)\) and \((a \oplus b) \otimes c = (a\otimes c) \oplus (b \otimes c)\) this is to say \(a + min(b,c) = min(a+b, a+c)\) and \(min(a,b)+c = min(a+c, b+c)\) I think we agree on that too. So \((\mathbb{N}\cup \{\infty\}, min(x,y), +, \infty, 0)\) also forms a Semring. Actually Semirings using \(min(x,y)\) and \(+\) as operations have a name they are called Tropical Semirings and as I already said we will put this one to good use in the next installment.
+3. \(a \otimes (b \oplus c) = (a\otimes b) \oplus (a\otimes c)\) and \((a \oplus b) \otimes c = (a\otimes c) \oplus (b \otimes c)\) this is to say \(a + min(b,c) = min(a+b, a+c)\) and \(min(a,b)+c = min(a+c, b+c)\) I think we agree on that too. So \((\mathbb{N}\cup \{\infty\}, min(x,y), +, \infty, 0)\) also forms a Semring. Actually Semirings using \(min(x,y)\) and \(+\) as operations have a name they are called Tropical Semirings and as I already said we will put this one to good use in the next instalment.
 
 ### Haskell
 
@@ -201,7 +201,7 @@ instance Semiring Tropical where
 
 ## Wrapping up 
 
-So now I hope I haven't confused you to much, if I have, try reading it again. If it is still unclear and you want to understand it or if you think I might have made a mistake, which is very well in the realm of possible, the comment section is your friend. If necessary I'll update this post accordingly. Next time (not necessaryly next blog post) I'll try to put the above to good use, especially the Semiring stuff.
+So now I hope I haven't confused you to much, if I have, try reading it again. If it is still unclear and you want to understand it or if you think I might have made a mistake, which is very well in the realm of possible, the comment section is your friend. If necessary I'll update this post accordingly. Next time (not necessarily next blog post) I'll try to put the above to good use, especially the Semiring stuff.
 
 
 
@@ -209,7 +209,7 @@ So now I hope I haven't confused you to much, if I have, try reading it again. I
 
 I have to make small addition to this post, I forgot to explain one algebraic structure the *-semiring. It is actually a just a small addition to a Semring. We add another operation which we call asteration or star (\(*\)) this operation has to satisfy the following property for any \(x\in X\)
 \[x^* = \mathbf{1}\oplus (x\otimes x^*) = \mathbf{1}\oplus (x^*\otimes x)\]
-It is whats called a fixpoint operator. Depending on the setting it might e.g. work as repetition or simple be instantiated to a specific value. From this star operation we can derive another which is called plus. Plus simply omits the base case and can be defined by:
+It is whats called a fix point operator. Depending on the setting it might e.g. work as repetition or simple be instantiated to a specific value. From this star operation we can derive another which is called plus. Plus simply omits the base case and can be defined by:
 \[x^+=x\otimes x*\]
 
 One detail we will need for the next blog post is that these operators can be defined in terms of each other. We defined \(+\) in terms of \(*\). The reverse direction works as follows. 
@@ -226,7 +226,7 @@ In the \((N\cup \{\infty\}, min, +, \infty, 0)\) semiring on the other hand \(x*
 
 ### Haskell 
 
-In Haskell we can write a semiring as follows, obviously for any instance we would have to override one of the both to not fall into the trap of an infinite recursion. For the same reason I will omit a definition of the school arithmatic semiring, it simply wont finish computing anyway. However you will find the definition for the Tropical Semiring below. 
+In Haskell we can write a semiring as follows, obviously for any instance we would have to override one of the both to not fall into the trap of an infinite recursion. For the same reason I will omit a definition of the school arithmetic semiring, it simply wont finish computing anyway. However you will find the definition for the Tropical Semiring below. 
 
 ~~~~ {.haskell}
 class Semiring a => StarSemiring a where

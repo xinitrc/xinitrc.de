@@ -49,7 +49,7 @@ exchanging youtube for vimeo.
 After I had that, I rolled it into a plugin. (The additional div
 will be explained further down.)
 
-~~~ ruby
+~~~~ {.ruby}
 module Jekyll
   class Vimeo < Liquid::Tag
     def initialize(name, id, tokens)
@@ -85,7 +85,7 @@ Liquid::Template.register_tag "youtube", Jekyll::YouTube
 Liquid::Template.register_tag "vimeo", Jekyll::Vimeo
 
 
-~~~
+~~~~
 
 ## Responsiveness
 Now I got working video, but that was only half of what I
@@ -93,7 +93,7 @@ wanted. Missing still: The video should be responsive. I already did
 that for another site, so this bit came in easy. I surrounded the
 video with a div to identify it and perform the following css voodoo on it. 
 
-~~~ css
+~~~~{.css}
 .elastic-video {
 	position: relative;
 	padding-bottom: 56.25%;
@@ -109,7 +109,7 @@ video with a div to identify it and perform the following css voodoo on it.
 	width: 100%;
 	height: 100%;
 }
-~~~
+~~~~
 
 ## Example
 

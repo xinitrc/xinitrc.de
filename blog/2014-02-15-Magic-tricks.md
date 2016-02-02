@@ -3,7 +3,7 @@ title: Magic tricks
 tags: haskell, graphs, semiring
 ---
 
-After in the last [blog post](/blog/2014/02/09/Sucker-for-generality.html) I described some algebraic strutures and already said I would like to show case how to solve some very different problems with those. I think it's now time to go into that. I start with something which is more or less a reiteration of a fantastic [blog post](http://r6.ca/blog/20110808T035622Z.html) by Russell O'Conner on mostly graph problems. I will layout the problems a little differently and hope to convey the ideas behind the post to a wider audience. I will also omit some stuff and maybe come back to that in a later post. But now without further ado let's get started.
+After in the last [blog post](/blog/2014/02/09/Sucker-for-generality.html) I described some algebraic structures and already said I would like to show case how to solve some very different problems with those. I think it's now time to go into that. I start with something which is more or less a reiteration of a fantastic [blog post](http://r6.ca/blog/20110808T035622Z.html) by Russell O'Conner on mostly graph problems. I will layout the problems a little differently and hope to convey the ideas behind the post to a wider audience. I will also omit some stuff and maybe come back to that in a later post. But now without further ado let's get started.
 
 <!--more-->
 
@@ -13,42 +13,41 @@ First up, I had another blog post in mind at first, which in retrospect seemed a
 
 So after introducing the definition of a (\(*\)-)semiring in the last post, let's now look at some examples. First let's agree that any square matrix over a semiring is a semiring as well. To do that we first need to define the two operations \(\oplus\) and \(\otimes\) in terms of the operations on the underlying semiring. In other words given a semiring \((X, \oplus, \otimes, \mathbf{0}, \mathbf{1})\) give a semiring \((X^{\mathbb{N}\times\mathbb{N}}, \oplus_{m}, \otimes_{m}, \mathbf{0}_{m}, \mathbf{1}_{m})\) such that this also forms a semiring. The second part is to select the elements  \(\mathbf{0}_{m}\) and \(\mathbf{1}_{m}\).
 
-Actually this is simple for the \(\oplus_m\) Operation we just have to lift the \(\oplus\) operation of our underlying semiring to matrixes. Lifting simply means doing the operation \(\oplus\) on every component of the matrix. So the first item in the first row of both matrixes are connected with \(\oplus\) then the second items of the first rows and so on and so on. Writtten mathematically:
+Actually this is simple for the \(\oplus_m\) Operation we just have to lift the \(\oplus\) operation of our underlying semiring to matrices. Lifting simply means doing the operation \(\oplus\) on every component of the matrix. So the first item in the first row of both matrices are connected with \(\oplus\) then the second items of the first rows and so on and so on. Written mathematically:
 
 \[C = A \oplus_{m} B \Leftrightarrow c_{ij} = a_{ij} \oplus b_{ij}\]
 
 here \(a_{ij}\) simply means the element at the ith column in the jth row of matrix \(A\).
  
-Ok now for the second operation \(\otimes_m\) we simply use the same "trick" we usually us to multiply two matrixes, we use the \(\otimes\) operation component wise on the rows of the first matrix with the corresponding columns of the second matrix and than use the \(\oplus\) operation over all of these results to get one result. Or mathmatically put:
+Ok now for the second operation \(\otimes_m\) we simply use the same "trick" we usually us to multiply two matrices, we use the \(\otimes\) operation component wise on the rows of the first matrix with the corresponding columns of the second matrix and than use the \(\oplus\) operation over all of these results to get one result. Or mathematically put:
 
 \[C = A \otimes_{m} B \Leftrightarrow c_{ij} = \oplus_{k=0}^{n} (a_{kj} \otimes b_{ik})\]
 
 where \(n\) is the size of the matrix.
 
-What remains open are the neutral elements, but these both are easy. To do nothing to any component we can add \(\mathbf{0}\) from the underlying semiring, since we already know this doesn't change anything, due to the rules of the underlying semiring, it wont change anything in the square matrixes. So \(\mathbf{0}_m\) is just a square matrix consisting of all compontents \(\mathbf{0}\). 
+What remains open are the neutral elements, but these both are easy. To do nothing to any component we can add \(\mathbf{0}\) from the underlying semiring, since we already know this doesn't change anything, due to the rules of the underlying semiring, it wont change anything in the square matrices. So \(\mathbf{0}_m\) is just a square matrix consisting of all components \(\mathbf{0}\). 
 
 For the \(\mathbf{1}_{m}\) we use the identity matrix so the matrix, where all elements on the main diagonal are 1, we only have to use the \(\mathbf{1}\) from our semiring, and everything works out perfectly.
 
-Now you have only to suffer through the next section for an implementation, which is somewhat taylored to our application.
+Now you have only to suffer through the next section for an implementation, which is somewhat tailored to our application.
 
 ## Graphs 
 
-One application of square matrixes is to describe the connections of graphs. Actually depending on your definition of a graph the matrix can be used as a complete definition of the graph, so let's do so. First we need a type to hold the edges. Since we don't want to specify what we can put in those edges, this will later help us to use one representation of graphs and edges for multiple purposes. 
+One application of square matrices is to describe the connections of graphs. Actually depending on your definition of a graph the matrix can be used as a complete definition of the graph, so let's do so. First we need a type to hold the edges. Since we don't want to specify what we can put in those edges, this will later help us to use one representation of graphs and edges for multiple purposes. 
 
 ~~~~ {.haskell}
-data Edge a = a :-> a deriving (Eq, Ord, Bounded, Ix)
-
+data Edge a = a :-> a deriving (Eq, Ord, Bounded, Ix) 
 ~~~~
 
 Here we have an Edge datatyp with a constructor <span class="tt">:-&gt;</span>. And we let the Haskell compiler figure out how we can check for Equality (**Eq**), that we can order edges (**Ord**), that there is a min and a maximum bound (**Bounded**) on all the types and that we can Index (**Ix**) especially the last two will be very useful later on.
 
-Now we come to our matrix type. For a Matrix we need two types of input parameters, the type of index data, and the type of the content. The index data tells us how to address the components. In Haskell we could use any type for this as long as we have some mapping to the integers. This is a little more flexible in writing than always having to switch bewteen your mental model and if it is [x][y] or [y][x]. 
+Now we come to our matrix type. For a Matrix we need two types of input parameters, the type of index data, and the type of the content. The index data tells us how to address the components. In Haskell we could use any type for this as long as we have some mapping to the integers. This is a little more flexible in writing than always having to switch between your mental model and if it is [x][y] or [y][x]. 
 
-In addition we say that Matrixes are an instance of Applicative, which denotes that it is an applicative functor. I wont go into this in this post just think of it as it implements the container interface and we can apply functions to the individual components. This is not perfectly acurate but for the moment it will do. 
+In addition we say that Matrices are an instance of Applicative, which denotes that it is an applicative functor. I wont go into this in this post just think of it as it implements the container interface and we can apply functions to the individual components. This is not perfectly accurate but for the moment it will do. 
 
-Third we add two helper function, one which generates a list with one entry for every component of the resulting matrix, and one which takes a function then takes every component of our matrix and applys this function. These two functions simply do the following, whenever we want to create a new square matrix for a specific type we generate a dummy element for every entry and then apply a function to convert that dummy element into the final entry. In Java or C you would have a for loop iterating through the numbers 0 up to n (this is the dummy list) and then do something like <span class="tt">x[i] = f(i)</span> where f is some function in the body of the for loop.
+Third we add two helper function, one which generates a list with one entry for every component of the resulting matrix, and one which takes a function then takes every component of our matrix and applies this function. These two functions simply do the following, whenever we want to create a new square matrix for a specific type we generate a dummy element for every entry and then apply a function to convert that dummy element into the final entry. In Java or C you would have a for loop iterating through the numbers 0 up to n (this is the dummy list) and then do something like <span class="tt">x[i] = f(i)</span> where f is some function in the body of the for loop.
 
-Last but not least we say square matrixes over edges where the content type is a semiring are as well a semiring, with the operations just like I told you before.
+Last but not least we say square matrices over edges where the content type is a semiring are as well a semiring, with the operations just like I told you before.
 
 ~~~~ {.haskell}
 newtype Matrix i e = Matrix {unmatrix :: (Array (Edge i) e)}
@@ -72,7 +71,6 @@ instance (Ix i, Bounded i, Semiring a) => Semiring (Matrix i a) where
   (Matrix x) <.> (Matrix y) = matrix build
       where
 	      build (i :-> j) = foldr (<+>) zero [x!(i :-> k) <.> y!(k :-> j) | k <- entireRange]
-						
 ~~~~ 
 
 
@@ -89,7 +87,7 @@ instance (Ix i, Bounded i, StarSemiring a) => StarSemiring (Matrix i a) where
 														  
 ~~~~
 
-Ok so what does it do. It stipulates that matrixes over a star semiring are also star semirings. For that we need to implement one of the two operations \(*\) or \(+\). Since \(*\) will lead us to a infinite recursion I opted for \(+\), but what does it do? First up a recap the operations of a \(*\)-semiring are Fixpoint operators, that is the performe one or more operations until there is no more change (or ad infinitum if there is always progress). So how would we implement this.
+Ok so what does it do. It stipulates that matrices over a star semiring are also star semirings. For that we need to implement one of the two operations \(*\) or \(+\). Since \(*\) will lead us to a infinite recursion I opted for \(+\), but what does it do? First up a recap the operations of a \(*\)-semiring are Fix point operators, that is the perform one or more operations until there is no more change (or ad infinitum if there is always progress). So how would we implement this.
 
 Let's formulate this in terms of graphs and their connectedness structure, we start with an initial setup, and then go through every node <span class="tt">foldr f x entireRange</span> and take a look at every component if either the current result doesn't change (<span class="tt">m!(i:->j)</span>) or (<span class="tt">&lt;+&gt;</span>) if we can get a "better" result using the new node <span class="tt">k</span> (<span class="tt"> m!(i :-> k) &lt;.&gt; star (m!(k :-> k)) &lt;.&gt; m!(k :-> j)</span>).
 
@@ -97,17 +95,17 @@ I give you that sounds really vague, how can this be of any significance. This i
 
 ## Boolean \(*\)-Semiring
 
-The boolean \(*\)-Semiring is really simple, first the semiring-part, I will use the standard programming notation for **and** and **or** to make it a little easier. Than this \((\{0,1\}, ||, \&\&, 0, 1)\) is the Boolean semiring. For this one I will do a little sanity check for the later semirings I let you do that on your own. First if I take any boolean (0 or 1) and do an or operation with 0 we will get the original value back. <span class="tt">(0 || 0 = 0, 1 || 0 = 1, 0 || 1 = 1)</span>. Same goes for the and operation and 1 <span class="tt">(0 && 1 = 0, 1 && 0 = 0, 1 && 1 = 1)</span>. These exaustiv examples also take care of the property that <span class="tt">a || b = b || a</span>. What remains to show is that the operations are distributing over one another, but this is what is called [Rule of replacement](https://en.wikipedia.org/wiki/Distributive_property). So we have established that booleans form a semiring. 
+The Boolean \(*\)-Semiring is really simple, first the semiring-part, I will use the standard programming notation for **and** and **or** to make it a little easier. Than this \((\{0,1\}, ||, \&\&, 0, 1)\) is the Boolean semiring. For this one I will do a little sanity check for the later semirings I let you do that on your own. First if I take any Boolean (0 or 1) and do an or operation with 0 we will get the original value back. <span class="tt">(0 || 0 = 0, 1 || 0 = 1, 0 || 1 = 1)</span>. Same goes for the and operation and 1 <span class="tt">(0 && 1 = 0, 1 && 0 = 0, 1 && 1 = 1)</span>. These exhaustive examples also take care of the property that <span class="tt">a || b = b || a</span>. What remains to show is that the operations are distributing over one another, but this is what is called [Rule of replacement](https://en.wikipedia.org/wiki/Distributive_property). So we have established that Booleans form a semiring. 
 
-Now for the \(*\) part, this is simple (and somewhat unceremonial) too. Looking at the definition of \(*\) we have: 
+Now for the \(*\) part, this is simple (and somewhat unceremoniously) too. Looking at the definition of \(*\) we have: 
 
 \[x^{*}=1\oplus x\otimes x^*\]
 
-So let's put the operators from our boolean semiring into place. Then this becomes:
+So let's put the operators from our Boolean semiring into place. Then this becomes:
 
 \[x^{*}=1 || x \&\& x^*\] 
 
-now we simply use short circute evaluation the result of 1 || anything will always be 1 so we can simply say \(x^*=1\) for any \(x\) and now we have a star semiring. 
+now we simply use short circuit evaluation the result of 1 || anything will always be 1 so we can simply say \(x^*=1\) for any \(x\) and now we have a star semiring. 
 
 ### Haskell 
 
@@ -186,7 +184,7 @@ We first rewrite this to use our semiring then we get
 
 <span class="tt"> m!(i :-> j) || m!(i :-&gt; k) && star (m!(k :-&gt; k)) && m!(k :-&gt; j)</span>. 
 
-So when we go through every node N1 upto N6 the following happens:
+So when we go through every node N1 up to N6 the following happens:
 <ol>
 <li><span class="tt"> m!(N1 :-> N4) || m!(N1 :-&gt; N1) && star (m!(N1 :-&gt; N1)) && m!(N1 :-&gt; N4)= 0 || 0 && star (0) && 0=0|| 0 && 1 && 0=0</span></li>
 <li><span class="tt"> m!(N1 :-> N4) || m!(N1 :-&gt; N2) && star (m!(N2 :-&gt; N2)) && m!(N2 :-&gt; N4)= 0 || 1 && star (0) && 1=0|| 1 && 1 && 1=1</span></li>
@@ -196,7 +194,7 @@ So when we go through every node N1 upto N6 the following happens:
 <li><span class="tt"> m!(N1 :-> N4) || m!(N1 :-&gt; N6) && star (m!(N6 :-&gt; N6)) && m!(N6 :-&gt; N4)= 1 || 0 && star (0) && 0=1|| 0 && 1 && 0=1</span></li>
 </ol>
 
-Now what happend here? As soon as we hit the second iteration we found a path from N1 to N4 via N2 and the entry in the matrix changed from 0 to 1. If we do this for all entries what will happen is, we calcuate the transitive connection relation, in other words we calculate which node we can reach from which other node via any path.
+Now what happened here? As soon as we hit the second iteration we found a path from N1 to N4 via N2 and the entry in the matrix changed from 0 to 1. If we do this for all entries what will happen is, we calculate the transitive connection relation, in other words we calculate which node we can reach from which other node via any path.
 
 Without all the fuzz, what we did here is implementing the so called Warshall-Algorithm in Haskell, in a somewhat complicated way I give you that. But the nice part is, we are not done here. 
 
@@ -256,7 +254,7 @@ exampleEdgeList2 (i :-> j) = (lookup (i :-> j) edges) `mplus` (lookup (j :-> i) 
 
 Now what does our \(*\) operation do now? Let's go with the same example we did above, the first row, fourth column.
 
-We once again go through N1 to N6 in search for what happnes to N1 :-> N4
+We once again go through N1 to N6 in search for what happens to N1 :-> N4
 
 <ol>
 <li><span class="tt"> min(m!(N1 :-> N4), m!(N1 :-&gt; N1) + star (m!(N1 :-&gt; N1)) + m!(N1 :-&gt; N4)= min(&infin;,  &infin; + star (&infin;) + &infin;)= min(&infin;, &infin; + 0 + &infin;)=&infin;</span></li>
@@ -267,7 +265,7 @@ We once again go through N1 to N6 in search for what happnes to N1 :-> N4
 <li><span class="tt"> min(m!(N1 :-> N4), m!(N1 :-&gt; N6) + star (m!(N6 :-&gt; N6)) + m!(N6 :-&gt; N4)= min(20,  14; + star (&infin;) + &infin;)= min(20, 14 + 0 + &infin;)=20</span></li>
 </ol>
 
-So what happend here, on step 2 we got a new value for our entry in the matrix, which at step three was again changed. What you can see here, is the same algorithm instantiated with another semiring calculates the shortest distance between the nodes. 
+So what happened here, on step 2 we got a new value for our entry in the matrix, which at step three was again changed. What you can see here, is the same algorithm instantiated with another semiring calculates the shortest distance between the nodes. 
 
 Oh this algorithm by the way is known as the Floyd- or [Floyd-Warshall-Algorithm](https://en.wikipedia.org/wiki/Floyd-Warshall). I doubt that at it's conception the semiring property of bool and the tropical semiring was properly observed. You can obviously come from the Warshall- to the Floyd-Warshall-Algorithm by just looking long enough at the original code I believe.
 
@@ -275,7 +273,7 @@ Let's do two more semirings.
 
 ## MaxMin \(*\)-semiring
 
-Another semiring we could think up is this \((\mathbb{N}\cup\{\infty\}, max(x,y), min(x,y), 0, \infty)\). I have trust in you that you can check that this ins indeed a semiring on your own. For the \(*\) operation I give you some help, even though this is easy too. Once again the definining property is:
+Another semiring we could think up is this \((\mathbb{N}\cup\{\infty\}, max(x,y), min(x,y), 0, \infty)\). I have trust in you that you can check that this ins indeed a semiring on your own. For the \(*\) operation I give you some help, even though this is easy too. Once again the defining property is:
 
 \[x^*=\mathbf{1}\oplus x\otimes x^*\]
 
@@ -283,16 +281,16 @@ which in this case means:
 
 \[x^*=max(\infty, min(x,x^*))\]
 
-and once again short circut evaluation yields simply that \(x^*=\infty\) since the maximum of \(\infty\) and anything else will be \(\infty\).
+and once again short circuit evaluation yields simply that \(x^*=\infty\) since the maximum of \(\infty\) and anything else will be \(\infty\).
 
 ### Application
 I wont go through the algorithm again, but just go through it on a more thought experimental way. 
 
 <span class="tt"> max (m!(i :-> j),  min (min (m!(i :-&gt; k), star (m!(k :-&gt; k)), m!(k :-&gt; j))</span>
 
-This is the line of our algorithm with the operations from the semiring given above. Let's examin what this does. For every connection from one node to another we take the maximum of all possible pathes connecting two nodes, but take the minimum of all the connections in between. So if we have two pathes leading from one node to another we take the one where the smallest edge weight is larger than the smallest edge weight on the other path. 
+This is the line of our algorithm with the operations from the semiring given above. Let's examine what this does. For every connection from one node to another we take the maximum of all possible path's connecting two nodes, but take the minimum of all the connections in between. So if we have two paths leading from one node to another we take the one where the smallest edge weight is larger than the smallest edge weight on the other path. 
 
-Assume that the weights now represent throuhgput through some channel, than this algorithm gives us the channel to choose to send the most data in the shortest time. In our examplegraph from above for example we would take the path \(N1 \rightarrow N3 \rightarrow N4\) over \(N1\rightarrow N2\rightarrow N4\) because the minimum edge weight on the first path is 9 while on the second path it is 7. 
+Assume that the weights now represent throughput through some channel, than this algorithm gives us the channel to choose to send the most data in the shortest time. In our example graph from above for example we would take the path \(N1 \rightarrow N3 \rightarrow N4\) over \(N1\rightarrow N2\rightarrow N4\) because the minimum edge weight on the first path is 9 while on the second path it is 7. 
 
 I will only give you the semiring for MaxMin here and will give a full Haskell file with everything implemented later.
 
@@ -321,7 +319,7 @@ So final example for this blog post. Another semiring, this time \(([0,1], max(x
 
 ### Application 
 
-Let's assume we have a graph like the one above but this time the edge weights are real values between 0 and 1. We interprete these as reliabilities. So the higher the number the more reliable the path. Should you want to send a data package from one node to another you would obviously like to have it go the most reliable path. And that is exactly what the \(*\) operation will now do. 
+Let's assume we have a graph like the one above but this time the edge weights are real values between 0 and 1. We interpret these as reliabilities. So the higher the number the more reliable the path. Should you want to send a data package from one node to another you would obviously like to have it go the most reliable path. And that is exactly what the \(*\) operation will now do. 
 
 Once again taking the significant line from our algorithm and substituting the operations in we get this.
 
@@ -348,4 +346,4 @@ instance StarSemiring Reliability where
 
 ## Wrapping up
 
-What I showed you are 7 very powerful lines of code, implementing a very general algorithm. Just from this blog post they implement the transitive connection relation, length of the shortest path between two nodes, the maximum throughput between two nodes and the highest possible reliability for a path. Currently they don't give you the actual pathes achieving those properties, but, probably not much to your surprise, we can actually do that with our newest best friend the \(*\)-semiring too. But since this blog post is long enough already I will leave that for the next blog post. What remains is [this link](/assets/documents/Semiring1.hs) to the file containing a working implementation and some examples.  
+What I showed you are 7 very powerful lines of code, implementing a very general algorithm. Just from this blog post they implement the transitive connection relation, length of the shortest path between two nodes, the maximum throughput between two nodes and the highest possible reliability for a path. Currently they don't give you the actual path's achieving those properties, but, probably not much to your surprise, we can actually do that with our newest best friend the \(*\)-semiring too. But since this blog post is long enough already I will leave that for the next blog post. What remains is [this link](/assets/documents/Semiring1.hs) to the file containing a working implementation and some examples.  
