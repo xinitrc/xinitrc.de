@@ -47,7 +47,7 @@ We now have a \(*\)-semiring for calculating **all** shortest path's between two
 
 ## Haskell
 
-The following Haskell code works with all the \(*\)-semirings from the second to last blog post, so you just plug in <span class="tt">Tropical</span>, <span class="tt">MinMax</span> or <span class="tt">Relibatility</span> for <span class="tt">a</span> and you get the algorithm for the property you like. 
+The following Haskell code works with all the \(*\)-semirings from the second to last blog post, so you just plug in <span class="tt">Tropical</span>, <span class="tt">MinMax</span> or <span class="tt">Reliability</span> for <span class="tt">a</span> and you get the algorithm for the property you like. 
 
 ~~~~{.haskell}
 data BestPath a x = BestPath a x
@@ -80,3 +80,6 @@ Even though you probably wouldn't have notice at first, but I cheated a little i
 
 After now having defined a new \(*\)-semiring we can finally find all path's exhibiting a specific property. I have an updated file giving you the full definitions from all the last blog posts, just follow [this link](/assets/documents/Semiring.hs). Next up I will probably give this to you in a programming language "real people use" (someone asked for it) and then let's see if we can venture into a whole different area and let our 7 lines of code rest for the moment.
 
+
+%  LocalWords:  semiring haskell semirings oplus tt MinMax Functor
+%  LocalWords:  fmap cgextract
