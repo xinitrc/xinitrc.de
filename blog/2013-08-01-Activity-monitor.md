@@ -30,27 +30,27 @@ Let's make that a little more detailed, probably nobody understood it from the t
 
 Our journey starts at line 3 of the [facts.html](https://github.com/xinitrc/xinitrc.de/blob/master/facts.html):
 
-~~~ {.yaml}
+~~~~ {.yaml}
 ---
 title: xinitrc facts
 facts: true
 ---
-~~~
+~~~~
 
 The variable <span class="tt">facts</span> is initialised and set to <span class="tt">true</span>, as I already said the value is completely irrelevant, it suffices to add the variable at all. (I was actually tempted to set it to <span class="tt">false</span> but that would be outright evil.)
 
 Next in Line 144ff of [site.hs](https://github.com/xinitrc/xinitrc.de/blob/master/site.hs)
 
-~~~ { .haskell }
-match ("facts.html" .||. "contact.html" )$ do
+~~~~ {.haskell}
+match ("facts.html" .||. "contact.html" ) $ do
         route idRoute
         compile $ applyKeywords
                   >>= loadAndApplyTemplate "templates/main.html" (taggedPostCtx tags)
-~~~
+~~~~
 
 the facts page is matched and the [templates/main.html](https://github.com/xinitrc/xinitrc.de/blob/master/templates/main.html) is applied.
 
-~~~ {.html }
+~~~~ {.html}
 <di id="wrapper">
     $partial("partials/navbar.html")$
 
@@ -63,15 +63,15 @@ the facts page is matched and the [templates/main.html](https://github.com/xinit
     $partial("partials/sidebar.html")$
 </div>
 
-~~~
+~~~~
 
 Where in Line 6 the [partials/navbar.html](https://github.com/xinitrc/xinitrc.de/blob/master/partials/navbar.html) partial is requested for rendering. Which in line 16ff contains the following code.
 
-~~~ { .html }
+~~~~ {.html}
 <li>
     <a  $if(facts)$ class="active" $endif$ href="/facts.html">xinitrc facts<i class="icon-chevron-right con-large"></i></a>
 </li>
-~~~
+~~~~
 
 
 This looks up if <span class="tt">facts</span> is defined, which it is, and therefor renders the <span class="tt"> class="active"</span>.

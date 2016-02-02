@@ -9,7 +9,7 @@ After having set up this site as a [Jekyll](http://jekyllrb.com/)-Blog last year
 
 ## The crisis
 
-Two weeks ago I finally had time again, after some stressful month privately and at work and wanted to pick up blogging again. Much to my dismay, since last using Jekyll, the [Ruby](http://www.ruby-lang.org/) and Jekyll versions changed significantly and I had already upgraded Ruby and left the whole system in an non-compiling state. This was especially unconvenient since I know almost no Ruby and am even less able to debug strange problems with the packaging system.
+Two weeks ago I finally had time again, after some stressful month privately and at work and wanted to pick up blogging again. Much to my dismay, since last using Jekyll, the [Ruby](http://www.ruby-lang.org/) and Jekyll versions changed significantly and I had already upgraded Ruby and left the whole system in an non-compiling state. This was especially inconvenient since I know almost no Ruby and am even less able to debug strange problems with the packaging system.
 
 ## Twitter to the rescue
 One tweet:
@@ -40,13 +40,13 @@ and if possible I'd like to have it easier, more robust, even more bells and whi
 
 ## The (new) setup
 
-So here is the basic setup. Since my awesome hosting provider [uberspace](http://uberspace.de) has a ruby environment set up automatically I could write blog posts locally, <span class="tt">git commit</span> and <span class="tt">git push</span> them and have a <span class="tt">post-receive</span> hook generate the page server site. The same can, unfortunally, not be said for a Haskell environment. And since I deemed it a little overkill to put one up, just for the purpose of blogging, I decided to do more work locally. So now I'm write and compile the site locally and deploy it via Hakylls <span class="tt">deploy</span> command, which wraps a call to <span class="tt">rsync</span> over <span class="tt">ssh</span>.
+So here is the basic setup. Since my awesome hosting provider [uberspace](http://uberspace.de) has a ruby environment set up automatically I could write blog posts locally, <span class="tt">git commit</span> and <span class="tt">git push</span> them and have a <span class="tt">post-receive</span> hook generate the page server site. The same can, unfortunately, not be said for a Haskell environment. And since I deemed it a little overkill to put one up, just for the purpose of blogging, I decided to do more work locally. So now I'm write and compile the site locally and deploy it via Hakylls <span class="tt">deploy</span> command, which wraps a call to <span class="tt">rsync</span> over <span class="tt">ssh</span>.
 
 As you can see from the sites linked further up still working, I maintained all the functionality mentioned above. 
 
 For the MathML part this was rather easy since pandoc, the underlying compiler for Hakyll, already provides you with compilation to MathML out of the box. You merely have to switch it on, or better not switch it off. 
 
-For the responsive video functionallity I went a little fancy and wrote small [Parsec](http://www.haskell.org/haskellwiki/Parsec) parser and while at it added responsive [Slideshare](http://www.slideshare.net/) embedding and a [Tikz](http://www.texample.net/tikz/) to [SVG](https://en.wikipedia.org/wiki/Scalable_Vector_Graphics) converter. Which allows me to write standard tikz code and have it automatically compiled to an SVG and embedded in place (as long as your browser supports it and it is not to complex). 
+For the responsive video functionality I went a little fancy and wrote small [Parsec](http://www.haskell.org/haskellwiki/Parsec) parser and while at it added responsive [Slideshare](http://www.slideshare.net/) embedding and a [Tikz](http://www.texample.net/tikz/) to [SVG](https://en.wikipedia.org/wiki/Scalable_Vector_Graphics) converter. Which allows me to write standard tikz code and have it automatically compiled to an SVG and embedded in place (as long as your browser supports it and it is not to complex). 
 
 For the talk page I wrote some general filter code, which I am currently using only for filtering talks, but you never know what good this might be for later. 
 

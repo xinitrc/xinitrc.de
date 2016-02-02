@@ -17,7 +17,7 @@ resorted to [Openpaths](http://openpaths.cc) they have an application
 for iOS and Android that tracks your location and updates the position
 on their site. At least part of the idea is to make those location
 data available for science, which is probably why they have a simple
-API to retreive them.  
+API to retrieve them.  
 
 Since I don't actually need anything fancy I can simply use the python
 script openpath provides as an [API example](https://openpaths.cc/api)
@@ -64,7 +64,7 @@ except urllib2.HTTPError as e:
 ~~~
 
 This script is run every 5 minutes via a cronjob on my server and it's
-output is piped to a file in the folder served by the webserver.
+output is piped to a file in the folder served by the web server.
 
 
 Since the file is already JSON, and provides <span

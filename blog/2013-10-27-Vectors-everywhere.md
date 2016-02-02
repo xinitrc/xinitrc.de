@@ -48,8 +48,8 @@ The parser result is put through processTikZs of [Tikz.hs](https://github.com/xi
 processTikZs :: KeywordElement -> String
 processTikZs t@(Tikz _ _) = renderObjDesc ts
     where ts = unsafePerformIO $ renderSVG t
-processTikZs _ = error "Unexpeced tikzpicture"
-
+		  processTikZs _ = error "Unexpeced tikzpicture"
+								
 ~~~~
 
 Where renderObjDesc simply puts a little wrapper around the resulting svg image we can later use for styling. 
@@ -109,6 +109,7 @@ writeTikzTmp f options tikz = do
 
 makeDigest :: String -> String
 makeDigest = show . md5 . pack
+
 ~~~~
 
 This is as simple as it is ugly and basically a reason for a refactoring in the near future, but I'll get to that. 
