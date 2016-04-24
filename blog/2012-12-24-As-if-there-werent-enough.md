@@ -7,17 +7,17 @@ tags: podcast, math, theoretical computer science, science
 [\@madmalik](http://twitter.com/madmalik),
 [\@felis_blue](http://twitter.com/felis_blue) and myself. It's going to
 be about "interesting" science stuff and since felis and I have a
-rather mathematical background much of it will be centered around
+rather mathematical background much of it will be centred around
 math.
 
-The only bad thing might be, it's in german which is only part of the
+The only bad thing might be, it's in German which is only part of the
 possible audience of this blog, ... or it is a good reason to learn
-german already. It's really not that hard, 5 year olds can speak it
+German already. It's really not that hard, 5 year olds can speak it
 ... just forget that. 
 
 <!--more-->
 
-And now final details: It's called "Death of a traveling salesman" and
+And now final details: It's called "Death of a travelling salesman" and
 you can find it here [http://dots-podcast.de](http://dots-podcast.de).
 
 I hope you have as much fun listening to it as we have making it. 

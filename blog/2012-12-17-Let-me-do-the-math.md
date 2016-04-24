@@ -3,15 +3,15 @@ title: Let me do the math
 tags: jekyll, plugin, mathml, code
 ---
 
-As this is my site and a big part of my life is math, I'd obiously like to have 
-the posibility to use mathmatical formulae here. 
+As this is my site and a big part of my life is math, I'd obviously like to have 
+the possibility to use mathematical formulae here. 
 
 So after looking around for a while I found out, that [Maruku](http://maruku.rubyforge.org/) 
 the standard Markdown engine of [Jekyll](http://jekyllrb.com) is able to use e.g. 
 [ritex](http://ritex.rubyforge.org/), or [blahtex](http://gva.noekeon.org/blahtexml/) 
 to convert Latex formulae into [MathML](http://en.wikipedia.org/wiki/MathML) or png 
-images. A little investgation into Jekyll later I knew that it only uses blahtex for 
-conversion of formulea into png images (if that's wrong drop me a line in the 
+images. A little investigation into Jekyll later I knew that it only uses blahtex for 
+conversion of formulae into png images (if that's wrong drop me a line in the 
 comments please). Since I really like modern web standards this was unacceptable for 
 me and I took a stab into writing my first Jekyll plugin.
 
@@ -23,17 +23,17 @@ the inevitable giant formula later. I still liked to keep my blog compiling
 automatically after
 [I push it to my git repository](/blog/2012/12/10/Setting%2Bup%2BShop.html) 
 and Latex is not installed on my hosting provider [uberspace](http://uberspace.de). 
-I could do that, but just for having some formulea on my blog seemed a bit excessive. 
+I could do that, but just for having some formulae on my blog seemed a bit excessive. 
 So I started out going for a pure ruby setup with ritex, just to find out that it can't
 even parse a simple array environment. This was equally unacceptable. 
 
 Next iteration: 
 [itex2mml](http://golem.ph.utexas.edu/~distler/blog/itex2MML.html)
 which is a standalone program in a single binary and has ruby bindings. After downloading and 
-copying into my path, the next challange arose. How the hack is the ruby binding package 
+copying into my path, the next challenge arose. How the hack is the ruby binding package 
 called? Actually searching for it was no fun at all and didn't find me a solution either, 
 so I went back and fumbled around in the Maruku source code since it is one of the supported
-options for a rendering engine. With the plesant suprise that I could keep the code almost unchanged. 
+options for a rendering engine. With the pleasant surprise that I could keep the code almost unchanged. 
 And a little furious with the naming convention of this package. itex2mml, Itex2MML and itextomml 
 come on! Who the heck does something like that. 
 
@@ -80,7 +80,7 @@ Liquid::Template.register_tag('latexblock', Jekyll::TexBlock)
 
 ## Issues
 Soon after I had my desired MathML I found out that Chrome doesn't support it (insert 
-head-smashing-on-desk-noise here), oppose to all other browsers I interesetd in 
+head-smashing-on-desk-noise here), oppose to all other browsers I interested in 
 supporting. So I had a look around for some transparent fallback solution and found 
 [MathJAX](http://www.mathjax.org) which probably everybody and their parents already 
 knows, but anyhow, I'll explain what I did for those who don't.
@@ -118,4 +118,4 @@ will give you:
 
 ## Conclusion
 
-I hope this is useful to someone else but me. If you have any ideas on improvements don't hesitat to drop me a line in the comments.
+I hope this is useful to someone else but me. If you have any ideas on improvements don't hesitate to drop me a line in the comments.

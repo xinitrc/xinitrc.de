@@ -144,7 +144,7 @@ main = hakyllWith hakyllConf $ do
 
     match "index.html" $ do
         route idRoute
-        compile $ genCompiler tags (field "posts" $ \_ -> (postList "blog/*") $ fmap (take 5) . recentFirst)
+        compile $ genCompiler tags $ field "posts" ( \_ -> (postList "blog/*") $ fmap (take 5) . (recentFirst))
                 
     match "archive.html" $ do
         route idRoute
@@ -152,7 +152,7 @@ main = hakyllWith hakyllConf $ do
           
     match "talks.html" $ do 
         route idRoute
-        compile $ genCompiler tags (field "posts" $ \_ -> (postList "talks/*.md") $ fmap (take 5) . recentFirst)
+        compile $ genCompiler tags $ field "posts" ( \_ -> (postList "talks/*") $ fmap (take 5) . (recentFirst))
                                                                 
     match "talk-archive.html" $ do
         route idRoute
