@@ -1,0 +1,20 @@
+name:               xinitrcde
+version:            0.1.0.0
+build-type:         Simple
+cabal-version:      >= 1.10
+
+executable site
+  main-is:          site.hs
+  build-depends:    base == 4.*
+                  , hakyll == 4.7.*
+                  , pureMD5 == 2.1.*
+                  , bytestring == 0.10.*
+                  , time == 1.5.*
+                  , process == 1.2.*
+                  , filepath == 1.4.*
+                  , containers == 0.5.*
+                  , directory == 1.2.*
+                  , pandoc == 1.16.*
+                  , parsec == 3.1.*
+  ghc-options:      -threaded
+  default-language: Haskell2010
